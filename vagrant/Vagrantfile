@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+$instances = 3
+$prefix = "node"
+
+Vagrant.configure("2") do |config|
+  (1..$instances).each do |x|
+    config.vm.define vm_name = "%s-%02d" % [$prefix, x] do |config|
+      config.vm.box_download_insecure = true
+      config.vm.box = "centos/7"
+      config.vm.network "private_network", ip: "192.168.128.#{x+100}"
+      config.vm.hostname = vm_name
+      config.vm.provision "shell", path: "provision.sh"
+    end
+  end
+end

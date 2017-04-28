@@ -1,0 +1,24 @@
+- name: Install EPEL Repositories
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: epel }
+
+
+- name: Install NGINX on mesos-master
+  hosts: ui
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: nginx }
+
+- name: Install Consul on mesos-master
+  hosts: master
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: consul }
