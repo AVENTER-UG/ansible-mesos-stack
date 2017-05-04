@@ -1,4 +1,4 @@
-- name: Install EPEL Repositories
+- name: Install EPEL Repositories on all Servers
   hosts: all
   become: true
   become_user: root
@@ -6,8 +6,15 @@
   roles:
     - { role: epel }
 
+- name: Install CHRONY on all Servers
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: chrony }
 
-- name: Install NGINX on mesos-master
+- name: Install NGINX on ui Servers
   hosts: ui
   become: true
   become_user: root
