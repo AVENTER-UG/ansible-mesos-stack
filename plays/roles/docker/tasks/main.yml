@@ -1,0 +1,36 @@
+---
+
+- name: add docker repo
+  copy: src=docker-main.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644
+
+- name: install docker packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - docker
+
+- name: configure docker dns
+  sudo: yes
+  lineinfile:
+    dest: /etc/sysconfig/docker
+    regexp: ^OPTIONS=
+    line: OPTIONS=' --dns {{ ansible_default_ipv4.address }} --dns-search {{ consul_domain }} --selinux-enabled --log-driver=journald --signature-verification=false '
+    state: present
+    create: yes
+
+- name: copy new docker systemd config
+  copy: src=docker.systemd dest=/etc/systemd/system/docker.service mode=0755
+
+- name: reload systemd
+  shell: systemctl daemon-reload
+
+- name: add docker to systemd init
+  service: name=docker enabled=yes state=stopped
+
+- name: ensure docker service is started and enabled
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - docker
+  ignore_errors: yes
