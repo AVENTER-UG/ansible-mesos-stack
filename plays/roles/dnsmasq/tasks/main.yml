@@ -1,9 +1,6 @@
 ---
 
-- shell: cat /tmp/hvm.type
-  register: hvm_type
-
-- name: install packages
+- name: install dnsmasq packages
   sudo: yes
   yum:
     name: "{{ item }}"
@@ -34,7 +31,7 @@
 - name: ensure dnsmasq.d directory exists
   sudo: yes
   file:
-    path: /etc/NetworkManager/dnsmasq.d
+    path: /etc/dnsmasq.d/
     state: directory
 
 - name: configure dnsmasq for consul
@@ -43,15 +40,6 @@
     src: 10-consul
     dest: /etc/dnsmasq.d/10-consul
     mode: 0755
-  when: "'vagrant' not in hvm_type.stdout"
-
-- name: configure dnsmasq for consul
-  sudo: yes
-  template:
-    src: 10-consul.vagrant
-    dest: /etc/dnsmasq.d/10-consul
-    mode: 0755
-  when: "'vagrant' in hvm_type.stdout"
 
 - name: enable dnsmasq
   sudo: yes
@@ -60,42 +48,9 @@
     state: started
     enabled: yes
 
-- name: configure networkmanager for dnsmasq
-  sudo: yes
-  lineinfile:
-    dest: /etc/NetworkManager/NetworkManager.conf
-    line: "dns=none"
-    insertafter: "^\\[main\\]$"
-  notify:
-    - restart networkmanager
-
-- name: List network-scripts which need fixup
-  sudo: yes
-  shell: "find /etc/sysconfig/network-scripts -name 'ifcfg-*'"
-  register: list_of_network_scripts
-
-- name: fixing PEERDNS in network-scripts
-  sudo: yes
-  lineinfile:
-    dest: "{{ item }}"
-    line: "PEERDNS=no"
-    regexp: ^PEERDNS=.*'
-  with_items: "{{ list_of_network_scripts.stdout_lines }}"  
-  notify:
-    - restart networkmanager
-
 - name: add dnsmasq to /etc/resolv.conf
   sudo: yes
   template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
     mode: 0644
-  when: "'vagrant' not in hvm_type.stdout"
-
-- name: add dnsmasq to /etc/resolv.conf
-  sudo: yes
-  template:
-    src: resolv.conf.vagrant.j2
-    dest: /etc/resolv.conf
-    mode: 0644
-  when: "'vagrant' in hvm_type.stdout"

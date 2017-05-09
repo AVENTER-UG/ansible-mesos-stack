@@ -37,3 +37,11 @@
   become_method: sudo
   roles:
     - { role: docker }
+
+- name: Install DNSMASQ on all Servers
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: dnsmasq }
