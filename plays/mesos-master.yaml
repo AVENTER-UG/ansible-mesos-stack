@@ -29,3 +29,11 @@
   become_method: sudo
   roles:
     - { role: consul }
+
+- name: Install DOCKER on all Servers
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: docker }
