@@ -13,6 +13,6 @@ server={{ dns2 }}
 # server=/{{ consul_domain }}/127.0.0.1#8600
 
 {% for host in groups['master'] %}
-server=/{{ consul_domain }}/{{ hostvars[host]['consul_client_address'] }}#8600
+server=/{{ consul_domain }}/{{ hostvars[host]['client_address'] }}#8600
 
 {% endfor %}

@@ -13,7 +13,7 @@
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: OPTIONS=' --dns {{ ansible_default_ipv4.address }} --dns-search {{ consul_domain }} --selinux-enabled --log-driver=journald --signature-verification=false '
+    line: OPTIONS=' --dns {{ client_address }} --dns-search {{ consul_domain }} --selinux-enabled --log-driver=journald --signature-verification=false '
     state: present
     create: yes
 
@@ -24,13 +24,4 @@
   shell: systemctl daemon-reload
 
 - name: add docker to systemd init
-  service: name=docker enabled=yes state=stopped
-
-- name: ensure docker service is started and enabled
-  service:
-    name: "{{ item }}"
-    enabled: yes
-    state: started
-  with_items:
-    - docker
-  ignore_errors: yes
+  service: name=docker enabled=yes state=started

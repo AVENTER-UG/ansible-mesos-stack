@@ -45,3 +45,11 @@
   become_method: sudo
   roles:
     - { role: dnsmasq }
+
+- name: Install WEAVE on mesos-slave
+  hosts: slave
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: weave }
