@@ -53,3 +53,11 @@
   become_method: sudo
   roles:
     - { role: weave }
+
+- name: Install MESOS on mesos-master
+  hosts: master
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: mesos-master }

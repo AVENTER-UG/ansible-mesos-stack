@@ -1,0 +1,39 @@
+---
+
+- name: download Weave
+  get_url: url=http://git.io/weave dest=/usr/local/bin/ mode=0755
+
+- name: copy Weave systemd scripts into place
+  copy: src={{ item }} dest=/etc/systemd/system mode=0755
+  with_items:
+    - weave.service
+    - weaveproxy.service
+
+- name: copy Weave systemd config for Mesos slave
+  copy: src=containerizers dest=/etc/mesos-slave/ mode=0644
+  notify: reload systemd
+
+- name: copy Weave systemd docker config for Mesos slave
+  copy: src=docker_socket dest=/etc/mesos-slave/ mode=0644
+  notify: reload systemd
+
+- name: copy Weave env
+  template: src=weave.env.j2 dest=/etc/weave.env mode=0644
+
+- name: start weave
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - weaveproxy
+    - weave
+
+- name: add motd
+  template: src=motd.j2 dest=/etc/motd mode=0644
+  notify: restart mesos-slave
+
+- name: wait for weave port to be ready
+  wait_for:
+    port: 6783
+    delay: 10
