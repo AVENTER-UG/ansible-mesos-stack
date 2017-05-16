@@ -1,7 +1,7 @@
 {
   "bootstrap": true,
 {% if consul_join_at_start is defined and consul_join_at_start %}
-  "start_join": [{% for host in groups['master'] %}{% if host not in client_addresses %}"{{ host }}"{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}],
+  "start_join": [{% for host in groups['master'] %}{% if host not in client_address %}"{{ host }}"{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}],
 {% endif %}
 {% if consul_disable_remote_exec is defined %}
   "disable_remote_exec": {{ "true" if consul_disable_remote_exec else "false" }},
@@ -39,11 +39,7 @@
   "advertise_addr": "{{ consul_client_address }}",
 {% endif %}
   "datacenter": "{{ consul_datacenter }}",
-{% if consul_is_server and master_count == 'three' %}
   "retry_join": [ {{ consul_retry_join }} ],
-{% else %}
-  "retry_join": [ {{ consul_retry_join }} ],
-{% endif %}
 {% if inventory_hostname in groups['master'] %}
   "server": true,
 {% endif %}
