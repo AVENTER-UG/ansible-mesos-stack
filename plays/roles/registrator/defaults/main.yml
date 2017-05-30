@@ -1,0 +1,5 @@
+---
+
+registrator_image: "gliderlabs/registrator:master"
+registrator_uri: "consul://{{ inventory_hostname }}:8500"
+registrator_docker_socket: "/var/run/weave/weave.sock"

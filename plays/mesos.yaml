@@ -70,3 +70,11 @@
   become_method: sudo
   roles:
     - { role: weave }
+
+- name: Install REGISTRATOR on mesos-slave
+  hosts: slave
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: registrator }

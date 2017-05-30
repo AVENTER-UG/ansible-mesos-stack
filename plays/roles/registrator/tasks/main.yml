@@ -1,0 +1,3 @@
+---
+- name: download and run registrator
+  shell:  docker run -d --name=registratorMaster --net=host --restart=always --volume={{ registrator_docker_socket }}:/tmp/docker.sock {{ registrator_image }} -internal {{ registrator_uri }}
