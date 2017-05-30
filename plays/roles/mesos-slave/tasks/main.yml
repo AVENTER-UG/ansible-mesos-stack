@@ -1,0 +1,50 @@
+---
+
+- name: install mesos repo
+  yum:
+    name: http://repos.mesosphere.io/el/7/noarch/RPMS/{{ mesosphere_repo }}
+    state: present
+
+- name: install mesos slave packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - mesos
+
+- name: disable mesos update
+  lineinfile:
+    dest=/etc/yum.conf
+    line="{{ item.line }}"
+    insertafter='EOF'
+  with_items:
+    - { line: 'exclude=mesos-*' }
+
+- name: Delete old zk entry
+  file: path=/etc/mesos/zk state=absent
+
+- name: configure zk access
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['master'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+
+- name: set hostname in mesos
+  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
+
+- name: increase the mesos-slave executor timeout
+  lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" create=yes
+
+- name: set slave ip in mesos
+  lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ client_address }}"
+
+- name: ensure mesos-slave service is started and enabled
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - mesos-slave
+
+- name: stop unneeded services
+  service:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - mesos-master

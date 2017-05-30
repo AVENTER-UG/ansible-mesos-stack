@@ -46,13 +46,14 @@
   roles:
     - { role: dnsmasq }
 
-#- name: Install WEAVE on mesos-slave
-#  hosts: slave
-#  become: true
-#  become_user: root
-#  become_method: sudo
-#  roles:
-#    - { role: weave }
+- name: Install WEAVE on mesos-slave
+  hosts: slave
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: weave }
+
 
 - name: Install MESOS on mesos-master
   hosts: master
@@ -61,3 +62,11 @@
   become_method: sudo
   roles:
     - { role: mesos-master }
+
+- name: Install MESOS on mesos-slave
+  hosts: slave
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: mesos-slave }

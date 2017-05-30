@@ -14,7 +14,7 @@ consul_download_password: ""
 consul_download_folder: /tmp
 consul_retry_join: "{% for host in groups['master'] %}\"{{ host}}\"{% if not loop.last %}, {% endif %}{% endfor %}"
 
-master_node_ip: "{{ hostvars[groups['master'][0]].ansible_default_ipv4.address }}"
+## master_node_ip: "{{ hostvars[groups['master'][0]].ansible_default_ipv4.address }}"
 
 consul_home: /opt/consul
 consul_config_dir: /etc/consul.d
