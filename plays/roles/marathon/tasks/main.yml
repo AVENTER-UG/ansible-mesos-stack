@@ -1,0 +1,20 @@
+---
+
+- name: install marathon packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - marathon
+
+- name: set hostname in marathon
+  lineinfile: dest=/etc/marathon/conf/hostname state=present line="{{ ansible_fqdn }}" create=yes
+  
+- name: enable http_callback
+  lineinfile: dest=/etc/marathon/conf/event_subscriber state=present line="http_callback" create=yes
+
+- name: start marathon
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - marathon

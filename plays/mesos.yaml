@@ -78,3 +78,11 @@
   become_method: sudo
   roles:
     - { role: registrator }
+
+- name: Install MARATHON on ui
+  hosts: ui
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: marathon }

@@ -1,3 +1,17 @@
 ---
+
+- name: install docker py
+  yum:
+    name: docker-python
+    state: latest
+
 - name: download and run registrator
-  shell:  docker run -d --name=registratorMaster --net=host --restart=always --volume={{ registrator_docker_socket }}:/tmp/docker.sock {{ registrator_image }} -internal {{ registrator_uri }}
+  docker_container:
+    name: registratorMaster
+    image: "{{ registrator_image }}"
+    volumes:
+      - "{{ registrator_docker_socket }}:/tmp/docker.sock"
+    state: started
+    command: -internal {{ registrator_uri }}
+
+  #shell:  docker run -d --name=registratorMaster --net=host --restart=always --volume={{ registrator_docker_socket }}:/tmp/docker.sock {{ registrator_image }} -internal {{ registrator_uri }}
