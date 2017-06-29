@@ -86,3 +86,11 @@
   become_method: sudo
   roles:
     - { role: marathon }
+
+- name: Install PROMETHEUS on all servers
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: prometheus }    

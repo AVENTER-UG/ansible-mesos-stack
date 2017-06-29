@@ -1,0 +1,13 @@
+[Unit]
+Description=Prometheus
+After=network.target auditd.service
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/sysconfig/prometheus
+User=root
+ExecStart=/opt/prometheus/{{ prometheus_archive_contents }}/prometheus -config.file=/opt/prometheus/{{ prometheus_archive_contents }}/prometheus.yml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

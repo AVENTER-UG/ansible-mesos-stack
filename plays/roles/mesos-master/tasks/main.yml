@@ -15,18 +15,24 @@
   lineinfile:
     dest=/etc/yum.conf
     line="{{ item.line }}"
-    insertafter='EOF'
+    state=present
   with_items:
     - { line: 'exclude=mesos-*' }
 
 - name: set master ID
   lineinfile: dest=/var/lib/zookeeper/myid state=present regexp="^" line="{{ myid }}" create=yes
 
+- name: remove server line in zookeeper config
+  lineinfile:
+    dest=/etc/zookeeper/conf/zoo.cfg    
+    state=absent
+    regexp='^server.' 
+
 - name: add zookeepers to config
   lineinfile:
     dest=/etc/zookeeper/conf/zoo.cfg
     line="{{ item }}"
-    insertafter='EOF'
+    state=present
   with_items:
     - "{% for host in groups['master'] %}server.{{ hostvars[host].myid }}={{ hostvars[host].client_address }}:2888:3888\n{% endfor %}"
 
