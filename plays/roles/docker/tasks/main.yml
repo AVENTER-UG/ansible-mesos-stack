@@ -6,7 +6,7 @@
 - name: install docker packages
   yum: name={{ item }} state=latest
   with_items:
-    - docker
+    - docker-engine
 
 - name: configure docker dns
   sudo: yes

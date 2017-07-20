@@ -11,6 +11,22 @@
 - name: enable http_callback
   lineinfile: dest=/etc/marathon/conf/event_subscriber state=present line="http_callback" create=yes
 
+- name: enable mesos authenticaton
+  lineinfile: dest=/etc/marathon/conf/mesos_authentication state=present line="true" create=yes
+
+- name: enable mesos principal
+  lineinfile: dest=/etc/marathon/conf/mesos_authentication_principal state=present line="marathon" create=yes
+
+- name: enable mesos secret file
+  lineinfile: dest=/etc/marathon/conf/mesos_authentication_secret_file state=present line="/etc/mesos/marathon.secret" create=yes
+
+- name: enable mesos role
+  lineinfile: dest=/etc/marathon/conf/mesos_role state=present line="marathon" create=yes
+
+- name: enable basic authentication
+  lineinfile: dest=/etc/marathon/conf/http_credentials state=present line="{{ marathon_basic_auth }}" create=yes
+
+
 - name: start marathon
   service:
     name: "{{ item }}"
