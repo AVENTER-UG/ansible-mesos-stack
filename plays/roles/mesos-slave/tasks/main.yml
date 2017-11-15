@@ -30,8 +30,20 @@
 - name: increase the mesos-slave executor timeout
   lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" create=yes
 
+- name: add containerizer to the mesos-slave
+  lineinfile: dest=/etc/mesos-slave/containerizers state=present line="docker,mesos" create=yes  
+
+- name: add mesos-slave credentials
+  lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" create=yes  
+
+- name: add weave.socks to the mesos-slave
+  lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" create=yes  
+
 - name: set slave ip in mesos
   lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ client_address }}"
+
+- name: copy mesos credential
+  template: src=credential.j2 dest=/etc/mesos/credential mode=0640  
 
 - name: ensure mesos-slave service is started and enabled
   service:
@@ -40,11 +52,3 @@
     state: started
   with_items:
     - mesos-slave
-
-- name: stop unneeded services
-  service:
-    name: "{{ item }}"
-    enabled: no
-    state: stopped
-  with_items:
-    - mesos-master

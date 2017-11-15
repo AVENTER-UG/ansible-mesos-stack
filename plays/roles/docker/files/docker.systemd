@@ -2,8 +2,6 @@
 Description=Docker Application Container Engine
 Documentation=http://docs.docker.com
 After=network.target
-Wants=docker-storage-setup.service
-Requires=docker-cleanup.timer
 
 [Service]
 Type=notify
@@ -14,11 +12,8 @@ EnvironmentFile=-/etc/sysconfig/docker-network
 Environment=GOTRACEBACK=crash
 Environment=DOCKER_HTTP_HOST_COMPAT=1
 Environment=PATH=/usr/libexec/docker:/usr/bin:/usr/sbin
-ExecStart=/usr/bin/dockerd-current \
-          --add-runtime docker-runc=/usr/libexec/docker/docker-runc-current \
-          --default-runtime=docker-runc \
+ExecStart=/usr/bin/dockerd \
           --exec-opt native.cgroupdriver=systemd \
-          --userland-proxy-path=/usr/libexec/docker/docker-proxy-current \
           $OPTIONS \
           $DOCKER_STORAGE_OPTIONS \
           $DOCKER_NETWORK_OPTIONS \

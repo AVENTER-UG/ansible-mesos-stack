@@ -13,7 +13,7 @@
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: OPTIONS=' --dns {{ client_address }} --dns-search {{ consul_domain }} --selinux-enabled --log-driver=journald --signature-verification=false '
+    line: OPTIONS=' --dns {{ client_address }} --dns-search {{ consul_domain }} --selinux-enabled --log-driver=journald  '
     state: present
     create: yes
 
