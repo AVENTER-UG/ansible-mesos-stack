@@ -10,8 +10,7 @@
 
 - name: copy weavescope environment
   template: src=weave_scope.env.j2 dest=/etc/weave_scope.env mode=0644
-  notify: restart mesos-slave
-
+  
 - name: pull weave image
   command: /usr/local/bin/weave setup 
 

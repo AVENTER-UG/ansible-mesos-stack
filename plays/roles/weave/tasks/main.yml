@@ -32,7 +32,6 @@
   
 - name: add motd
   template: src=motd.j2 dest=/etc/motd mode=0644
-  notify: restart mesos-slave
 
 - name: wait for weave port to be ready
   wait_for:
