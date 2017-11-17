@@ -27,7 +27,7 @@ gPPiZ5k5gGYPZvbIUeFULRko6DiD3u8BUyYjQeLXlDm0N+SuHpycmgs5f/m0D+Rz
 iDYRUDEFSyYzRTRs8UNZACIwJGR9g8XTFVZBNmNi7oThzR0K+C+OfNY=
 -----END RSA PRIVATE KEY-----"
 public="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqHlQeSX7ewZClemUhODxceefR8vNBviJsSXeMHh15LlIvA80rbSkReXz4ozGqgt1vuBQr2czmnM+N6eNp4bGTPKtEXCSxVufn+0zYd1mMDsY/rKAOFQDGSS8onK+BKQnj1smHg4jzRsq1QQbA1OfS71Kt4zeWPok8myVK6pCtn7CVNii5FNhx2bIc3HUcGR8HooUIvWq9NsEi+VjnIc8yFxpHqFfG+O9RznxcXvm4QKHNDuqA/i/gJjewzhKCg/IcU2GH+ymVovuCXtdNxDX7hFl6mdQGn0qIchxdNLUBLgfl68j9k37CNagoq/BfS7cD4J53hSqGwjuQWuMHtFzZ ansible"
-hosts="192.168.128.101\tnode-01\n192.168.128.102\tnode-02\n192.168.128.103\tnode-03\n"
+hosts="127.0.0.1\tlocalhost\n192.168.128.101\tnode-01\n192.168.128.102\tnode-02\n192.168.128.103\tnode-03\n"
 ssh_conf="Host node-*\n\tIdentityFile ~/.ssh/ansible.id_rsa\n\tStrictHostKeyChecking=no\n\tUserKnownHostsFile=/dev/null\n"
 dir="/home/vagrant/.ssh"
 
@@ -42,4 +42,4 @@ if [[ "$(hostname)" =~ "01" ]]; then
 fi
 
 echo "$public"         >> "$dir/authorized_keys"
-echo -ne "$hosts"      >>  /etc/hosts
+echo -ne "$hosts"      >  /etc/hosts

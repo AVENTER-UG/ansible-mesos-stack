@@ -28,13 +28,9 @@
   "node_name": "{{ consul_node_name }}",
 {% endif %}
   "server": {{ "true" if consul_is_server else "false" }},
-{% if consul_client_address_bind and consul_client_address is defined and consul_client_address is not none %}
-  "client_addr": "{{ consul_client_address }}",
-{% endif %}
+  "client_addr": "{{ inventory_hostname }}",
   "bind_addr": "0.0.0.0",
-{% if consul_advertise_address is defined %}
-  "advertise_addr": "{{ consul_client_address }}",
-{% endif %}
+  "advertise_addr": "{{ inventory_hostname }}",
   "datacenter": "{{ consul_datacenter }}",
   "retry_join": [ {{ consul_retry_join }} ],
 {% if inventory_hostname in groups['master'] %}
