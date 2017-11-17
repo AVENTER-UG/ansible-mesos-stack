@@ -15,14 +15,18 @@
 - name: copy Weave env
   template: src=weave.env.j2 dest=/etc/weave.env mode=0644
 
+- name: reload systemd
+  command: systemctl daemon-reload
+  
+- name: restart mesos-slave
+  service: name=mesos-slave enabled=yes state=restarted
+
 - name: start weave
   service:
-    name: "{{ item }}"
+    name: "weave"
     enabled: yes
     state: started
-  with_items:
-    - weave
-
+  
 - name: add motd
   template: src=motd.j2 dest=/etc/motd mode=0644
   notify: restart mesos-slave

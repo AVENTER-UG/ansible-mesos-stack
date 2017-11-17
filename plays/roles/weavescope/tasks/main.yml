@@ -12,6 +12,15 @@
   template: src=weave_scope.env.j2 dest=/etc/weave_scope.env mode=0644
   notify: restart mesos-slave
 
+- name: pull weave image
+  command: /usr/local/bin/weave setup 
+
+- name: reload systemd
+  command: systemctl daemon-reload
+  
+- name: restart mesos-slave
+  service: name=mesos-slave enabled=yes state=restarted
+
 - service:
     name: weavescope
     state: restarted

@@ -2,7 +2,6 @@
 Description=Weave Net
 Documentation=http://docs.weave.works/
 After=docker.service
-Before=weaveproxy.service
 Requires=docker.service
 [Service]
 TimeoutStartSec=0
