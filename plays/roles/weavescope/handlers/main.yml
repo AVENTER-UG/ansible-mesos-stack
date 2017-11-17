@@ -1,0 +1,7 @@
+---
+
+- name: reload systemd
+  command: systemctl daemon-reload
+  
+- name: restart mesos-slave
+  service: name=mesos-slave enabled=yes state=restarted

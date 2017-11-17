@@ -70,11 +70,11 @@
 - name: enable cluster credentials
   lineinfile: dest=/etc/mesos-master/credentials state=present create=yes regexp="^" line="/etc/mesos/credentials"
 
-- name: create marathon secret
-  lineinfile: dest=/etc/mesos/marathon.secret state=present create=yes regexp="^" line="{{ mesos_password }}"
-
 - name: copy mesos credentials
   template: src=credentials.j2 dest=/etc/mesos/credentials mode=0640
+
+- name: copy marathon secret
+  template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640  
 
 - name: start necessary services
   service:

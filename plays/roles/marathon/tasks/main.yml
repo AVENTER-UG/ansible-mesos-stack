@@ -12,7 +12,7 @@
   lineinfile: dest=/etc/marathon/conf/event_subscriber state=present line="http_callback" create=yes
 
 - name: enable mesos authenticaton
-  lineinfile: dest=/etc/marathon/conf/mesos_authentication state=present line="true" create=yes
+  lineinfile: dest=/etc/marathon/conf/mesos_authentication state=present line="" create=yes
 
 - name: enable mesos principal
   lineinfile: dest=/etc/marathon/conf/mesos_authentication_principal state=present line="marathon" create=yes

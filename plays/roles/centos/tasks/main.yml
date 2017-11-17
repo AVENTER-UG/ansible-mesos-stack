@@ -1,0 +1,10 @@
+---
+
+- name: deactivate selinux
+  sudo: yes
+  lineinfile:
+    dest: /etc/sysconfig/selinux
+    regexp: ^SELINUX=
+    line: SELINUX='disabled'
+    state: present
+    create: yes

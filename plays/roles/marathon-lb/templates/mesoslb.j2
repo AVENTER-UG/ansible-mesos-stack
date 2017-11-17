@@ -1,0 +1,33 @@
+{
+    "container": {
+      "type": "DOCKER",
+      "docker": {
+            "image": "avhost/marathon-lb",
+            "forcePullImage": true,
+            "network": "HOST",
+            "portMappings": [
+              { 
+              "containerPort": 9090, 
+              "hostPort": 9090, 
+              "servicePort": 0, 
+              "protocol": "tcp" 
+          }
+            ],
+        "args": ["sse"]
+      }
+    },
+    "id": "marathon-lb",
+    "instances": {{ groups['master'] | length }},
+    "cpus": 0.5,
+    "mem": 128,
+    "env": {
+      "MARATHON_USER": "{{ marathon_username }}",
+      "MARATHON_PASSWORD": "{{ marathon_password }}"
+    },
+    "constraints": [
+      [
+        "hostname",
+        "UNIQUE"
+      ]
+    ]
+}

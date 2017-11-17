@@ -1,0 +1,13 @@
+[Unit]
+Description=Weave Scope
+Documentation=http://docs.weave.works/
+After=weave.service
+Requires=weave.service
+[Service]
+TimeoutStartSec=0
+EnvironmentFile=-/etc/weave_scope.env
+ExecStartPre=/usr/local/bin/scope launch
+Restart=on-failure
+ExecStop=/usr/local/bin/scope stop
+[Install]
+WantedBy=scope.target

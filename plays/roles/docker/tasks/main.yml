@@ -17,8 +17,14 @@
     state: present
     create: yes
 
+- name: create Docker directory
+  file: path=/etc/docker state=directory
+
 - name: copy new docker systemd config
   copy: src=docker.systemd dest=/etc/systemd/system/docker.service mode=0755
+
+- name: copy new docker daemone config
+  copy: src=daemon.json dest=/etc/docker/daemon.json mode=0640
 
 - name: reload systemd
   shell: systemctl daemon-reload

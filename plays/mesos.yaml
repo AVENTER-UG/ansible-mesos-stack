@@ -1,3 +1,11 @@
+- name: Configure CENTOS
+  hosts: all
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: centos }
+
 - name: Create admin User
   hosts: all
   become: true
@@ -94,6 +102,15 @@
   become_method: sudo
   roles:
     - { role: marathon }
+
+- name: Install MARATHON-LB on mesos-slave
+  hosts: ui
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: marathon }
+    
 
 - name: Install PROMETHEUS on all servers
   hosts: all
