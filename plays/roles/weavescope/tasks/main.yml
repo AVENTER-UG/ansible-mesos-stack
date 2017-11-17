@@ -20,11 +20,8 @@
 - name: restart mesos-slave
   service: name=mesos-slave enabled=yes state=restarted
 
-- service:
-    name: weavescope
-    state: restarted
-
-- service:
+- name: start weave scope
+  service:
     name: weavescope
     enabled: yes
     state: started

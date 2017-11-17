@@ -1,5 +1,5 @@
 {
-  "bootstrap": "{{ consul_bootstrap }}",
+  "bootstrap": {{ consul_bootstrap }},
 {% if consul_join_at_start is defined and consul_join_at_start %}
   "start_join": [ {{ consul_retry_join }} ],
 {% endif %}
