@@ -125,7 +125,7 @@
   become_user: root
   become_method: sudo
   roles:
-    - { role: marathon }
+    - { role: marathon-lb }
     
 
 - name: Install PROMETHEUS on all servers

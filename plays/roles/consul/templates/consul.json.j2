@@ -28,9 +28,9 @@
   "node_name": "{{ consul_node_name }}",
 {% endif %}
   "server": {{ "true" if consul_is_server else "false" }},
-  "client_addr": "{{ inventory_hostname }}",
+  "client_addr": "{{ client_address }}",
   "bind_addr": "0.0.0.0",
-  "advertise_addr": "{{ inventory_hostname }}",
+  "advertise_addr": "{{ client_address }}",
   "datacenter": "{{ consul_datacenter }}",
   "retry_join": [ {{ consul_retry_join }} ],
 {% if inventory_hostname in groups['master'] %}
