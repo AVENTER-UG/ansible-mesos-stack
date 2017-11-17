@@ -1,0 +1,12 @@
+[Unit]
+Description=Generic Consul Agent
+
+[Service]
+Environment="GOMAXPROCS=`nproc`"
+User={{ consul_user }}
+Group={{ consul_group }}
+ExecStart={{ consul_home }}/bin/consul agent -data-dir {{ consul_home }} -client 0.0.0.0 -join {{ consulmaster_node }} -dc={{ consul_datacenter }} -bind=0.0.0.0 -node={{ inventory_hostname }} 2>&1
+
+[Install]
+WantedBy=multi-user.target
+

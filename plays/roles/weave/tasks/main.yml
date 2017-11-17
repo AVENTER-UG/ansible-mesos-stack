@@ -8,10 +8,6 @@
   with_items:
     - weave.service
 
-- name: copy Weave systemd config for Mesos slave
-  copy: src=containerizers dest=/etc/mesos-slave/ mode=0644
-  notify: reload systemd
-
 - name: copy Weave systemd docker config for Mesos slave
   copy: src=docker_socket dest=/etc/mesos-slave/ mode=0644
   notify: reload systemd

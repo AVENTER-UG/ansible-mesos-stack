@@ -2,12 +2,11 @@
 Description=Weave Scope
 Documentation=http://docs.weave.works/
 After=weave.service
-Requires=weave.service
+Requires=docker.service
 [Service]
 TimeoutStartSec=0
-EnvironmentFile=-/etc/weave_scope.env
-ExecStartPre=/usr/local/bin/scope launch
+EnvironmentFile=-/etc/weave.env
+ExecStart=/usr/local/bin/scope launch $WEAVE_PEERS
 Restart=on-failure
-ExecStop=/usr/local/bin/scope stop
 [Install]
-WantedBy=scope.target
+WantedBy=weave.target

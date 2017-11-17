@@ -1,10 +1,10 @@
 [Unit]
-Description=Consul Agent
+Description=Consul Server
 
 [Service]
 Environment="GOMAXPROCS=`nproc`"
 User={{ consul_user }}
 Group={{ consul_group }}
-ExecStart={{ consul_home }}/bin/consul agent -bind {{ client_address }} -ui -config-file=/etc/consul.json >> {{ consul_log_file }} 2>&1
+ExecStart={{ consul_home }}/bin/consul agent -bind {{ client_address }} -ui -config-file=/etc/consul.conf >> {{ consul_log_file }} 2>&1
 [Install]
 WantedBy=multi-user.target

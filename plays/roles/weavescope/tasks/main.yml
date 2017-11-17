@@ -12,16 +12,14 @@
   template: src=weave_scope.env.j2 dest=/etc/weave_scope.env mode=0644
   notify: restart mesos-slave
 
+- service:
+    name: weavescope
+    state: restarted
 
-- name: start weave
-  service:
-    name: "{{ item }}"
+- service:
+    name: weavescope
     enabled: yes
     state: started
-  with_items:
-    - weave
+    
 
-- name: wait for weave port to be ready
-  wait_for:
-    port: 6783
-    delay: 10
+

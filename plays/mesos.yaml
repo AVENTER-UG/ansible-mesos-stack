@@ -38,13 +38,21 @@
   roles:
     - { role: nginx }
 
-- name: Install Consul on mesos-master
+- name: Install Consul Server on mesos-master
   hosts: master
   become: true
   become_user: root
   become_method: sudo
   roles:
     - { role: consul }
+
+## - name: Install Consul Agent on mesos-slave
+##   hosts: slave
+##   become: true
+##   become_user: root
+##   become_method: sudo
+##   roles:
+##     - { role: consul-agent }    
 
 - name: Install DOCKER on all Servers
   hosts: all
@@ -86,6 +94,14 @@
   become_method: sudo
   roles:
     - { role: weave }
+
+- name: Install WEAVESCPOPE on mesos-slave
+  hosts: slave
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: weavescope }    
 
 - name: Install REGISTRATOR on mesos-slave
   hosts: slave
