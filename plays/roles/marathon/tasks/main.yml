@@ -5,32 +5,41 @@
   with_items:
     - marathon
 
-- name: set hostname in marathon
-  lineinfile: dest=/etc/marathon/conf/hostname state=present line="{{ ansible_fqdn }}" create=yes
-  
-- name: enable http_callback
-  lineinfile: dest=/etc/marathon/conf/event_subscriber state=present line="http_callback" create=yes
+- name: Delete old marathon config
+  file: path=/etc/sysconfig/marathon state=absent
 
+- name: configure mesos master nodes
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_MASTER=zk://{% for host in groups['master'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+
+- name: configure mesos master nodes
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_ZK=zk://{% for host in groups['master'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/marathon"
+
+- name: set hostname in marathon
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_HOSTNAME={{ ansible_fqdn }}" create=yes
+  
 - name: enable mesos authenticaton
-  lineinfile: dest=/etc/marathon/conf/mesos_authentication state=present line="" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION=" create=yes
 
 - name: enable mesos principal
-  lineinfile: dest=/etc/marathon/conf/mesos_authentication_principal state=present line="marathon" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION_PRINCIPAL=marathon" create=yes
 
 - name: enable mesos secret file
-  lineinfile: dest=/etc/marathon/conf/mesos_authentication_secret_file state=present line="/etc/mesos/marathon.secret" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
 
 - name: enable mesos role
-  lineinfile: dest=/etc/marathon/conf/mesos_role state=present line="marathon" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_ROLE=marathon" create=yes
 
 - name: enable basic authentication
-  lineinfile: dest=/etc/marathon/conf/http_credentials state=present line="{{ marathon_basic_auth }}" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_HTTP_CREDENTIALS={{ marathon_basic_auth }}" create=yes
 
+- name: copy marathon systemd 
+  copy: src=marathon.systemd dest=/etc/systemd/system/marathon.service mode=0644  
+
+- name: reload systemd
+  command: systemctl daemon-reload
 
 - name: start marathon
   service:
-    name: "{{ item }}"
+    name: "marathon"
     enabled: yes
     state: started
-  with_items:
-    - marathon
