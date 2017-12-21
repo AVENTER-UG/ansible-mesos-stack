@@ -1,7 +1,8 @@
 [master]
-node-01 client_address=192.168.128.101 myid=0
-node-02 client_address=192.168.128.102 myid=1
-node-03 client_address=192.168.128.103 myid=2
+node-01 client_address=192.168.128.101 myid=0 consul_bootstrap=true
+node-02 client_address=192.168.128.102 myid=1 consul_bootstrap=false
+node-03 client_address=192.168.128.103 myid=2 consul_bootstrap=false
+
 
 [master:vars]
 consul_domain=dc.example.com
