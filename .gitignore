@@ -1,3 +1,4 @@
 vagrant/.vagrant
 plays/*.retry
 .vscode
+inventory/default

@@ -1,49 +1,37 @@
-[master]
-node-01 client_address=192.168.128.101 myid=0 consul_bootstrap=true
-node-02 client_address=192.168.128.102 myid=1 consul_bootstrap=false
-node-03 client_address=192.168.128.103 myid=2 consul_bootstrap=false
-
-
-[master:vars]
-consul_domain=dc.example.com
-consul_datacenter=dc01
-ansible_user=vagrant
-consul_encrypt_key=
-weave_password=
-dns1=8.8.8.8
-dns2=8.8.8.8
-quorum=2
-mesos_clustername=
-mesosphere_repo=mesosphere-el-repo-7-3.noarch.rpm
-prometheus_web_user=admin
-prometheus_web_passwd=
-mesos_password=
-marathon_basic_auth=marathon:
-
-[slave]
-node-01 client_address=192.168.128.101
-node-02 client_address=192.168.128.102
-node-03 client_address=192.168.128.103
-
-[slave:vars]
-consul_domain=dc.example.com
-consul_datacenter=dc01
-ansible_user=vagrant
-dns1=8.8.8.8
-dns2=8.8.8.8
-weave_password=
-quorum=2
-mesos_clustername=
-prometheus_web_user=admin
-prometheus_web_passwd=
-
-
-[ui]
-node-01 ansible_user=vagrant
-
-[consul_master]
-node-01 ansible_user=vagrant
-
-[slave]
-node-[01:03] ansible_user=vagrant
-
+#[master]
+#node-01 client_address=192.168.128.101 myid=0 consul_bootstrap=true
+#node-02 client_address=192.168.128.102 myid=1 consul_bootstrap=false
+#node-03 client_address=192.168.128.103 myid=2 consul_bootstrap=false
+#
+#
+#[all:vars]
+#weave_version=v2.1.3
+#consul_domain=dc.example.com
+#consul_datacenter=dc01
+#ansible_user=vagrant
+#consul_encrypt_key=
+#consulmaster_node=
+#weave_password=
+#dns1=8.8.8.8
+#dns2=8.8.8.8
+#quorum=2
+#mesos_clustername=
+#mesosphere_repo=mesosphere-el-repo-7-3.noarch.rpm
+#prometheus_web_user=admin
+#prometheus_web_passwd=
+#prometheus_web_port=9999
+#mesos_password=
+#marathon_basic_auth=marathon:
+#
+#[slave]
+#node-01 client_address=192.168.128.101
+#node-02 client_address=192.168.128.102
+#node-03 client_address=192.168.128.103
+#
+#[ui]
+#node-01 ansible_user=vagrant
+#
+#[consul_master]
+#node-01 ansible_user=vagrant
+##
+#

@@ -1,0 +1,23 @@
+---
+
+- name: download prometheus node exporter
+  get_url: url={{ node_exporter_url }} dest=/opt mode=0440
+  
+- name: Create node-exporter directory
+  file: dest=/opt/node-exporter state=directory mode=0755
+  
+- name: unpack prometheus
+  unarchive: src=/opt/{{ node_exporter_package }} dest=/opt/node-exporter copy=no
+  
+- name: copy node-exporter systemd config
+  copy: src=node-exporter.service dest=/etc/systemd/system/node-exporter.service mode=0644
+  notify: reload systemd
+  
+- name: start node-exporter
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - node-exporter
+  

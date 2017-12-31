@@ -25,7 +25,7 @@
   "enable_syslog": true,
 {% endif %}
 {% if consul_node_name is defined %}
-  "node_name": "{{ consul_node_name }}",
+  "node_name": "{{ target }}",
 {% endif %}
   "server": {{ "true" if consul_is_server else "false" }},
   "client_addr": "{{ client_address }}",

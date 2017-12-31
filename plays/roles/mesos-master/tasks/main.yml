@@ -70,8 +70,14 @@
 - name: enable cluster credentials
   lineinfile: dest=/etc/mesos-master/credentials state=present create=yes regexp="^" line="/etc/mesos/credentials"
 
+- name: enable cluster acls
+  lineinfile: dest=/etc/mesos-master/acls state=present create=yes regexp="^" line="file:///etc/mesos/acls"
+
 - name: copy mesos credentials
   template: src=credentials.j2 dest=/etc/mesos/credentials mode=0640
+
+- name: copy mesos acls
+  template: src=acls.j2 dest=/etc/mesos/acls mode=0640  
 
 - name: copy marathon secret
   template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640  

@@ -1,7 +1,7 @@
 ---
 
 - name: add docker repo
-  copy: src=docker-main.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644
+  copy: src=docker-main.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644 
 
 - name: install docker packages
   yum: name={{ item }} state=latest
@@ -13,7 +13,7 @@
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: OPTIONS=' --dns {{ client_address }} --dns-search {{ consul_domain }} --selinux-enabled --log-driver=journald  '
+    line: OPTIONS=' --dns {{ client_address }} --dns-search {{ consul_domain }} --log-driver=journald  '
     state: present
     create: yes
 

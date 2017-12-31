@@ -6,14 +6,6 @@
   roles:
     - { role: centos }
 
-- name: Create admin User
-  hosts: all
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: add-user }
-
 - name: Install EPEL Repositories on all Servers
   hosts: all
   become: true
@@ -21,14 +13,6 @@
   become_method: sudo
   roles:
     - { role: epel }
-
-- name: Install CHRONY on all Servers
-  hosts: all
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: chrony }
 
 - name: Install NGINX on ui Servers
   hosts: ui
@@ -111,13 +95,13 @@
   roles:
     - { role: registrator }
 
-- name: Install MARATHON on ui
-  hosts: ui
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: marathon }
+ - name: Install MARATHON on ui
+   hosts: ui
+   become: true
+   become_user: root
+   become_method: sudo
+   roles:
+     - { role: marathon }
 
 #- name: Install MARATHON-LB on mesos-slave
 #  hosts: ui
@@ -129,9 +113,17 @@
     
 
 - name: Install PROMETHEUS on all servers
-  hosts: all
+  hosts: prometheus
   become: true
   become_user: root
   become_method: sudo
   roles:
     - { role: prometheus }    
+
+- name: Install PROMETHEUS node-exporter on slave servers
+  hosts: slave
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: prometheus-node-exporter }    

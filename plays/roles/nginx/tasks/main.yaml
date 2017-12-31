@@ -4,13 +4,18 @@
       name: nginx
       state: latest
 
+  - name: install certbot for letsencrypt
+    yum:
+      name: certbot-nginx
+      state: latest
+
   - name: test nginx running
     service:
       name: nginx
       enabled: yes
       state: started
 
-  - name: check http service
-    uri:
-      url: http://{{ inventory_hostname }}
-      return_content: yes
+  #- name: check http service
+  #  uri:
+  #    url: http://{{ inventory_hostname }}
+  #    return_content: yes

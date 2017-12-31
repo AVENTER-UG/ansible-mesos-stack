@@ -1,7 +1,7 @@
 ---
 
 ## Consul configuration settings
-consul_version: 1.0.0
+consul_version: 0.9.3
 
 ## Don't change from here down.
 
@@ -18,7 +18,7 @@ consul_retry_join: "{% for host in groups['master'] %}\"{{ host}}\"{% if not loo
 
 consul_home: /opt/consul
 consul_config_dir: /etc/consul.d
-consul_config_file: /etc/consul.json
+consul_config_file: /etc/consul.conf
 consul_log_file: /var/log/consul
 consul_data_dir: "{{ consul_home }}/data"
 

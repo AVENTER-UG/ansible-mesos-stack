@@ -8,6 +8,3 @@
     line: SELINUX='disabled'
     state: present
     create: yes
-
-- name: deactivate selinux without reboot
-  shell: setenforce 0
