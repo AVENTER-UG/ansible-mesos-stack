@@ -6,7 +6,7 @@ After=network.target auditd.service
 Type=simple
 EnvironmentFile=/etc/sysconfig/prometheus
 User=root
-ExecStart=/opt/prometheus/{{ prometheus_archive_contents }}/prometheus -config.file=/opt/prometheus/{{ prometheus_archive_contents }}/prometheus.yml -web.listen-address ":{{ prometheus_web_port }}"
+ExecStart=/opt/prometheus/{{ prometheus_archive_contents }}/prometheus -config.file=/opt/prometheus/{{ prometheus_archive_contents }}/prometheus.yml -storage.local.path=/opt/prometheus/data  -web.listen-address ":{{ prometheus_web_port }}"
 Restart=always
 
 [Install]

@@ -10,7 +10,7 @@
   unarchive: src=/opt/{{ node_exporter_package }} dest=/opt/node-exporter copy=no
   
 - name: copy node-exporter systemd config
-  copy: src=node-exporter.service dest=/etc/systemd/system/node-exporter.service mode=0644
+  template: src=node-exporter_service.j2 dest=/etc/systemd/system/node-exporter.service mode=0644
   notify: reload systemd
   
 - name: start node-exporter
