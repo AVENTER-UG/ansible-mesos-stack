@@ -2,6 +2,7 @@
 
 - name: start cadvisor
   docker:
+    docker_url: "unix://var/run/docker.sock"
     name: cadvisor
     image: google/cadvisor:latest
     state: reloaded
