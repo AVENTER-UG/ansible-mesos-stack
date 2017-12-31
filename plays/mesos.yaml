@@ -95,13 +95,13 @@
 #  roles:
 #    - { role: registrator }
 #
-# - name: Install MARATHON on ui
-#   hosts: ui
-#   become: true
-#   become_user: root
-#   become_method: sudo
-#   roles:
-#     - { role: marathon }
+#- name: Install MARATHON on ui
+#  hosts: ui
+#  become: true
+#  become_user: root
+#  become_method: sudo
+#  roles:
+#    - { role: marathon }
 #
 ##- name: Install MARATHON-LB on mesos-slave
 ##  hosts: ui
@@ -128,10 +128,10 @@
 #  roles:
 #    - { role: prometheus-node-exporter }    
 
-- name: Install cadvisor on slave servers
-  hosts: slave
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: cadvisor }    
+ - name: Install cadvisor on slave servers
+   hosts: slave
+   become: true
+   become_user: root
+   become_method: sudo
+   roles:
+     - { role: cadvisor }    

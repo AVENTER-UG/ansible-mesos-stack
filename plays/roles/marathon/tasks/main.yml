@@ -32,6 +32,10 @@
 - name: enable basic authentication
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_HTTP_CREDENTIALS={{ marathon_basic_auth }}" create=yes
 
+- name: change java opts of marathon
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="JAVA_OPTS=-XX:MaxDirectMemorySize=1G" create=yes
+
+
 - name: copy marathon systemd 
   copy: src=marathon.systemd dest=/etc/systemd/system/marathon.service mode=0644  
 

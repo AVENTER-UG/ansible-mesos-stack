@@ -1,17 +1,2 @@
----
-
-- name: start cadvisor
-  docker:
-    docker_url: "unix://var/run/docker.sock"
-    name: cadvisor
-    image: google/cadvisor:latest
-    state: reloaded
-    pull: always
-    devices:
-      - "/:/rootfs:ro"
-      - "/var/run:/var/run:rw"
-      - "/sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct,cpu:ro"
-      - "/sys/fs/cgroup/memory:/sys/fs/cgroup/memory:ro"
-      - "/var/lib/docker/:/var/lib/docker:ro"    
-    ports:
-      - "8700:8080"
+- name: download and run cadvisor
+  shell: docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct,cpu:ro --volume=/sys/fs/cgroup/memory:/sys/fs/cgroup/memory:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8700:8080 --detach=true --name=cadvisor {{ cadvisor_image }}
