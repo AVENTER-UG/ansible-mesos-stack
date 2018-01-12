@@ -28,9 +28,9 @@
   "node_name": "{{ target }}",
 {% endif %}
   "server": {{ "true" if consul_is_server else "false" }},
-  "client_addr": "{{ client_address }}",
+  "client_addr": "{{ ansible_default_ipv4.address }}",
   "bind_addr": "0.0.0.0",
-  "advertise_addr": "{{ client_address }}",
+  "advertise_addr": "{{ ansible_default_ipv4.address }}",
   "datacenter": "{{ consul_datacenter }}",
   "retry_join": [ {{ consul_retry_join }} ],
 {% if inventory_hostname in groups['manager'] %}
