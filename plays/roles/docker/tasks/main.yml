@@ -13,7 +13,7 @@
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: OPTIONS=' --dns {{ client_address }} --dns-search {{ consul_domain }} --log-driver=journald  '
+    line: OPTIONS=' --dns {{ ansible_default_ipv4.address }} --dns-search {{ consul_domain }} --log-driver=journald  '
     state: present
     create: yes
 
