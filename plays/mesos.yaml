@@ -19,7 +19,7 @@
     - { role: epel }  
 
 - name: Install Consul Server on mesos-master
-  hosts: master
+  hosts: manager
   become: true
   become_user: root
   become_method: sudo
