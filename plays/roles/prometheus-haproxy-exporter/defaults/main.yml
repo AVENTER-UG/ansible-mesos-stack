@@ -1,0 +1,5 @@
+---
+
+node_exporter_release: "0.8.0"
+node_exporter_package: "haproxy_exporter-{{ node_exporter_release }}.linux-amd64.tar.gz"
+node_exporter_url: "https://github.com/prometheus/haproxy_exporter/releases/download/v{{ node_exporter_release }}/haproxy_exporter-{{ node_exporter_release }}.linux-amd64.tar.gz"

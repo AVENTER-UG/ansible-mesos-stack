@@ -103,10 +103,10 @@
   roles:
     - { role: prometheus }
 
-- name: Install PROMETHEUS node-exporter on slave servers
-  hosts: worker
+- name: Install PROMETHEUS haproxy-exporter on haproxy server
+  hosts: haproxy
   become: true
   become_user: root
   become_method: sudo
   roles:
-    - { role: prometheus-node-exporter }    
+    - { role: prometheus-haproxy-exporter }    
