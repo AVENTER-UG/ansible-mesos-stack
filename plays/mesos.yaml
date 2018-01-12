@@ -1,18 +1,22 @@
 - name: Configure CENTOS
-  hosts: all
+  hosts: 
+    - manager
+    - worker
   become: true
   become_user: root
   become_method: sudo
   roles:
     - { role: centos }
-
+    
 - name: Install EPEL Repositories on all Servers
-  hosts: all
+  hosts: 
+    - manager
+    - worker
   become: true
   become_user: root
   become_method: sudo
   roles:
-    - { role: epel }
+    - { role: epel }  
 
 - name: Install Consul Server on mesos-master
   hosts: master
@@ -23,8 +27,9 @@
     - { role: consul }
  
 
-- name: Install DOCKER on all Servers
-  hosts: all
+- name: Install DOCKER on worker
+  hosts: 
+    - worker
   become: true
   become_user: root
   become_method: sudo
@@ -32,7 +37,9 @@
     - { role: docker }
 
 - name: Install DNSMASQ on all Servers
-  hosts: all
+  hosts: 
+    - manager
+    - worker
   become: true
   become_user: root
   become_method: sudo
@@ -41,7 +48,7 @@
 
 
 - name: Install MESOS on mesos-master
-  hosts: master
+  hosts: manager
   become: true
   become_user: root
   become_method: sudo
@@ -49,7 +56,7 @@
     - { role: mesos-master }
 
 - name: Install MESOS on mesos-slave
-  hosts: slave
+  hosts: worker
   become: true
   become_user: root
   become_method: sudo
@@ -57,7 +64,7 @@
     - { role: mesos-slave }
 
 - name: Install WEAVE on mesos-slave
-  hosts: slave
+  hosts: worker
   become: true
   become_user: root
   become_method: sudo
@@ -65,7 +72,7 @@
     - { role: weave }
 
 - name: Install WEAVESCPOPE on mesos-slave
-  hosts: slave
+  hosts: worker
   become: true
   become_user: root
   become_method: sudo
@@ -73,15 +80,15 @@
     - { role: weavescope }    
 
 - name: Install REGISTRATOR on mesos-slave
-  hosts: slave
+  hosts: worker
   become: true
   become_user: root
   become_method: sudo
   roles:
     - { role: registrator }
 
-- name: Install MARATHON on ui
-  hosts: ui
+- name: Install MARATHON on manager
+  hosts: manager
   become: true
   become_user: root
   become_method: sudo
@@ -95,9 +102,9 @@
   become_method: sudo
   roles:
     - { role: prometheus }
-    
+
 - name: Install PROMETHEUS node-exporter on slave servers
-  hosts: slave
+  hosts: worker
   become: true
   become_user: root
   become_method: sudo
