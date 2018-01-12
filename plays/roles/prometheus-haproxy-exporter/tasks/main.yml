@@ -1,23 +1,23 @@
 ---
 
-- name: download prometheus node exporter
-  get_url: url={{ node_exporter_url }} dest=/opt mode=0440
+- name: download prometheus haproxy exporter
+  get_url: url={{ haproxy_exporter_url }} dest=/opt mode=0440
   
-- name: Create node-exporter directory
-  file: dest=/opt/node-exporter state=directory mode=0755
+- name: Create haproxy-exporter directory
+  file: dest=/opt/haproxy-exporter state=directory mode=0755
   
 - name: unpack prometheus
-  unarchive: src=/opt/{{ node_exporter_package }} dest=/opt/node-exporter copy=no
+  unarchive: src=/opt/{{ haproxy_exporter_package }} dest=/opt/haproxy-exporter copy=no
   
-- name: copy node-exporter systemd config
-  template: src=node-exporter_service.j2 dest=/etc/systemd/system/node-exporter.service mode=0644
+- name: copy haproxy-exporter systemd config
+  template: src=haproxy-exporter_service.j2 dest=/etc/systemd/system/haproxy-exporter.service mode=0644
   notify: reload systemd
   
-- name: start node-exporter
+- name: start haproxy-exporter
   service:
     name: "{{ item }}"
     enabled: yes
     state: started
   with_items:
-    - node-exporter
+    - haproxy-exporter
   
