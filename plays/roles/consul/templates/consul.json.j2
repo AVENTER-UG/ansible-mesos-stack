@@ -33,7 +33,7 @@
   "advertise_addr": "{{ client_address }}",
   "datacenter": "{{ consul_datacenter }}",
   "retry_join": [ {{ consul_retry_join }} ],
-{% if inventory_hostname in groups['master'] %}
+{% if inventory_hostname in groups['manager'] %}
   "server": true,
 {% endif %}
 {% if consul_encrypt_key is defined %}

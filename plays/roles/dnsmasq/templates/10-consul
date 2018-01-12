@@ -12,7 +12,6 @@ server={{ dns2 }}
 # configure DNS resolution to consul servers
 # server=/{{ consul_domain }}/127.0.0.1#8600
 
-{% for host in groups['master'] %}
+{% for host in groups['manager'] %}
 server=/{{ consul_domain }}/{{ hostvars[host]['client_address'] }}#8600
-
 {% endfor %}

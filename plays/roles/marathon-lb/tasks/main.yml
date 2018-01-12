@@ -1,9 +1,0 @@
----
-
-- name: install marathon-lb
-  uri:
-    url: http://{{ marathon_username }}:{{ marathon_password }}@localhost:8080/v2/apps
-    method: POST      
-    body: "{{ lookup('template', 'mesoslb.j2') }}"    
-    body_format: json
-    HEADER_Content-Type: "application/json"

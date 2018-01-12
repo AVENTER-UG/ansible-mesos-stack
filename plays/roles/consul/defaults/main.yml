@@ -12,7 +12,7 @@ consul_template_download: "https://releases.hashicorp.com/consul-template/{{ con
 consul_download_username: ""
 consul_download_password: ""
 consul_download_folder: /tmp
-consul_retry_join: "{% for host in groups['master'] %}\"{{ host}}\"{% if not loop.last %}, {% endif %}{% endfor %}"
+consul_retry_join: "{% for host in groups['manager'] %}\"{{ host }}\"{% if not loop.last %}, {% endif %}{% endfor %}"
 
 ## master_node_ip: "{{ hostvars[groups['master'][0]].ansible_default_ipv4.address }}"
 

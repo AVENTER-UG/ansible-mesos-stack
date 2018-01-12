@@ -1,2 +1,0 @@
-- name: download and run cadvisor
-  shell: docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct,cpu:ro --volume=/sys/fs/cgroup/memory:/sys/fs/cgroup/memory:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8700:8080 --detach=true --name=cadvisor {{ cadvisor_image }}

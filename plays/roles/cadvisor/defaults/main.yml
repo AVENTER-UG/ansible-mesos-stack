@@ -1,7 +1,0 @@
----
-# defaults file for cadvisor
-cadvisor_enabled: true
-cadvisor_version: "latest"
-container_port: 8080
-cadvisor_image: "google/cadvisor:{{ cadvisor_version }}"
-cadvisor_container_name: "cadvisor"

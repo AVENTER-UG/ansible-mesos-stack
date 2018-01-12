@@ -7,14 +7,14 @@ scrape_configs:
 - job_name: docker-metrics
 
   static_configs:           
-  - targets: [{% for host in groups['all'] %}'{{ hostvars[host].client_address }}:8700'{% if not loop.last %},{% endif %}{% endfor %}]
+  - targets: [{% for host in groups['mesos'] %}'{{ hostvars[host].client_address }}:8700'{% if not loop.last %},{% endif %}{% endfor %}]
     labels:
       node: docker-nodes
 
 - job_name: host-metrics
 
   static_configs:
-  - targets: [{% for host in groups['all'] %}'{{ hostvars[host].client_address }}:9100'{% if not loop.last %},{% endif %}{% endfor %}]
+  - targets: [{% for host in groups['mesos'] %}'{{ hostvars[host].client_address }}:9100'{% if not loop.last %},{% endif %}{% endfor %}]
     labels:
       node: infrastructure-nodes
 
