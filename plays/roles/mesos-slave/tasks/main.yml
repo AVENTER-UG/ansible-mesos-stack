@@ -22,7 +22,7 @@
   file: path=/etc/mesos/zk state=absent
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['master'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['manager'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: set hostname in mesos
   lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes

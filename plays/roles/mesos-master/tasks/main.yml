@@ -34,7 +34,7 @@
     line="{{ item }}"
     state=present
   with_items:
-    - "{% for host in groups['master'] %}server.{{ hostvars[host].myid }}={{ hostvars[host].client_address }}:2888:3888\n{% endfor %}"
+    - "{% for host in groups['manager'] %}server.{{ hostvars[host].myid }}={{ hostvars[host].client_address }}:2888:3888\n{% endfor %}"
 
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
@@ -43,7 +43,7 @@
   file: path=/etc/mesos/zk state=absent
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['master'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['manager'] %}{{ hostvars[host].client_address }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 #- name: clean blank spaces in zk config
 #  shell: sed -i '/^\s*$/d' /etc/mesos/zk
