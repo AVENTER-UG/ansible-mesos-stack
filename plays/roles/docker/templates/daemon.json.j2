@@ -1,0 +1,14 @@
+{
+    "live-restore": true,
+    "storage-driver": "s3",
+    "storage-opts": [{
+        "accesskey": "{{ s3_access_key }}",
+        "secretkey": "{{ s3_secret_key }}", 
+        "region": "{{ s3_region }}", 
+        "regionendpoint": "{{ s3_region_endpoint }}", 
+        "bucket": "{{ s3_bucket_name }}", 
+        "encrypt": "true",
+        "secure": "true",
+        "keyid": "{{ s3_encryption_password }}"
+    }]
+}

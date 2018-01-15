@@ -24,7 +24,7 @@
   copy: src=docker.systemd dest=/etc/systemd/system/docker.service mode=0755
 
 - name: copy new docker daemone config
-  copy: src=daemon.json dest=/etc/docker/daemon.json mode=0640
+  template: src=daemon.json.j2 dest=/etc/docker/daemon.json mode=0640
 
 - name: reload systemd
   shell: systemctl daemon-reload
