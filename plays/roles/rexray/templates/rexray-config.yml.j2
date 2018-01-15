@@ -1,0 +1,27 @@
+rexray:
+  logLevel: warn
+  osDrivers:
+  - linux
+  storageDrivers:
+  - s3fs
+  volumeDrivers:
+  - docker
+libstorage:
+  service: s3fs
+  integration:
+    volume:
+      operations:
+        mount:
+          preempt: true
+        unmount:
+          ignoreusedcount: true  
+s3fs:
+  accessKey: {{ s3_access_key }}
+  secretKey: {{ s3_secret_key }}
+  endpoint: {{ s3_region_endpoint }}
+  region: {{ s3_region }}
+  options:
+  - url=https://{{ s3_region_endpoint }}
+  - use_path_request_style
+  - allow_other
+  - nonempty

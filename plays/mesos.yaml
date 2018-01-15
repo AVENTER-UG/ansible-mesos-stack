@@ -26,6 +26,14 @@
   roles:
     - { role: consul }
  
+- name: Install REXRAY on worker
+  hosts: 
+    - worker
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: rexray } 
 
 - name: Install DOCKER on worker
   hosts: 
