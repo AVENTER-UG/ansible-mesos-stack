@@ -10,24 +10,8 @@
 - name: download rexray
   shell: "curl -sSL https://dl.bintray.com/emccode/rexray/install | sh -s -- stable"
 
-## Remove DVDCLI as it is not currently needed. 24/08/2016 - S. Knight.
-- name: download dvdcli
-  shell: "curl -sSL https://dl.bintray.com/emccode/dvdcli/install | sh -s stable"
-
 - name: copy rexray config
   template: src=rexray-config.yml.j2 dest=/etc/rexray/config.yml mode=0644
   
 - name: start and enable rexray
   service: name=rexray state=started enabled=yes
-
-- name: fetch libmesos_dvdi_isolator from Github
-  get_url: url={{ libmesos_dvdi_release }} dest=/usr/lib/{{ libmesos_dvdi_release_package }} mode=0755
-
-#- name: Copy libmesos_dvdi_isolator config file
-#  template: src=dvdi-mod.json.j2 dest=/usr/lib/dvdi-mod.json mode=0644
-
-#- name: Copy modules config file
-#  copy: src=modules.config dest=/etc/mesos-slave/modules
-
-#- name: Copy isolation config file
-#  copy: src=isolation.config dest=/etc/mesos-slave/isolation
