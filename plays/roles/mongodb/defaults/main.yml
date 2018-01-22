@@ -1,0 +1,4 @@
+---
+mongodb_user: "graylog_user"
+mongodb_password: "CHANGEME"
+mongodb_database_name: "admin"

@@ -1,0 +1,12 @@
+---
+
+graylog_version: "2.4"
+graylog_repo: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
+password_secret: "KqqGRnzVqiVF22yCBLhbIFoH7w6JXMxX4LGEFYlEu8dfBkN3enSIJ4a6zcOfyFcfE6JKidSr25VyfTxvTAVoyrRu047zmNvR"
+graylog_root_password_sha2: "d2719339ec2983328c2e793b7a0f21794f961d10f1764f59a8ef2a74f739b399"
+input_type_docker: org.graylog2.inputs.gelf.udp.GELFUDPInput
+input_type: org.graylog2.inputs.raw.udp.RawUDPInput
+
+mongodb_user: "graylog_user"
+mongodb_password: "CHANGEME"
+mongodb_database_name: "admin"

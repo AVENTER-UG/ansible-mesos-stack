@@ -1,0 +1,6 @@
+---
+
+es_version: "1.7.3"
+es_repo: "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ es_version }}.noarch.rpm"
+es_cluster_name: "mycluster"
+es_path_data: "/var/lib/elasticsearch/"

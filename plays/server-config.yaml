@@ -126,3 +126,28 @@
   become_method: sudo
   roles:
     - { role: cadvisor }    
+    
+- name: Install elasticsearch on graylog server
+  hosts: graylog
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: elasticsearch }
+    
+- name: Install mongodb on graylog server
+  hosts: graylog
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: mongodb }
+    
+- name: Install graylog on graylog server
+  hosts: graylog
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: graylog }
+    

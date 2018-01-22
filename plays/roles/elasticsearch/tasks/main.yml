@@ -1,0 +1,22 @@
+---
+
+- name: Install OpenJDK 1.8
+  yum:     
+    name: java-1.8.0-openjdk-headless
+    state: latest
+
+- name: Install elasticsearch
+  yum: 
+    validate_certs: no
+    name: "{{ es_repo }}" 
+
+- name: Add config file
+  template: src=elasticsearch.yml.j2 dest=/etc/elasticsearch/elasticsearch.yml backup=yes
+  notify: restart elasticsearch
+
+- name: Make sure service is added to startup
+  service: 
+    name: elasticsearch 
+    state: started
+    enabled: yes
+

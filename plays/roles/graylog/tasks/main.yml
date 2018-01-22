@@ -1,0 +1,28 @@
+---
+
+- name: Adding centos graylog repo
+  yum: 
+    validate_certs: no
+    name: "{{ graylog_repo }}" 
+    state: present
+
+- name: Install graylog packages
+  yum: 
+    name: "{{ item }}"
+    state: latest 
+    validate_certs: no
+  with_items:
+    - "graylog-server"
+
+- name: configure graylog-server
+  template: src=server.conf.j2 dest=/etc/graylog/server/server.conf backup=yes
+
+- name: configure graylog-web
+  template: src=server.conf.j2 dest=/etc/graylog/server/web.conf backup=yes 
+
+- name: enable graylog server as startup
+  service: 
+    name: "graylog-server" 
+    state: started
+    enabled: yes
+
