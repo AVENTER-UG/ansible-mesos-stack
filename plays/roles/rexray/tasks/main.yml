@@ -1,12 +1,5 @@
 ---
 
-- stat: path=/etc/mesos-slave
-  register: mesos_slave_dir
-
-- name: Create mesos-slave directory
-  file: dest=/etc/mesos-slave state=directory mode=0755
-  when: mesos_slave_dir.stat.exists == False
-
 - name: download rexray
   shell: "curl -sSL https://dl.bintray.com/emccode/rexray/install | sh -s -- stable"
 
