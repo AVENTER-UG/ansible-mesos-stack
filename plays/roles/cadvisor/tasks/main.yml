@@ -1,0 +1,22 @@
+---
+
+- name: install docker py
+  yum:
+    name: docker-python
+    state: latest
+
+- name: download and run cadvisor
+  docker_container:
+    name: cadvisor
+    image: "{{ cadvisor_image }}"
+    pull: true
+    detach: true
+    restart_policy: always
+    ports:
+      - "{{ container_port }}:8080"    
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:rw"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+    state: started

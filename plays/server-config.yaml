@@ -118,3 +118,11 @@
   become_method: sudo
   roles:
     - { role: prometheus-haproxy-exporter }    
+
+- name: Install CADVISOR on mesos-slave
+  hosts: worker
+  become: true
+  become_user: root
+  become_method: sudo
+  roles:
+    - { role: cadvisor }    

@@ -9,7 +9,9 @@
   docker_container:
     name: registratorMaster
     image: "{{ registrator_image }}"
+    pull: true
+    restart_policy: always
     volumes:
       - "{{ registrator_docker_socket }}:/tmp/docker.sock"
     state: started
-    command: -internal {{ registrator_uri }}
+    command: -resync 10 -internal {{ registrator_uri }}
