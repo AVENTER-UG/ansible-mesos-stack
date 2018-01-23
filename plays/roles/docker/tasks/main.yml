@@ -1,12 +1,12 @@
 ---
 
 - name: add docker repo
-  copy: src=docker-main.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644 
+  copy: src=docker-ce.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644 
 
 - name: install docker packages
   yum: name={{ item }} state=latest
   with_items:
-    - docker-engine
+    - docker-ce
 
 - name: configure docker dns
   sudo: yes
