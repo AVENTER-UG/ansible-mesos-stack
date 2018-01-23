@@ -30,7 +30,3 @@
 - name: add motd
   template: src=motd.j2 dest=/etc/motd mode=0644
 
-- name: wait for weave port to be ready
-  wait_for:
-    port: 6783
-    delay: 10
