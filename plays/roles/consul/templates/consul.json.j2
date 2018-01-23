@@ -1,5 +1,5 @@
 {
-  "bootstrap": {{ consul_bootstrap }},
+  "bootstrap": {% if inventory_hostname == groups['manager'][0] %}true{% else %}false{% endif %}
 {% if consul_join_at_start is defined and consul_join_at_start %}
   "start_join": [ {{ consul_retry_join }} ],
 {% endif %}
