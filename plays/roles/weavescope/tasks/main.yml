@@ -16,6 +16,7 @@
     name: weavescope
     enabled: yes
     state: restarted
+  ignore_errors: true    
     
 
 
