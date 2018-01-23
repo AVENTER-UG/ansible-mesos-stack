@@ -18,10 +18,12 @@ libstorage:
 s3fs:
   accessKey: {{ s3_access_key }}
   secretKey: {{ s3_secret_key }}
-  endpoint: {{ s3_region_endpoint }}
+  endpoint: https://{{ s3_region_endpoint }}
   region: {{ s3_region }}
+  encrypt: {{ s3_encryption_password }}
+  rootdirectory:  {{ s3_root_directory }}
   options:
   - url=https://{{ s3_region_endpoint }}
   - use_path_request_style
-  - allow_other
-  - nonempty
+  #- allow_other
+  #- nonempty
