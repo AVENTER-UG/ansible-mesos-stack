@@ -20,7 +20,7 @@
   hosts: 
     - worker
   roles:
-    - { role: rexray } 
+    #- { role: rexray } 
     - { role: docker }    
     - { role: weave }
     - { role: mesos-slave }
