@@ -39,11 +39,11 @@
     - { role: prometheus-haproxy-exporter }    
 
    
-- name: Configure Graylog
-  hosts: graylog
-  roles:
-    - { role: elasticsearch }
-    - { role: mongodb }    
-    - { role: graylog }    
+#- name: Configure Graylog
+#  hosts: graylog
+#  roles:
+#    - { role: elasticsearch }
+#    - { role: mongodb }    
+#    - { role: graylog }    
 
     
