@@ -2,152 +2,48 @@
   hosts: 
     - manager
     - worker
-  become: true
-  become_user: root
-  become_method: sudo
   roles:
     - { role: centos }
-    
-- name: Install EPEL Repositories on all Servers
-  hosts: 
-    - manager
-    - worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
     - { role: epel }  
-
-- name: Install Consul Server on mesos-master
-  hosts: manager
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: consul }
- 
-- name: Install REXRAY on worker
-  hosts: 
-    - worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: rexray } 
-
-- name: Install DOCKER on worker
-  hosts: 
-    - worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: docker }
-
-- name: Install DNSMASQ on all Servers
-  hosts: 
-    - manager
-    - worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
     - { role: dnsmasq }
 
 
-- name: Install MESOS on mesos-master
+- name: Configure Manager Server
   hosts: manager
-  become: true
-  become_user: root
-  become_method: sudo
   roles:
+    - { role: consul }
     - { role: mesos-master }
+    - { role: marathon }        
 
-- name: Install MESOS on mesos-slave
-  hosts: worker
-  become: true
-  become_user: root
-  become_method: sudo
+ 
+- name: Configure Worker Server
+  hosts: 
+    - worker
   roles:
-    - { role: mesos-slave }
-
-- name: Install WEAVE on mesos-slave
-  hosts: worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
+    - { role: rexray } 
+    - { role: docker }    
     - { role: weave }
-
-- name: Install WEAVESCPOPE on mesos-slave
-  hosts: worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
+    - { role: mesos-slave }
     - { role: weavescope }    
-
-- name: Install REGISTRATOR on mesos-slave
-  hosts: worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: registrator }
-
-- name: Install MARATHON on manager
-  hosts: manager
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: marathon }   
-
+    - { role: registrator }         
+    - { role: cadvisor }    
+  
 - name: Install PROMETHEUS on all servers
   hosts: prometheus
-  become: true
-  become_user: root
-  become_method: sudo
   roles:
     - { role: prometheus }
 
 - name: Install PROMETHEUS haproxy-exporter on haproxy server
   hosts: haproxy
-  become: true
-  become_user: root
-  become_method: sudo
   roles:
     - { role: prometheus-haproxy-exporter }    
 
-- name: Install CADVISOR on mesos-slave
-  hosts: worker
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: cadvisor }    
-    
-- name: Install elasticsearch on graylog server
+   
+- name: Configure Graylog
   hosts: graylog
-  become: true
-  become_user: root
-  become_method: sudo
   roles:
     - { role: elasticsearch }
-    
-- name: Install mongodb on graylog server
-  hosts: graylog
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: mongodb }
-    
-- name: Install graylog on graylog server
-  hosts: graylog
-  become: true
-  become_user: root
-  become_method: sudo
-  roles:
-    - { role: graylog }
+    - { role: mongodb }    
+    - { role: graylog }    
+
     
