@@ -1,4 +1,4 @@
 search {{ [consul_domain] | union(domain_search_list) | unique | join(' ') }}
-{% for host in groups['manager'] %}
-nameserver {{ host }}
+{% for host in groups['worker'] %}
+nameserver {{ hostvars[host].ansible_default_ipv4.address  }}
 {% endfor %}
