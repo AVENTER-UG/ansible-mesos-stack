@@ -12,8 +12,7 @@
   hosts: manager
   roles:
     - { role: consul }
-    - { role: mesos-master }
-    - { role: marathon }        
+    - { role: mesos-master }     
 
  
 - name: Configure Worker Server
@@ -28,6 +27,11 @@
     - { role: weavescope }    
     - { role: registrator }         
     - { role: cadvisor }    
+
+- name: Start marathon
+  hosts: manager
+  roles:
+    - { role: marathon }        
   
 - name: Install PROMETHEUS on all servers
   hosts: prometheus
