@@ -23,7 +23,8 @@
     #- { role: rexray } 
     - { role: docker }    
     - { role: weave }
-    - { role: mesos-slave }
+    - { role: mesos-slave }    
+    - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
     - { role: registrator }         
     - { role: cadvisor }    
