@@ -46,4 +46,4 @@
   service:
     name: "marathon"
     enabled: yes
-    state: started
+    state: restarted

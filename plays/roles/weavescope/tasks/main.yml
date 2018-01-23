@@ -15,7 +15,7 @@
   service:
     name: weavescope
     enabled: yes
-    state: started
+    state: restarted
     
 
 

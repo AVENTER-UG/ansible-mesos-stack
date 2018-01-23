@@ -28,7 +28,7 @@
   service:
     name: "weave"
     enabled: yes
-    state: started
+    state: restarted
   
 - name: add motd
   template: src=motd.j2 dest=/etc/motd mode=0644
