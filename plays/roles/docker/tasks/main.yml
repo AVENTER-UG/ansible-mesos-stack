@@ -26,6 +26,20 @@
 - name: copy new docker daemone config
   template: src=daemon.json.j2 dest=/etc/docker/daemon.json mode=0640
 
+- name: Add cron job to prune docker images
+  cron:
+    name: "delete all unused docker images "
+    minute: "0"
+    job: "docker image prune -a -f > /dev/null"
+    state: present
+
+- name: Add cron job to prune docker containers
+  cron:
+    name: "prune docker containers"
+    minute: "0"
+    job: "docker container prune -f > /dev/null"
+    state: present  
+
 - name: reload systemd
   shell: systemctl daemon-reload
 
