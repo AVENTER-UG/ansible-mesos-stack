@@ -56,8 +56,7 @@
   lineinfile: dest=/etc/mesos-master/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
 
 - name: set master ip in mesos
-  lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ inventory_hostname }}"
-  #lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
+  lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
 
 - name: set cluster hostname
   lineinfile: dest=/etc/mesos-master/cluster state=present create=yes regexp="^" line="{{ mesos_clustername }}"
