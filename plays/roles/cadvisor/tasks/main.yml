@@ -17,6 +17,7 @@
     volumes:
       - "/:/rootfs:ro"
       - "/var/run:/var/run:rw"
-      - "/sys:/sys:ro"
+      - "/sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct:ro"
+      - "/sys/fs/cgroup/memory:/sys/fs/cgroup/memory:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
-    state: started
+    state: restarted
