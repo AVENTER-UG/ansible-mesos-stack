@@ -27,6 +27,4 @@
     state: restarted
   ignore_errors: true    
   
-- name: add motd
-  template: src=motd.j2 dest=/etc/motd mode=0644
 
