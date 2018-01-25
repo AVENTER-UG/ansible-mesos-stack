@@ -20,4 +20,4 @@
       - "/sys/fs/cgroup/cpuacct:/sys/fs/cgroup/cpuacct:ro"
       - "/sys/fs/cgroup/memory:/sys/fs/cgroup/memory:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
-    state: restarted
+    state: started
