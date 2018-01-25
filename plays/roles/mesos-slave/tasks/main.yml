@@ -40,7 +40,8 @@
   lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" create=yes  
 
 - name: set slave ip in mesos
-  lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
+  lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ inventory_hostname }}"
+  #lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
 
 - name: copy mesos credential
   template: src=credential.j2 dest=/etc/mesos/credential mode=0640  
