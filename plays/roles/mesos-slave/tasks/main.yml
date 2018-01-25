@@ -52,3 +52,11 @@
     state: restarted
   with_items:
     - mesos-slave
+
+- name: ensure mesos-master service is disabled
+  service:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+  with_items:
+    - mesos-master
