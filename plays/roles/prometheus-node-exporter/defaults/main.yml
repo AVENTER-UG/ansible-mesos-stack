@@ -1,0 +1,4 @@
+---
+
+node_exporter_package: "node_exporter-{{ node_exporter_release }}.linux-{{ node_exporter_arch }}.tar.gz"
+node_exporter_url: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_release }}/node_exporter-{{ node_exporter_release }}.linux-{{ node_exporter_arch }}.tar.gz"

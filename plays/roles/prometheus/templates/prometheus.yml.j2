@@ -7,7 +7,7 @@ scrape_configs:
 - job_name: docker-metrics
 
   static_configs:           
-  - targets: [{% for host in groups['mesos'] %}'{{ host }}:8700'{% if not loop.last %},{% endif %}{% endfor %}]
+  - targets: [{% for host in groups['worker'] %}'{{ host }}:8700'{% if not loop.last %},{% endif %}{% endfor %}]
     labels:
       node: docker-nodes
 
@@ -16,5 +16,10 @@ scrape_configs:
   static_configs:
   - targets: [{% for host in groups['haproxy'] %}'{{ host }}:9100'{% if not loop.last %},{% endif %}{% endfor %}]
     labels:
-      node: infrastructure-nodes
+      node: haproxy-nodes
+
+  static_configs:
+  - targets: [{% for host in groups['manager'] %}'{{ host }}:9100'{% if not loop.last %},{% endif %}{% endfor %}]
+    labels:
+      node: manager-nodes
 

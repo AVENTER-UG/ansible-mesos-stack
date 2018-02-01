@@ -12,7 +12,8 @@
   hosts: manager
   roles:
     - { role: consul }
-    - { role: mesos-master }     
+    - { role: mesos-master }
+    - { role: prometheus-node-exporter }
 
  
 - name: Configure Worker Server
