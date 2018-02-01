@@ -11,12 +11,14 @@ scrape_configs:
     labels:
       node: docker-nodes
 
-- job_name: host-metrics
+- job_name: haproxy-metrics
 
   static_configs:
   - targets: [{% for host in groups['haproxy'] %}'{{ host }}:9100'{% if not loop.last %},{% endif %}{% endfor %}]
     labels:
       node: haproxy-nodes
+
+- job_name: host-metrics
 
   static_configs:
   - targets: [{% for host in groups['manager'] %}'{{ host }}:9100'{% if not loop.last %},{% endif %}{% endfor %}]
