@@ -42,7 +42,7 @@
 - name: Install PROMETHEUS haproxy-exporter on haproxy server
   hosts: haproxy
   roles:
-    - { role: prometheus-haproxy-exporter }    
+    - { role: prometheus-haproxy-exporter } 
 
    
 #- name: Configure Graylog
