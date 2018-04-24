@@ -6,6 +6,8 @@
 - name: install docker packages
   yum: name={{ item }} state=latest
   with_items:
+    - e2fsprogs
+    - xfsprogs
     - docker-ce
 
 - name: configure docker dns
