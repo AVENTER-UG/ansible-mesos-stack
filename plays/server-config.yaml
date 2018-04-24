@@ -1,3 +1,6 @@
+- name: gather all hosts information
+  hosts: all
+  
 - name: Configure CENTOS
   hosts: 
     - manager
