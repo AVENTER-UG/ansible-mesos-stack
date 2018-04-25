@@ -1,9 +1,12 @@
 ---
 
-- name: install docker py
-  yum:
-    name: docker-python
-    state: latest
+- name: Install dependent python modules
+  pip:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - docker-py==1.10.6
+    - docker-compose==1.9.0    
 
 - name: download and run registrator
   docker_container:
