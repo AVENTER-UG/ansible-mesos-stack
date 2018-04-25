@@ -5,8 +5,10 @@
     name: "{{item}}"
     state: present
   with_items:
-    - docker-py==1.10.6
-    - docker-compose==1.9.0    
+    - docker-py
+    - docker-compose
+    - google-common
+    - protobuf 
 
 - name: download and run registrator
   docker_container:
