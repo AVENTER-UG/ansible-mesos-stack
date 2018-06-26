@@ -2,24 +2,34 @@
   hosts: all
   
 - name: Configure CENTOS
+  become: yes
   hosts: 
     - manager
     - worker
   roles:
     - { role: centos }
     - { role: epel }  
-    - { role: dnsmasq }
 
 
 - name: Configure Manager Server
+  become: yes
   hosts: manager
   roles:
     - { role: consul }
     - { role: mesos-master }
     - { role: prometheus-node-exporter }
 
+- name: Configure DNS
+  become: yes
+  hosts: 
+    - manager
+    - worker
+  roles:
+    - { role: dnsmasq }
+
  
 - name: Configure Worker Server
+  become: yes
   hosts: 
     - worker
   roles:
@@ -33,16 +43,19 @@
     - { role: cadvisor }    
 
 - name: Start marathon
+  become: yes
   hosts: manager
   roles:
     - { role: marathon }        
   
 - name: Install PROMETHEUS on all servers
+  become: yes
   hosts: prometheus
   roles:
     - { role: prometheus }
 
 - name: Install PROMETHEUS haproxy-exporter on haproxy server
+  become: yes
   hosts: haproxy
   roles:
     - { role: prometheus-haproxy-exporter } 

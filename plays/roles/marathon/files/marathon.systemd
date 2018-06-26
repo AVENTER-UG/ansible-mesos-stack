@@ -5,7 +5,7 @@ Wants=network.target
 
 [Service]
 EnvironmentFile=-/etc/sysconfig/marathon
-ExecStart=/usr/bin/marathon -J-Xmx256m
+ExecStart=/usr/bin/marathon -J-Xmx256m --plugin_dir /etc/marathon/plugins/ --plugin_conf /etc/marathon/plugins-conf.json
 Restart=always
 RestartSec=20
 
