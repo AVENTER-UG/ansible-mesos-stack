@@ -18,7 +18,7 @@
 
 - name: copy vault plugin config
   template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
-  
+ 
 - name: Delete old marathon config
   file: path=/etc/sysconfig/marathon state=absent
 
@@ -48,6 +48,9 @@
 
 - name: change java opts of marathon
   lineinfile: dest=/etc/sysconfig/marathon state=present line="JAVA_OPTS=-XX:MaxDirectMemorySize=1G" create=yes
+
+- name: enable vault plugin
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets" create=yes
 
 
 - name: copy marathon systemd 
