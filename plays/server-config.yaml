@@ -39,6 +39,7 @@
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
+    - { role: weaveexpose }    
     - { role: registrator }         
     - { role: cadvisor }    
 

@@ -20,11 +20,11 @@ This playbook deploys a full Mesos cluster.
 | ------------- |:-------------:| :-----:|
 | Mesos 1.4.1  |  Mesos slave | RPM |
 | Docker  17.12.0-ce    | Docker engine      |  RPM |
-| Weave 2.1.3 | Container networking      |    Docker image 
-| Weavescope 1.6.7 | Container Management      |    Docker image 
+| Weave 2.1.3 | Container networking      |    Docker image
+| Weavescope 1.6.7 | Container Management      |    Docker image
 | DNSMasq 2.76.2 | Container DNS | RPM |
 | CAdavisor| Docker engine monitoring | Docker image |
-| Registrator | Register Microservier name | Docker image | 
+| Registrator | Register Microservier name | Docker image |
 
 ## Graylog 
 
@@ -38,4 +38,3 @@ This playbook deploys a full Mesos cluster.
 | Software version        | Role           | Install type  |
 | ------------- |:-------------:| :-----:|
 | Prometheus 1.7.1 | Timesserie database for metrics | Docker image |
-

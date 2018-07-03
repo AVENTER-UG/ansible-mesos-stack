@@ -1,0 +1,12 @@
+[Unit]
+Description=Weave Expose
+Documentation=http://docs.weave.works/
+After=weave.service
+Requires=docker.service
+[Service]
+TimeoutStartSec=0
+EnvironmentFile=-/etc/weave.env
+ExecStart=/usr/local/bin/weave expose
+Restart=on-failure
+[Install]
+WantedBy=weave.target
