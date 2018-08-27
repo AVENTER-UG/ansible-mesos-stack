@@ -3,7 +3,7 @@
 - name: install marathon packages
   yum: name={{ item }} state=latest
   with_items:
-    - marathon
+    - marathon-1.7.37.c5de59bca-SNAPSHOT
 
 - name: create vault plugin directory for marathon
   file:
