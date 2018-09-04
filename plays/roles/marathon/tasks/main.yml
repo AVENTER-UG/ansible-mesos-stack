@@ -3,21 +3,21 @@
 - name: install marathon packages
   yum: name={{ item }} state=latest
   with_items:
-    - marathon-1.7.37.c5de59bca-SNAPSHOT
+    - marathon
 
 - name: create vault plugin directory for marathon
   file:
     path: /etc/marathon/plugins
     state: directory
 
-- name: get vault plugin for marathon 
-  get_url: url={{ marathon_vault_url }} dest=/etc/marathon/plugins/ mode=0440
+#- name: get vault plugin for marathon 
+#  get_url: url={{ marathon_vault_url }} dest=/etc/marathon/plugins/ mode=0440
 
-- name: untar vault plugin for marathon
-  shell: "tar -C /etc/marathon/plugins/ -xvf /etc/marathon/plugins/*.tar"
+#- name: untar vault plugin for marathon
+#  shell: "tar -C /etc/marathon/plugins/ -xvf /etc/marathon/plugins/*.tar"
 
-- name: copy vault plugin config
-  template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
+#- name: copy vault plugin config
+#  template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
  
 - name: Delete old marathon config
   file: path=/etc/sysconfig/marathon state=absent
