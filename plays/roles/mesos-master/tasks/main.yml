@@ -8,8 +8,8 @@
 - name: install mesos master packages
   yum: name={{ item }} state=latest
   with_items:
-    - mesos
-    - mesosphere-zookeeper
+    - mesos-1.6.1
+    - mesosphere-zookeeper-3.4.6
 
 - name: disable mesos update
   lineinfile:

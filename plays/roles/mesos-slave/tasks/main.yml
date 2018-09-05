@@ -8,7 +8,7 @@
 - name: install mesos slave packages
   yum: name={{ item }} state=latest
   with_items:
-    - mesos
+    - mesos-1.6.1
 
 - name: disable mesos update
   lineinfile:
