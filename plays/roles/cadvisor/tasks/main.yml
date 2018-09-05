@@ -1,10 +1,5 @@
 ---
 
-- name: install docker py
-  yum:
-    name: docker-python
-    state: latest
-
 - name: download and run cadvisor
   docker_container:
     name: cadvisor
