@@ -9,6 +9,25 @@
     - dnsmasq
     - bind-utils
 
+- name: Check if NetworkManager is installed
+  command: rpm -q NetworkManager
+  register: rpm_check
+
+- name: disable update resolv conf of network manager
+  copy: src=NetworkManager.conf dest=/etc/NetworkManager/NetworkManager.conf mode=0644
+  when: rpm_check.stdout.find('is not installed') == -1
+
+- name: disable update resolv conf of dhclient
+  copy: src=dhclient-enter-hooks dest=/etc/dhclient-enter-hooks mode=0755
+
+- name: restart NetworkManager if its installed
+  sudo: yes
+  service:
+    name: NetworkManager
+    state: restarted
+    enabled: yes   
+  when: rpm_check.stdout.find('is not installed') == -1   
+
 - name: collect nameservers
   sudo: yes
   shell: "cat /etc/resolv.conf | grep -i '^nameserver' | cut -d ' ' -f2"
@@ -54,13 +73,3 @@
     dest: /etc/resolv.conf
     mode: 0644
 
-- name: Check if NetworkManager is installed
-  command: rpm -q NetworkManager
-  register: rpm_check
-
-- name: disable update resolv conf of network manager
-  copy: src=NetworkManager.conf dest=/etc/NetworkManager/NetworkManager.conf mode=0644
-  when: rpm_check.stdout.find('is not installed') == -1
-
-- name: disable update resolv conf of dhclient
-  copy: src=dhclient-enter-hooks dest=/etc/dhclient-enter-hooks mode=0755
