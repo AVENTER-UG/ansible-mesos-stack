@@ -27,6 +27,7 @@ This playbook deploys a full Mesos cluster.
 | DNSMasq 2          | Container DNS              | RPM          |
 | CAdavisor          | Docker engine monitoring   | Docker image |
 | Registrator        | Register Microservier name | Docker image |
+| Consul  1.3.0      | Consul Client              | Binary       |
 
 ### Graylog 
 
