@@ -14,6 +14,7 @@
 - name: Configure Manager Server
   become: yes
   hosts: manager
+  serial: 20%
   roles:
     - { role: consul }
     - { role: mesos-master }
@@ -32,6 +33,7 @@
   become: yes
   hosts: 
     - worker
+  serial: 20%    
   roles:
     #- { role: rexray } 
     - { role: consul-agent }
@@ -47,6 +49,7 @@
 - name: Start marathon
   become: yes
   hosts: manager
+  serial: 20%
   roles:
     - { role: marathon }        
   
