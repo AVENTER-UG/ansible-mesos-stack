@@ -29,7 +29,7 @@
   "node_name": "{{ target }}",
 {% endif %}
   "server": {{ "true" if consul_is_server else "false" }},
-  "client_addr": "{{ ansible_default_ipv4.address }}",
+  "client_addr": "127.0.0.1",
   "bind_addr": "0.0.0.0",
   "advertise_addr": "{{ ansible_default_ipv4.address }}",
   "datacenter": "{{ consul_datacenter }}",
