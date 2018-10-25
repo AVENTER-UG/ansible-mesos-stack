@@ -1,5 +1,5 @@
 ---
 
 registrator_image: "gliderlabs/registrator:master"
-registrator_uri: "consul://127.0.0.1:8500"
+registrator_uri: "consul://{{ ansible_default_ipv4.address }}:8500"
 registrator_docker_socket: "/var/run/weave/weave.sock"
