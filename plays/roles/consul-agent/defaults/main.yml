@@ -44,7 +44,7 @@ consul_use_initd: false
 consul_is_server: false
 
 consul_servers: ['127.0.0.1']
-consul_log_level: "INFO"
+consul_log_level: "ERROR"
 consul_syslog: true
 consul_rejoin_after_leave: true
 consul_leave_on_terminate: true
