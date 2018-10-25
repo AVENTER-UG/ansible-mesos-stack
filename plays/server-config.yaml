@@ -31,9 +31,8 @@
  
 - name: Configure Worker Server
   become: yes
-  hosts: 
-    - worker
-  serial: 20%    
+  hosts: worker
+  serial: 30%    
   roles:
     #- { role: rexray } 
     - { role: consul-agent }
