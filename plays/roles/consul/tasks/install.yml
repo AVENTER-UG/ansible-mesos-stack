@@ -21,7 +21,6 @@
     url_username={{ consul_download_username }}
     url_password={{ consul_download_password }}
   register: consul_was_downloaded
-  validate_certs: false
   when: consul_archive_stat.stat.exists == False
 
 - name: create consul group
