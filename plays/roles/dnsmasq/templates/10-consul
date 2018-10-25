@@ -10,8 +10,4 @@ server={{ dns1 }}
 server={{ dns2 }}
 
 # configure DNS resolution to consul servers
-# server=/{{ consul_domain }}/127.0.0.1#8600
-
-{% for host in groups['manager'] %}
-server=/{{ consul_domain }}/{{ hostvars[host].ansible_default_ipv4.address }}#8600
-{% endfor %}
+server=/{{ consul_domain }}/127.0.0.1#8600

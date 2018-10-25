@@ -1,6 +1,15 @@
 ---
 
 
+- name: install deps (RHEL)
+  yum: >
+    pkg={{ item }}
+    state=installed
+  with_items:
+    - unzip
+    - jq
+  when: ansible_os_family == "RedHat"
+
 - name: check archive stat
   stat: path={{ consul_download_folder }}/{{ consul_archive }}
   register: consul_archive_stat
@@ -85,14 +94,33 @@
     recurse=yes
   when: consul_was_downloaded|changed
 
-- name: copy consul agent systemd script
+- name: copy consul systemd script
   template: >
-    src=consulagent.systemd.j2
-    dest=/etc/systemd/system/consulagent.service
+    src={{ consul_systemd_template }}
+    dest=/etc/systemd/system/consul.service
     owner={{ consul_user }}
     group={{ consul_group }}
     mode=0644
   when: consul_use_systemd
   notify:
     - reload systemd
-    - restart consulagent
+    - restart consul
+
+- name: copy consul init.d script
+  template: >
+    src={{ consul_initd_template }}
+    dest=/etc/init.d/consul
+    owner={{ consul_user }}
+    group={{ consul_group }}
+    mode=0755
+  when: consul_use_initd
+  notify:
+    - restart consul
+
+- name: consul config file
+  template: >
+    src=consul.json.j2
+    dest={{ consul_config_file }}
+    owner={{ consul_user }}
+    group={{ consul_group }}
+    mode=0755

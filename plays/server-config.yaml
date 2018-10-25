@@ -34,6 +34,7 @@
     - worker
   roles:
     #- { role: rexray } 
+    - { role: consul-agent }
     - { role: docker }    
     - { role: weave }
     - { role: mesos-slave }    

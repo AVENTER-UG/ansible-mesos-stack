@@ -1,8 +1,8 @@
 - service:
-    name: consulagent
+    name: consul
     state: restarted
 
 - service:
-    name: consulagent
+    name: consul
     enabled: yes
     state: started
