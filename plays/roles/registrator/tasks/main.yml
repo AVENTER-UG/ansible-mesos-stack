@@ -1,21 +1,9 @@
 ---
 
-- name: Install dependent python modules
-  pip:
-    name: "{{item}}"
-    state: present
-  with_items:
-    - google-common
-    - protobuf 
-
 - name: install docker py
   pip:
     name: docker-compose
     version: 1.9.0
-
-- name: install docker py
-  pip:
-    name: docker-py
 
 - name: download and run registrator
   docker_container:
@@ -26,4 +14,4 @@
     volumes:
       - "{{ registrator_docker_socket }}:/tmp/docker.sock"
     state: started
-    command: -cleanup -resync 10 -internal {{ registrator_uri }}
+    command: -resync 10 -internal {{ registrator_uri }}
