@@ -19,4 +19,4 @@
     volumes:
       - "{{ registrator_docker_socket }}:/tmp/docker.sock"
     state: started
-    command: -cleanup=true -ttl=120 -ttl-refresh=60 -resync 10 -internal {{ registrator_uri }}
+    command: -cleanup=true -ttl=120 -ttl-refresh=60 -resync=10 -internal=true {{ registrator_uri }}
