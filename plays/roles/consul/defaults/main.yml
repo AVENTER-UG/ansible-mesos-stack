@@ -1,7 +1,7 @@
 ---
 
 ## Consul configuration settings
-consul_version: 0.9.3
+consul_version: 1.3.0
 
 ## Don't change from here down.
 
@@ -18,7 +18,7 @@ consul_retry_join: "{% for host in groups['manager'] %}\"{{ host }}\"{% if not l
 
 consul_home: /opt/consul
 consul_config_dir: /etc/consul.d
-consul_config_file: /etc/consul.conf
+consul_config_file: /etc/consul.json
 consul_log_file: /var/log/consul
 consul_data_dir: "{{ consul_home }}/data"
 
@@ -29,7 +29,7 @@ consul_dns_service_ttl: 0s
 consul_dns_enable_truncate: false
 consul_dns_only_passing: false
 
-consul_upstart_template: "consul.conf.j2"
+consul_upstart_template: "consul.json.j2"
 consul_systemd_template: "consul.systemd.j2"
 
 consul_binary: consul
@@ -44,7 +44,7 @@ consul_use_initd: false
 consul_is_server: true
 
 consul_servers: ['127.0.0.1']
-consul_log_level: "INFO"
+consul_log_level: "ERR"
 consul_syslog: true
 consul_rejoin_after_leave: true
 consul_leave_on_terminate: true

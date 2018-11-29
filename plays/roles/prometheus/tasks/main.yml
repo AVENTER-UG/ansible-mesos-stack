@@ -1,9 +1,10 @@
 ---
 
 - name: install required packages
-  yum: name={{ item }} state=latest
-  with_items:
-    - httpd-tools
+  yum:
+    name:
+      - httpd-tools
+    state: installed
 
 - name: download prometheus
   get_url: url={{ prometheus_url }} dest=/opt mode=0440

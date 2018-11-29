@@ -4,11 +4,12 @@
   copy: src=docker-ce.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644 
 
 - name: install docker packages
-  yum: name={{ item }} state=latest
-  with_items:
-    - e2fsprogs
-    - xfsprogs
-    - docker-ce-18.06.1.ce
+  yum:
+    name:
+      - e2fsprogs
+      - xfsprogs
+      - docker-ce-18.06.1.ce
+    state: installed
 
 - name: configure docker dns
   sudo: yes

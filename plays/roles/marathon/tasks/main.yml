@@ -1,9 +1,10 @@
 ---
 
 - name: install marathon packages
-  yum: name={{ item }} state=latest
-  with_items:
-    - marathon-1.7.50.661979ed2-SNAPSHOT
+  yum:
+    name:
+      - marathon-1.7.50.661979ed2
+    state: installed
 
 - name: create vault plugin directory for marathon
   file:
@@ -15,6 +16,9 @@
 
 - name: untar vault plugin for marathon
   shell: "tar -C /etc/marathon/plugins/ -xvf /etc/marathon/plugins/*.tar"
+
+- name: remove plugin tar file
+  shell: "rm /etc/marathon/plugins/*.tar"
 
 - name: copy vault plugin config
   template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644

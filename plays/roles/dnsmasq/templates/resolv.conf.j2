@@ -1,5 +1,3 @@
 search {{ [consul_domain] | union(domain_search_list) | unique | join(' ') }}
-{% for host in groups['manager'] %}
-nameserver {{ hostvars[host]['ansible_default_ipv4']['address'] }}
-{% endfor %}
-
+nameserver 127.0.0.1
+nameserver 8.8.8.8

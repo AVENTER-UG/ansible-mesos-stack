@@ -15,7 +15,7 @@
   service:
     name: weavescope
     enabled: yes
-    state: restarted
+    state: started
   ignore_errors: true    
     
 

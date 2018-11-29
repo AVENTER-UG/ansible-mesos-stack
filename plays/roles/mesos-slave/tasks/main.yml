@@ -2,13 +2,15 @@
 
 - name: install mesos repo
   yum:
-    name: http://repos.mesosphere.io/el/7/noarch/RPMS/{{ mesosphere_repo }}
-    state: present
+    name:
+      - "http://repos.mesosphere.io/el/7/noarch/RPMS/{{ mesosphere_repo }}"
+    state: installed
 
 - name: install mesos slave packages
-  yum: name={{ item }} state=latest
-  with_items:
-    - mesos-1.6.1
+  yum:
+    name:
+      - mesos-1.6.1
+    state: installed
 
 - name: disable mesos update
   lineinfile:
