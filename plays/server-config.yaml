@@ -35,6 +35,7 @@
   serial: 30%    
   roles:
     #- { role: rexray } 
+    - { role: chronos }
     - { role: consul-agent }
     - { role: docker }    
     - { role: weave }
