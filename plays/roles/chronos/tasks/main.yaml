@@ -9,4 +9,4 @@
     service:
       name: chronos
       enabled: yes
-      state: disabled
+      state: stopped
