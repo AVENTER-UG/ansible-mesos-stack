@@ -1,4 +1,5 @@
 {
     "live-restore": true,
-    "storage-driver": "devicemapper" 
+    "storage-driver": "devicemapper",
+    "insecure-registries": ["{{ docker_registry }}:{{ docker_registry_port }}"]
 }
