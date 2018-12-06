@@ -5,10 +5,10 @@
     name: docker-compose
     version: 1.9.0
 
-- name: remove registrator container
-  docker_container:
-    name: registratorMaster
-    state: absent
+#- name: remove registrator container
+#  docker_container:
+#    name: registratorMaster
+#    state: absent
 
 - name: download and run registrator
   docker_container:
