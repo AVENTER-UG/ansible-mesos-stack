@@ -8,8 +8,7 @@
     - worker
   roles:
     - { role: centos }
-    - { role: epel }  
-
+    - { role: repos }
 
 - name: Configure Manager Server
   become: yes
@@ -34,7 +33,6 @@
   hosts: worker
   serial: 30%    
   roles:
-    #- { role: rexray } 
     - { role: chronos }
     - { role: consul-agent }
     - { role: docker }    

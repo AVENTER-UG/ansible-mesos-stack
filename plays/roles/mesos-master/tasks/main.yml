@@ -1,10 +1,4 @@
 ---
-- name: install mesos repo
-  yum:
-    name:
-      - "http://repos.mesosphere.io/el/7/noarch/RPMS/{{ mesosphere_repo }}"
-    state: installed
-
 - name: install mesos master packages
   yum:
     name:

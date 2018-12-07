@@ -12,6 +12,7 @@
 - name: Check if NetworkManager is installed
   command: rpm -q NetworkManager
   register: rpm_check
+  ignore_errors: true
 
 - name: disable update resolv conf of network manager
   copy: src=NetworkManager.conf dest=/etc/NetworkManager/NetworkManager.conf mode=0644
