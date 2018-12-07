@@ -28,6 +28,7 @@ This playbook deploys a full Mesos cluster.
 | CAdavisor          | Docker engine monitoring   | Docker image |
 | Registrator        | Register Microservier name | Docker image |
 | Consul  1.3.0      | Consul Client              | Binary       |
+| Chronos 2.5.1      | Chronos Server             | RPM          |
 
 ### Graylog 
 
