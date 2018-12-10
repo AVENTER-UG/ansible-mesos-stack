@@ -43,6 +43,13 @@
     job: "docker container prune -f > /dev/null"
     state: present  
 
+- name: Add cron job to prune local docker volumes
+  cron:
+    name: "prune local docker volumes"
+    minute: "0"
+    job: "docker volume prune -f > /dev/null"
+    state: present
+
 - name: reload systemd
   shell: systemctl daemon-reload
 
