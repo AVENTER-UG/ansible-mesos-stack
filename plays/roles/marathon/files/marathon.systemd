@@ -5,7 +5,7 @@ Wants=network.target
 
 [Service]
 EnvironmentFile=-/etc/sysconfig/marathon
-ExecStart=/usr/bin/marathon --plugin_dir /etc/marathon/plugins/ --plugin_conf /etc/marathon/plugins-conf.json
+ExecStart=/usr/bin/marathon --plugin_dir /etc/marathon/plugins/ --plugin_conf /etc/marathon/plugins-conf.json --enable_features external_volume
 Restart=always
 RestartSec=20
 
