@@ -54,7 +54,7 @@
   lineinfile: dest=/etc/sysconfig/marathon state=present line="JAVA_OPTS=-XX:MaxDirectMemorySize=1G" create=yes
 
 - name: enable vault plugin
-  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes" create=yes
 
 
 - name: copy marathon systemd 
