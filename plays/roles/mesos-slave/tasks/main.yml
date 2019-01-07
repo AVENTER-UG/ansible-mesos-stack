@@ -14,6 +14,12 @@
   with_items:
     - { line: 'exclude=mesos-*' }
 
+- name: copy modules config
+  copy: 
+    src: modules.config 
+    dest: /etc/mesos-slave/modules 
+    mode: 0755    
+
 - name: Delete old zk entry
   file: path=/etc/mesos/zk state=absent
 
