@@ -1,19 +1,20 @@
 ---
-network.host: "{{ ansible_default_ipv4.address }}"
-network.bind_host: "{{ ansible_default_ipv4.address }}"
-node.name: "graylog_elasticsearch"
-index.number_of_replicas: 0
-index.number_of_shards: 1
+network.host: "{{ host_private_ipv4_address }}"
+network.bind_host: "{{ host_private_ipv4_address }}"
+node.name: "graylog"
+# index.number_of_replicas: 0
+# index.number_of_shards: 1
 cluster.name: "{{ es_cluster_name }}"
 transport.tcp.port: "9300"
-discovery.zen.ping.multicast.enabled: false
-discovery.zen.ping.unicast.hosts: ["{{ ansible_default_ipv4.address }}:9300"]
+#discovery.zen.ping.multicast.enabled: false
+discovery.zen.ping.unicast.hosts: ["{{ host_private_ipv4_address }}:9300"]
 http.port: "9200"
-action.disable_close_all_indices: true
-action.disable_delete_all_indices: true
-action.disable_shutdown: true
+#action.disable_close_all_indices: true
+#action.disable_delete_all_indices: true
+#action.disable_shutdown: true
 script.inline: false
-script.indexed: false
+#script.indexed: false
 script.file: false
 node.master: true
-path.data: {{ es_path_data }}
+path.data: {{ es_path_data }}/{{ es_cluster_name }}
+
