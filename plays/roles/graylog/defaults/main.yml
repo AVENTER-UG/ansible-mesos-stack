@@ -1,5 +1,4 @@
 ---
----
 
 graylog_version: "2.5"
 graylog_repo: "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
