@@ -9,7 +9,7 @@ prometheus_url: "https://github.com/prometheus/prometheus/releases/download/v{{ 
 prometheus_user: "prometheus"
 prometheus_group: "prometheus"
 
-prometheus_retention: "7d"
+prometheus_retention: "148h"
 
 alertmanager_prometheus_url: "https://github.com/prometheus/alertmanager/releases/download/v{{ alertmanager_release }}/alertmanager-{{ alertmanager_release }}.linux-amd64.tar.gz"
 alertmanager_prometheus_package: "alertmanager-{{ alertmanager_release }}.linux-amd64.tar.gz"
