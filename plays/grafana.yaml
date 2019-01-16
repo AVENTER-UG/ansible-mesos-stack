@@ -1,0 +1,17 @@
+- name: Install PROMETHEUS on all servers
+  become: yes
+  hosts: grafana
+  roles:
+    - { role: prometheus }
+    - { role: grafana }
+
+- name: Install PROMETHEUS on all servers
+  become: yes
+  hosts: 
+    - manager
+    - worker
+    - vpn
+    - grafana
+    - legacy    
+  roles:
+    - { role: prometheus-node-exporter } 
