@@ -23,6 +23,9 @@
     group: "{{ grafana_gid }}"
   with_items:
   - node-exporter-metrics.json
+  - docker.json
+  - platform.json
+  - docker-metric.json
 
 - name: enable graylog server as startup
   service: 
