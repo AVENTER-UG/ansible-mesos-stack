@@ -13,5 +13,6 @@
     - vpn
     - grafana
     - legacy    
+    - scaleio
   roles:
     - { role: prometheus-node-exporter } 

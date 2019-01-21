@@ -1,9 +1,0 @@
-[Unit]
-Description=haproxy Exporter
-
-[Service]
-User=root
-ExecStart=/opt/haproxy-exporter/haproxy_exporter-{{ haproxy_exporter_release }}.linux-{{ haproxy_exporter_arch }}/haproxy_exporter --web.listen-address=0.0.0.0:9100 --haproxy.scrape-uri unix:/run/haproxy/admin.sock
-
-[Install]
-WantedBy=default.target

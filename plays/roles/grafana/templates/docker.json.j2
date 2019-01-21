@@ -127,7 +127,8 @@
               "intervalFactor": 1,
               "refId": "G",
               "step": 20
-            },
+            }
+{% if not loop.last %},{% endif %}            
 {% endfor %}            
           ],
           "thresholds": [],
@@ -268,7 +269,8 @@
               "intervalFactor": 1,
               "refId": "G",
               "step": 20
-            },
+            }
+{% if not loop.last %},{% endif %}            
 {% endfor %}                
           ],
           "thresholds": [],

@@ -67,13 +67,6 @@
     - legacy
   roles:     
     - { role: prometheus-node-exporter }
-
-- name: Install PROMETHEUS haproxy-exporter on haproxy server
-  become: yes
-  hosts: haproxy
-  roles:
-    - { role: prometheus-haproxy-exporter } 
-
    
 - name: Configure Graylog
   hosts: graylog
