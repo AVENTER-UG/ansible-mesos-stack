@@ -3,11 +3,10 @@
 - name: install dnsmasq packages
   sudo: yes
   yum:
-    name: "{{ item }}"
+    name: 
+      - dnsmasq
+      - bind-utils
     state: latest
-  with_items:
-    - dnsmasq
-    - bind-utils
 
 - name: Check if NetworkManager is installed
   command: rpm -q NetworkManager
