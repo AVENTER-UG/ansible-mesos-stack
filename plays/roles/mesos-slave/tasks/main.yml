@@ -3,7 +3,7 @@
 - name: install mesos slave packages
   yum:
     name:
-      - mesos-1.6.1
+      - mesos-1.8.0
     state: installed
 
 - name: disable mesos update

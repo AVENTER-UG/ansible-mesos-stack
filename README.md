@@ -10,11 +10,11 @@ This playbook deploys a full Mesos cluster.
 
 | Software version   | Role              | Install type                       |
 | ------------------ | :---------------: | :--------------------------------: |
-| Mesos 1.6.1        | Mesos masters     | RPM                                |
-| Marathon 1.7.189   | Marathon masters  | RPM                                |
+| Mesos 1.8.0        | Mesos masters     | RPM                                |
+| Marathon 1.7.216   | Marathon masters  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
 | Consul  1.3.0      | Consul server     | Binary                             |
-| Docker  18.06.1.ce | Docker engine     | RPM                                |
+| Docker  18.09.ce   | Docker engine     | RPM                                |
 
 ### Worker node
 
