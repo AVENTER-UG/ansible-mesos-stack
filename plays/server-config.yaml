@@ -13,7 +13,7 @@
 - name: Configure Manager Server
   become: yes
   hosts: manager
-  serial: 20%
+  serial: 40%
   roles:
     - { role: consul }
     - { role: mesos-master }    
@@ -30,7 +30,7 @@
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 30%    
+  serial: 40%    
   roles:
     - { role: chronos }
     - { role: consul-agent }
@@ -39,14 +39,11 @@
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
-    ##- { role: weave_plugin_mesos }     macht probleme beim mesos start
-    - { role: registrator }         
-    - { role: cadvisor }    
 
 - name: Start marathon
   become: yes
   hosts: manager
-  serial: 20%
+  serial: 40%
   roles:
     - { role: marathon }        
   
