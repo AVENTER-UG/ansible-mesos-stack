@@ -38,6 +38,18 @@
 - name: add mesos-slave credentials
   lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" create=yes  
 
+- name: add mesos-slave http credentials
+  lineinfile: dest=/etc/mesos-slave/http_credentials state=present line="/etc/mesos/credential" create=yes  
+
+- name: enable cluster http readonly authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
+
+- name: enable cluster http readwrite authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"  
+
+- name: enable cluster http authenticators
+  lineinfile: dest=/etc/mesos-master/http_authenticators state=present create=yes regexp="^" line="basic"  
+
 - name: add weave.socks to the mesos-slave
   lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" create=yes  
 
