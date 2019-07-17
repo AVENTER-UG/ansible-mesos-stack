@@ -21,7 +21,7 @@
   lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
 
 - name: configure mesos master nodes
-  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/marathon"
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: set hostname in marathon
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_ROLE=marathon" create=yes
