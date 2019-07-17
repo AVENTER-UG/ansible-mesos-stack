@@ -56,6 +56,11 @@
 - name: enable vault plugin
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes" create=yes
 
+- name: symlink marathon
+  file: 
+    src: /usr/share/marathon/bin/marathon
+    dest: /usr/bin/marathon
+    state: link
 
 - name: copy marathon systemd 
   copy: src=marathon.systemd dest=/etc/systemd/system/marathon.service mode=0644  
