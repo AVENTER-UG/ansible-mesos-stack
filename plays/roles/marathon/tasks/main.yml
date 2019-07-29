@@ -3,7 +3,7 @@
 - name: install marathon packages
   yum:
     name:
-      - marathon-1.7.50.661979ed2
+      - marathon-1.7.189
     state: installed
 
 - name: create vault plugin directory for marathon
@@ -54,8 +54,13 @@
   lineinfile: dest=/etc/sysconfig/marathon state=present line="JAVA_OPTS=-XX:MaxDirectMemorySize=1G" create=yes
 
 - name: enable vault plugin
-  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes" create=yes
 
+- name: symlink marathon
+  file: 
+    src: /usr/share/marathon/bin/marathon
+    dest: /usr/bin/marathon
+    state: link
 
 - name: copy marathon systemd 
   copy: src=marathon.systemd dest=/etc/systemd/system/marathon.service mode=0644  

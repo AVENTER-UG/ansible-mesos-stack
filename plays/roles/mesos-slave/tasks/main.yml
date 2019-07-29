@@ -3,7 +3,7 @@
 - name: install mesos slave packages
   yum:
     name:
-      - mesos-1.6.1
+      - mesos-1.8.0
     state: installed
 
 - name: disable mesos update
@@ -13,6 +13,12 @@
     insertafter='EOF'
   with_items:
     - { line: 'exclude=mesos-*' }
+
+- name: copy modules config
+  copy: 
+    src: modules.config 
+    dest: /etc/mesos-slave/modules 
+    mode: 0755    
 
 - name: Delete old zk entry
   file: path=/etc/mesos/zk state=absent
@@ -31,6 +37,18 @@
 
 - name: add mesos-slave credentials
   lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" create=yes  
+
+- name: add mesos-slave http credentials
+  lineinfile: dest=/etc/mesos-slave/http_credentials state=present line="/etc/mesos/credential" create=yes  
+
+- name: enable cluster http readonly authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
+
+- name: enable cluster http readwrite authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"  
+
+- name: enable cluster http authenticators
+  lineinfile: dest=/etc/mesos-master/http_authenticators state=present create=yes regexp="^" line="basic"  
 
 - name: add weave.socks to the mesos-slave
   lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" create=yes  

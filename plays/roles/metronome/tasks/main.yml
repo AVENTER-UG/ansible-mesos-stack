@@ -1,0 +1,51 @@
+---
+
+- name: copy metronome universal bin
+  copy: 
+    src: metronome-0.6.30.zip 
+    dest: /tmp/metronome-0.6.30.zip
+
+- name: unzip metronome archive
+  shell: "unzip /tmp/metronome-0.6.30.zip -d /opt/mesosphere/"
+
+- name: symlink metronome metronome 
+  file: 
+    src: /opt/mesosphere/metronome-0.6.30-f526afb 
+    dest: /opt/mesosphere/metronome
+    state: link
+
+- name: Delete old metronome config
+  file: path=/etc/sysconfig/metronome state=absent
+
+- name: configure mesos master nodes
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
+
+- name: configure mesos master nodes
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+
+- name: set hostname in marathon
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_ROLE=marathon" create=yes
+  
+- name: enable mesos authenticaton
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_ENABLED=true" create=yes
+
+- name: enable mesos principal
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_PRINCIPAL=marathon" create=yes
+
+- name: enable mesos secret file
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
+
+- name: copy metronome systemd 
+  copy: 
+    src: metronome.systemd 
+    dest: /etc/systemd/system/metronome.service 
+    mode: 0644  
+
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: start metronome
+  service:
+    name: "metronome"
+    enabled: yes
+    state: restarted

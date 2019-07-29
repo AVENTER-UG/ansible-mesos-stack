@@ -2,7 +2,7 @@
 - name: install mesos master packages
   yum:
     name:
-      - mesos-1.6.1
+      - mesos-1.8.0
       - mesosphere-zookeeper-3.4.6
     state: installed
 
@@ -61,6 +61,12 @@
 
 - name: enable cluster agent authentication
   lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
+
+- name: enable cluster http readonly authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
+
+- name: enable cluster http readwrite authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
 
 - name: enable cluster credentials
   lineinfile: dest=/etc/mesos-master/credentials state=present create=yes regexp="^" line="/etc/mesos/credentials"

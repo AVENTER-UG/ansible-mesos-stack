@@ -13,11 +13,10 @@
 - name: Configure Manager Server
   become: yes
   hosts: manager
-  serial: 20%
+  serial: 40%
   roles:
     - { role: consul }
-    - { role: mesos-master }
-    - { role: prometheus-node-exporter }
+    - { role: mesos-master }    
 
 - name: Configure DNS
   become: yes
@@ -31,7 +30,7 @@
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 30%    
+  serial: 40%    
   roles:
     - { role: chronos }
     - { role: consul-agent }
@@ -40,35 +39,38 @@
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
-    - { role: weaveexpose }    
-    - { role: registrator }         
-    - { role: cadvisor }    
 
 - name: Start marathon
   become: yes
   hosts: manager
-  serial: 20%
+  serial: 40%
   roles:
     - { role: marathon }        
   
-- name: Install PROMETHEUS on all servers
+- name: Install PROMETHEUS and Grafana
   become: yes
-  hosts: prometheus
+  hosts: grafana
   roles:
     - { role: prometheus }
+    - { role: grafana }
 
-- name: Install PROMETHEUS haproxy-exporter on haproxy server
+- name: Install PROMETHEUS node-exporter on all servers
   become: yes
-  hosts: haproxy
-  roles:
-    - { role: prometheus-haproxy-exporter } 
-
+  hosts: 
+    - manager
+    - worker
+    - vpn
+    - grafana
+    - legacy
+  roles:     
+    - { role: prometheus-node-exporter }
    
-#- name: Configure Graylog
-#  hosts: graylog
-#  roles:
-#    - { role: elasticsearch }
-#    - { role: mongodb }    
-#    - { role: graylog }    
+- name: Configure Graylog
+  hosts: graylog
+  roles:
+    - { role: elasticsearch }
+    - { role: mongodb }    
+    - { role: graylog }    
+
 
     

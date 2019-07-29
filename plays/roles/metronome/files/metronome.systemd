@@ -1,0 +1,13 @@
+[Unit]
+Description=Metronome
+After=network.target
+Wants=network.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/metronome
+ExecStart=/opt/mesosphere/metronome/bin/metronome
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target

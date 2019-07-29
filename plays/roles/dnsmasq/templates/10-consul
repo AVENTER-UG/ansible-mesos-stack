@@ -10,4 +10,5 @@ server={{ dns1 }}
 server={{ dns2 }}
 
 # configure DNS resolution to consul servers
-server=/{{ consul_domain }}/{{ ansible_default_ipv4.address }}#8600
+server=/marathon.{{ consul_domain }}/{{ dns1 }}#53
+server=/service.{{ consul_domain }}/{{ ansible_default_ipv4.address }}#8600
