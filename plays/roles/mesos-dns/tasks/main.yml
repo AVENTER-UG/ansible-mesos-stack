@@ -1,0 +1,33 @@
+---
+- name: download mesos-dns
+  get_url:
+    url: "{{ mesos_dns_download_url }}"
+    dest: /usr/bin/mesos-dns
+    mode: '0755'
+    force: yes
+
+- name: create config dir for mesos-dns
+  file:
+    path: /etc/mesos-dns
+    state: directory
+
+- name: create mesos-dns config file
+  template: 
+    src: mesos-dns.json.j2 
+    dest: /etc/mesos-dns/config.json 
+    mode: 0644
+
+- name: copy mesos-dns systemd 
+  copy: 
+    src: mesos-dns.systemd 
+    dest: /etc/systemd/system/mesos-dns.service 
+    mode: 0644  
+
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: start mesos-dns
+  service:
+    name: "mesos-dns"
+    enabled: yes
+    state: restarted

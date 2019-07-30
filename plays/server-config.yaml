@@ -16,6 +16,7 @@
   serial: 40%
   roles:
     - { role: consul }
+    - { role: mesos-dns } 
     - { role: mesos-master }    
 
 - name: Configure DNS
