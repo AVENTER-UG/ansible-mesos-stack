@@ -4,6 +4,7 @@ After=network.target
 Wants=network.target
 
 [Service]
+User=av_mesos_dns
 ExecStart=/usr/bin/mesos-dns -config=/etc/mesos-dns/config.json
 Restart=on-failure
 RestartSec=20
