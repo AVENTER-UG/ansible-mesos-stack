@@ -1,0 +1,5 @@
+---
+
+mesos_dns_version: "v0.7.0-rc2"
+mesos_dns_arch: "linux-amd64"
+mesos_dns_download_url: "https://github.com/mesosphere/mesos-dns/releases/download/{{ mesos_dns_version }}/mesos-dns-{{ mesos_dns_version }}-{{ mesos_dns_arch }}"

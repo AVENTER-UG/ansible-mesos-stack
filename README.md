@@ -4,18 +4,37 @@
 
 This playbook deploys a full Mesos cluster.
 
+## Requirements
+
+- CentOS 1.7
+
+## How to use
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
+```
+
+## Support
+
+Please don't hesitate an talk with us if you have questions.
+
+- https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
+
 ## v0.10.0
+
+With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks. Its not a replace of consul. Consul will resolve the weave ip address inside the container. Mesos-DNS will resolv the IP address of the host where the task is running.
 
 ### Manager node
 
-| Software version   | Role              | Install type                       |
-| ------------------ | :---------------: | :--------------------------------: |
-| Mesos 1.8.0        | Mesos masters     | RPM                                |
-| Marathon 1.8.218   | Marathon masters  | RPM                                |
-| Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
-| Consul  1.3.0      | Consul server     | Binary                             |
-| Docker  18.09.ce   | Docker engine     | RPM                                |
-| Metronome 0.6.30   | Shedule Server    | JAVA dependencies to Marathon      |
+| Software version   | Role                              | Install type                       |
+| ------------------ | :-------------------------------: | :--------------------------------: |
+| Mesos 1.8.0        | Mesos masters                     | RPM                                |
+| Marathon 1.8.218   | Marathon masters                  | RPM                                |
+| Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
+| Consul  1.3.0      | Service Discovery for Container   | Binary                             |
+| Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
+| Docker  18.09.ce   | Docker engine                     | RPM                                |
+| Metronome 0.6.30   | Shedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
 

@@ -1,0 +1,10 @@
+{
+  "zk": "zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
+  "refreshSeconds": 60,
+  "ttl": 60,
+  "domain": "mesos",
+  "port": 1153,
+  "resolvers": ["127.0.0.1"],
+  "timeout": 5,
+  "email": "root.mesos-dns.mesos"
+}
