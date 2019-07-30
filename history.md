@@ -1,3 +1,5 @@
+# Past Versions
+
 ## v0.9.0
 
 ### Manager node
@@ -24,7 +26,7 @@
 | Registrator        | Register Microservier name | Docker image |
 | Consul  1.3.0      | Consul Client              | Binary       |
 
-### Graylog 
+### Graylog
 
 | Software version    | Role           | Install type |
 | ------------------- | :------------: | :----------: |
@@ -63,7 +65,7 @@
 | Consul  1.3.0      | Consul Client              | Binary       |
 | Chronos 2.5.1      | Chronos Server             | RPM          |
 
-### Graylog 
+### Graylog
 
 | Software version    | Role           | Install type |
 | ------------------- | :------------: | :----------: |
@@ -72,6 +74,7 @@
 | MongoDB             | NoSQL Database | RPM          |
 
 ### Prometheus
+
 | Software version | Role                            | Install type |
 | ---------------- | :-----------------------------: | :----------: |
 | Prometheus 1.7.1 | Timesserie database for metrics | Docker image |
