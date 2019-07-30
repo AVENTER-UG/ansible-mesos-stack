@@ -49,7 +49,7 @@
 
 - name: enable cluster http authenticators
   lineinfile: dest=/etc/mesos-master/http_authenticators state=present create=yes regexp="^" line="basic"  
-zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesoszk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos
+
 - name: add weave.socks to the mesos-slave
   lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" create=yes  
 

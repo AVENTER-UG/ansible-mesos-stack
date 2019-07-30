@@ -1,5 +1,11 @@
 {
   "zk": "zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
+  "masters": [{% for host in groups['manager'] %}"{{ hostvars[host]['ansible_default_ipv4']['address'] }}:5050"{% if not loop.last %},{% endif %}{% endfor %}],
+  "mesosCredentials": {
+    "principal": "{{ mesos_user }}",
+    "secret": "{{ mesos_password }}"
+  },  
+  "mesosAuthentication": "basic",
   "refreshSeconds": 60,
   "ttl": 60,
   "domain": "mesos",
@@ -8,3 +14,4 @@
   "timeout": 5,
   "email": "root.mesos-dns.mesos"
 }
+
