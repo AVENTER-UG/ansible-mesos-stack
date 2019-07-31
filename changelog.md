@@ -5,6 +5,10 @@
 - Add Mesos-DNS User
 - Add Marathon User
 - Enable Marathon features vips,task_killing,external_volumes,gpu_resources
+- Change Mesos-DNS Port for a future compatibility to DC/OS
+- Performance optimation of Mesos Master
+- Extend Mesos Slave isolation
+- Change deprecated parameters of mesos
 
 # v0.10.0
 

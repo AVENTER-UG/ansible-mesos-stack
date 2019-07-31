@@ -31,6 +31,9 @@
   with_items:
     - "{% for host in groups['manager'] %}server.{{ hostvars[host].myid }}={{ host }}:2888:3888\n{% endfor %}"
 
+- name: Remove deprecated config files
+  file: path=/etc/mesos-master/authenticate state=absent
+
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
 
@@ -57,7 +60,7 @@
   lineinfile: dest=/etc/mesos-master/cluster state=present create=yes regexp="^" line="{{ mesos_clustername }}"
 
 - name: enable cluster authentication
-  lineinfile: dest=/etc/mesos-master/authenticate state=present create=yes regexp="^" line="true"
+  lineinfile: dest=/etc/mesos-master/authenticate_frameworks state=present create=yes regexp="^" line="true"
 
 - name: enable cluster agent authentication
   lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
@@ -73,6 +76,27 @@
 
 - name: enable cluster acls
   lineinfile: dest=/etc/mesos-master/acls state=present create=yes regexp="^" line="file:///etc/mesos/acls"
+
+- name: disable hostname lookup
+  lineinfile: dest=/etc/mesos-master/hostname_lookup state=present create=yes regexp="^" line="false"
+
+- name: set slave ping timeouts
+  lineinfile: dest=/etc/mesos-master/max_agent_ping_timeouts state=present create=yes regexp="^" line="20"
+
+- name: set memory profiling
+  lineinfile: dest=/etc/mesos-master/memory_profiling state=present create=yes regexp="^" line="true"
+
+- name: set offer timeout
+  lineinfile: dest=/etc/mesos-master/offer_timeout state=present create=yes regexp="^" line="2mins"
+
+- name: set role sorter
+  lineinfile: dest=/etc/mesos-master/role_sorter state=present create=yes regexp="^" line="random"
+
+- name: set framework sorter
+  lineinfile: dest=/etc/mesos-master/framework_sorter state=present create=yes regexp="^" line="random"
+
+- name: set slave removal rate limit
+  lineinfile: dest=/etc/mesos-master/agent_removal_rate_limit state=present create=yes regexp="^" line="100/1mins"
 
 - name: copy mesos credentials
   template: src=credentials.j2 dest=/etc/mesos/credentials mode=0640

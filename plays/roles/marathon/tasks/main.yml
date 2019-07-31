@@ -24,7 +24,7 @@
   template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
  
 - name: Delete old marathon config
-  file: path=/etc/sysconfig/marathon state=absent
+  file: path=/etc/sysconfig/marathon state=absent  
 
 - name: configure mesos master nodes
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_MASTER=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
@@ -58,6 +58,12 @@
 
 - name: enable vault plugin
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes,vips,task_killing,gpu_resources" create=yes
+
+- name: Change group owner of secret file
+  file:
+    path: /etc/mesos/marathon.secret
+    owner: root
+    group: av_marathon
 
 - name: symlink marathon
   file: 

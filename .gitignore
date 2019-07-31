@@ -1,4 +1,5 @@
 vagrant/.vagrant
 plays/*.retry
+plays/test.yaml
 .vscode
 inventory/default
