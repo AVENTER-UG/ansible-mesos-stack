@@ -47,6 +47,9 @@
 - name: enable mesos role
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_ROLE=marathon" create=yes
 
+- name: enable mesos user
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_USER=root" create=yes
+
 - name: enable basic authentication
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_HTTP_CREDENTIALS={{ marathon_basic_auth }}" create=yes
 

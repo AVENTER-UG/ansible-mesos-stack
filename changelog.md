@@ -3,6 +3,8 @@
 - Activate Metronome
 - Add Metronome User
 - Add Mesos-DNS User
+- Add Marathon User
+- Enable Marathon features vips,task_killing,external_volumes,gpu_resources
 
 # v0.10.0
 
