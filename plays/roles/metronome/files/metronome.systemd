@@ -4,6 +4,7 @@ After=network.target
 Wants=network.target
 
 [Service]
+User=av_metronome
 EnvironmentFile=-/etc/sysconfig/metronome
 ExecStart=/opt/mesosphere/metronome/bin/metronome
 Restart=always

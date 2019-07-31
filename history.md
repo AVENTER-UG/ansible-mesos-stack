@@ -14,7 +14,7 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Consul  1.3.0      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
 | Docker  18.09.ce   | Docker engine                     | RPM                                |
-| Metronome 0.6.30   | Shedule Server                    | JAVA dependencies to Marathon      |
+| Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
 
@@ -53,7 +53,7 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
 | Consul  1.3.0      | Consul server     | Binary                             |
 | Docker  18.09.ce   | Docker engine     | RPM                                |
-| Metronome 0.6.30   | Shedule Server    | JAVA dependencies to Marathon      |
+| Metronome 0.6.30   | Schedule Server    | JAVA dependencies to Marathon      |
 
 ### Worker node
 

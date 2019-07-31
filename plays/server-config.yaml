@@ -17,7 +17,7 @@
   roles:
     - { role: consul }
     - { role: mesos-dns } 
-    - { role: mesos-master }    
+    - { role: mesos-master }        
 
 - name: Configure DNS
   become: yes
@@ -41,12 +41,13 @@
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
 
-- name: Start marathon
+- name: Start Frameworks
   become: yes
   hosts: manager
   serial: 40%
   roles:
-    - { role: marathon }        
+    - { role: marathon }
+    - { role: metronome }
   
 - name: Install PROMETHEUS and Grafana
   become: yes

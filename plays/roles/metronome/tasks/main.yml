@@ -35,6 +35,22 @@
 - name: enable mesos secret file
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
 
+- name: create metronome group
+  group:
+    name: av_metronome
+    gid: 987
+    system: yes
+    state: present
+
+- name: create metronome user
+  user:
+    name: av_metronome
+    uid: 987
+    group: av_metronome
+    create_home: no
+    system: yes
+    state: present
+
 - name: copy metronome systemd 
   copy: 
     src: metronome.systemd 
