@@ -24,7 +24,7 @@
   file: path=/etc/mesos/zk state=absent
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: set hostname in mesos
   lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
@@ -55,6 +55,18 @@
 
 - name: set slave ip in mesos
   lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
+
+- name: disable hostname lookup
+  lineinfile: dest=/etc/mesos-slave/hostname_lookup state=present create=yes regexp="^" line="false"
+
+- name: set memory profiling
+  lineinfile: dest=/etc/mesos-slave/memory_profiling state=present create=yes regexp="^" line="true"
+
+- name: set mesos isolation
+  lineinfile: dest=/etc/mesos-slave/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities"
+
+- name: set image provider
+  lineinfile: dest=/etc/mesos-slave/image_providers state=present create=yes regexp="^" line="appc,docker"
 
 - name: copy mesos credential
   template: src=credential.j2 dest=/etc/mesos/credential mode=0640  

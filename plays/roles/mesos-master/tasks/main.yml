@@ -14,6 +14,9 @@
   with_items:
     - { line: 'exclude=mesos-*' }
 
+- name: enable zookeeper authentication
+  lineinfile: dest=/etc/zookeeper/conf/java.env state=present regexp="^" line="SERVER_JVMFLAGS=\"-Djava.security.auth.login.config=/etc/zookeeper/conf/jaas.conf\"" create=yes
+
 - name: set master ID
   lineinfile: dest=/var/lib/zookeeper/myid state=present regexp="^" line="{{ myid }}" create=yes
 
@@ -31,6 +34,23 @@
   with_items:
     - "{% for host in groups['manager'] %}server.{{ hostvars[host].myid }}={{ host }}:2888:3888\n{% endfor %}"
 
+- name: add sasl to config
+  lineinfile:
+    dest=/etc/zookeeper/conf/zoo.cfg
+    line="{{ item }}"
+    state=present
+  with_items:
+    - "authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider"
+    - "requireClientAuthScheme=sasl"
+
+- name: Remove deprecated config files
+  file: 
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/mesos-master/authenticate"
+    - "/etc/mesos-master/authenticate_http_readonly"
+
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
 
@@ -38,10 +58,7 @@
   file: path=/etc/mesos/zk state=absent
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
-
-#- name: clean blank spaces in zk config
-#  shell: sed -i '/^\s*$/d' /etc/mesos/zk
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: set quorom count
   lineinfile: dest=/etc/mesos-master/quorum state=present regexp="^" line="{{ quorum }}" create=yes
@@ -57,22 +74,40 @@
   lineinfile: dest=/etc/mesos-master/cluster state=present create=yes regexp="^" line="{{ mesos_clustername }}"
 
 - name: enable cluster authentication
-  lineinfile: dest=/etc/mesos-master/authenticate state=present create=yes regexp="^" line="true"
-
-- name: enable cluster agent authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
-
-- name: enable cluster http readonly authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
+  lineinfile: dest=/etc/mesos-master/authenticate_frameworks state=present create=yes regexp="^" line="true"
 
 - name: enable cluster http readwrite authentication
   lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
+
+- name: enable cluster agent authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
 
 - name: enable cluster credentials
   lineinfile: dest=/etc/mesos-master/credentials state=present create=yes regexp="^" line="/etc/mesos/credentials"
 
 - name: enable cluster acls
   lineinfile: dest=/etc/mesos-master/acls state=present create=yes regexp="^" line="file:///etc/mesos/acls"
+
+- name: disable hostname lookup
+  lineinfile: dest=/etc/mesos-master/hostname_lookup state=present create=yes regexp="^" line="false"
+
+- name: set slave ping timeouts
+  lineinfile: dest=/etc/mesos-master/max_agent_ping_timeouts state=present create=yes regexp="^" line="20"
+
+- name: set memory profiling
+  lineinfile: dest=/etc/mesos-master/memory_profiling state=present create=yes regexp="^" line="true"
+
+- name: set offer timeout
+  lineinfile: dest=/etc/mesos-master/offer_timeout state=present create=yes regexp="^" line="2mins"
+
+- name: set role sorter
+  lineinfile: dest=/etc/mesos-master/role_sorter state=present create=yes regexp="^" line="random"
+
+- name: set framework sorter
+  lineinfile: dest=/etc/mesos-master/framework_sorter state=present create=yes regexp="^" line="random"
+
+- name: set slave removal rate limit
+  lineinfile: dest=/etc/mesos-master/agent_removal_rate_limit state=present create=yes regexp="^" line="100/1mins"
 
 - name: copy mesos credentials
   template: src=credentials.j2 dest=/etc/mesos/credentials mode=0640
@@ -82,6 +117,9 @@
 
 - name: copy marathon secret
   template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640  
+
+- name: copy zookeeper jaas file
+  template: src=jaas.conf.j2 dest=/etc/zookeeper/conf/jaas.conf mode=0640  
 
 - name: start necessary services
   service:

@@ -21,9 +21,7 @@ Please don't hesitate an talk with us if you have questions.
 
 - https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
 
-## v0.10.0
-
-With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks. Its not a replace of consul. Consul will resolve the weave ip address inside the container. Mesos-DNS will resolv the IP address of the host where the task is running.
+## v0.11.0
 
 ### Manager node
 
@@ -32,10 +30,10 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Mesos 1.8.0        | Mesos masters                     | RPM                                |
 | Marathon 1.8.218   | Marathon masters                  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Consul  1.3.0      | Service Discovery for Container   | Binary                             |
+| Consul  1.5.3      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
 | Docker  18.09.ce   | Docker engine                     | RPM                                |
-| Metronome 0.6.30   | Shedule Server                    | JAVA dependencies to Marathon      |
+| Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
 
@@ -43,12 +41,12 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | ------------------ | :------------------------: | :----------: |
 | Mesos 1.6.1        | Mesos slave                | RPM          |
 | Docker  18.06.1.ce | Docker engine              | RPM          |
-| Weave 2.1.3        | Container networking       | Docker image |
-| Weavescope 1.6.7   | Container Management       | Docker image |
+| Weave 2.5.2        | Container networking       | Docker image |
+| Weavescope 1.11.3  | Container Management       | Docker image |
 | DNSMasq 2          | Container DNS              | RPM          |
 | CAdavisor          | Docker engine monitoring   | Docker image |
 | Registrator        | Register Microservier name | Docker image |
-| Consul  1.3.0      | Consul Client              | Binary       |
+| Consul  1.5.3      | Consul Client              | Binary       |
 
 ### Graylog 
 
@@ -59,6 +57,7 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | MongoDB             | NoSQL Database | RPM          |
 
 ### Prometheus
+
 | Software version | Role                            | Install type |
 | ---------------- | :-----------------------------: | :----------: |
 | Prometheus 1.7.1 | Timesserie database for metrics | Docker image |

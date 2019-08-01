@@ -17,6 +17,20 @@
     dest: /etc/mesos-dns/config.json 
     mode: 0644
 
+- name: create mesos_dns group
+  group:
+    name: av_mesos_dns
+    system: yes
+    state: present
+
+- name: create mesos_dns user
+  user:
+    name: av_mesos_dns
+    group: av_mesos_dns
+    create_home: no
+    system: yes
+    state: present
+
 - name: copy mesos-dns systemd 
   copy: 
     src: mesos-dns.systemd 

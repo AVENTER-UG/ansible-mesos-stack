@@ -1,5 +1,5 @@
 {
-  "zk": "zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
+  "zk": "zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
   "masters": [{% for host in groups['manager'] %}"{{ hostvars[host]['ansible_default_ipv4']['address'] }}:5050"{% if not loop.last %},{% endif %}{% endfor %}],
   "mesosCredentials": {
     "principal": "{{ mesos_user }}",
@@ -9,7 +9,7 @@
   "refreshSeconds": 60,
   "ttl": 60,
   "domain": "mesos",
-  "port": 1153,
+  "port": 61053,
   "resolvers": ["127.0.0.1"],
   "timeout": 5,
   "email": "root.mesos-dns.mesos"

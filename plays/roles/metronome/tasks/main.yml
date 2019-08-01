@@ -1,16 +1,20 @@
 ---
+- name: download mesos-dns
+  get_url:
+    url: "{{ metronome_download_url }}"
+    dest: /tmp/metronome.tgz
+    mode: '0755'
+    force: yes
 
-- name: copy metronome universal bin
-  copy: 
-    src: metronome-0.6.30.zip 
-    dest: /tmp/metronome-0.6.30.zip
-
-- name: unzip metronome archive
-  shell: "unzip /tmp/metronome-0.6.30.zip -d /opt/mesosphere/"
+- name: extract metronome archive
+  unarchive:
+    src: /tmp/metronome.tgz
+    dest: /opt/mesosphere/
+    remote_src: yes
 
 - name: symlink metronome metronome 
   file: 
-    src: /opt/mesosphere/metronome-0.6.30-f526afb 
+    src: /opt/mesosphere/metronome-{{ metronome_version }}
     dest: /opt/mesosphere/metronome
     state: link
 
@@ -18,7 +22,7 @@
   file: path=/etc/sysconfig/metronome state=absent
 
 - name: configure mesos master nodes
-  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
 
 - name: configure mesos master nodes
   lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
@@ -34,6 +38,20 @@
 
 - name: enable mesos secret file
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
+
+- name: create metronome group
+  group:
+    name: av_metronome
+    system: yes
+    state: present
+
+- name: create metronome user
+  user:
+    name: av_metronome
+    group: av_metronome
+    create_home: no
+    system: yes
+    state: present
 
 - name: copy metronome systemd 
   copy: 

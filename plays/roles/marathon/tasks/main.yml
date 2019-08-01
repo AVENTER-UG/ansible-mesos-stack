@@ -24,13 +24,13 @@
   template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
  
 - name: Delete old marathon config
-  file: path=/etc/sysconfig/marathon state=absent
+  file: path=/etc/sysconfig/marathon state=absent  
 
 - name: configure mesos master nodes
-  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_MASTER=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_MASTER=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: configure mesos master nodes
-  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_ZK=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/marathon"
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^zk" line="MARATHON_ZK=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/marathon"
 
 - name: set hostname in marathon
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_HOSTNAME={{ ansible_fqdn }}" create=yes
@@ -47,6 +47,9 @@
 - name: enable mesos role
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_ROLE=marathon" create=yes
 
+- name: enable mesos user
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_USER=root" create=yes
+
 - name: enable basic authentication
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_HTTP_CREDENTIALS={{ marathon_basic_auth }}" create=yes
 
@@ -54,7 +57,13 @@
   lineinfile: dest=/etc/sysconfig/marathon state=present line="JAVA_OPTS=-XX:MaxDirectMemorySize=1G" create=yes
 
 - name: enable vault plugin
-  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes,vips,task_killing,gpu_resources" create=yes
+
+- name: Change group owner of secret file
+  file:
+    path: /etc/mesos/marathon.secret
+    owner: root
+    group: marathon
 
 - name: symlink marathon
   file: 
