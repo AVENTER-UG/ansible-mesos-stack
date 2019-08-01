@@ -4,7 +4,7 @@ After=network.target
 Wants=network.target
 
 [Service]
-User=av_marathon
+User=marathon
 EnvironmentFile=-/etc/sysconfig/marathon
 ExecStart=/usr/bin/marathon --plugin_dir /etc/marathon/plugins/ --plugin_conf /etc/marathon/plugins-conf.json
 Restart=always

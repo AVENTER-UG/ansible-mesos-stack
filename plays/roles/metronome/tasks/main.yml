@@ -1,16 +1,20 @@
 ---
+- name: download mesos-dns
+  get_url:
+    url: "{{ metronome_download_url }}"
+    dest: /tmp/metronome.tgz
+    mode: '0755'
+    force: yes
 
-- name: copy metronome universal bin
-  copy: 
-    src: metronome-0.6.30.zip 
-    dest: /tmp/metronome-0.6.30.zip
-
-- name: unzip metronome archive
-  shell: "unzip /tmp/metronome-0.6.30.zip -d /opt/mesosphere/"
+- name: extract metronome archive
+  unarchive:
+    src: /tmp/metronome.tgz
+    dest: /opt/mesosphere/
+    remote_src: yes
 
 - name: symlink metronome metronome 
   file: 
-    src: /opt/mesosphere/metronome-0.6.30-f526afb 
+    src: /opt/mesosphere/metronome-{{ metronome_version }}
     dest: /opt/mesosphere/metronome
     state: link
 
@@ -38,14 +42,12 @@
 - name: create metronome group
   group:
     name: av_metronome
-    gid: 986
     system: yes
     state: present
 
 - name: create metronome user
   user:
     name: av_metronome
-    uid: 986
     group: av_metronome
     create_home: no
     system: yes

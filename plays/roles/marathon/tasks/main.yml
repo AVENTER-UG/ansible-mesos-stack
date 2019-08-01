@@ -63,7 +63,7 @@
   file:
     path: /etc/mesos/marathon.secret
     owner: root
-    group: av_marathon
+    group: marathon
 
 - name: symlink marathon
   file: 
@@ -73,22 +73,6 @@
 
 - name: copy marathon systemd 
   copy: src=marathon.systemd dest=/etc/systemd/system/marathon.service mode=0644  
-
-- name: create marathon group
-  group:
-    name: av_marathon
-    gid: 986
-    system: yes
-    state: present
-
-- name: create marathon user
-  user:
-    name: av_marathon
-    uid: 986
-    group: av_marathon
-    create_home: no
-    system: yes
-    state: present
 
 - name: reload systemd
   command: systemctl daemon-reload
