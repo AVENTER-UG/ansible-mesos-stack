@@ -35,6 +35,7 @@
   roles:
     - { role: consul-agent }
     - { role: docker }    
+    - { role: weave_plugin_mesos }
     - { role: weave }
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
