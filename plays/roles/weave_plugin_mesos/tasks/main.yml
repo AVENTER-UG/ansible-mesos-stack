@@ -12,7 +12,7 @@
 
   - name: add cni config dir
     lineinfile: 
-      dest: "/etc/mesos-slave/network_cni_config_dir "
+      dest: /etc/mesos-slave/network_cni_config_dir
       state: present 
       line: "/etc/cni/net.d" 
       create: yes  

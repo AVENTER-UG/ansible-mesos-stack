@@ -17,6 +17,7 @@ This will update weave! It can be, that the docker daemon will restart after the
 - Update consul to v1.5.3
 - Update weave to v2.5.2
 - Update weavescop to v1.11.3
+- Bugfix weave systemd! Don't restart by systemd.
   
 # v0.10.0
 
