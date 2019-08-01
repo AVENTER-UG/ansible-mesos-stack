@@ -1,5 +1,5 @@
 ---
-- name: download mesos-dns
+- name: download metronome
   get_url:
     url: "{{ metronome_download_url }}"
     dest: /tmp/metronome.tgz
@@ -17,26 +17,35 @@
     src: /opt/mesosphere/metronome-{{ metronome_version }}
     dest: /opt/mesosphere/metronome
     state: link
+    force: true
+
+- name: Recursively change ownership of a directory
+  file:
+    path: /opt/mesosphere/metronome
+    state: directory
+    recurse: yes
+    owner: av_metronome
+    group: av_metronome
 
 - name: Delete old metronome config
   file: path=/etc/sysconfig/metronome state=absent
 
-- name: configure mesos master nodes
+- name: configure metronome zookeeper
   lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
 
-- name: configure mesos master nodes
+- name: configure mesos master nodes to metronome
   lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
-- name: set hostname in marathon
+- name: set metronome role to metronome
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_ROLE=marathon" create=yes
   
-- name: enable mesos authenticaton
+- name: enable mesos authenticaton to metronome
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_ENABLED=true" create=yes
 
-- name: enable mesos principal
+- name: enable mesos principal to metronome
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_PRINCIPAL={{ mesos_user }}" create=yes
 
-- name: enable mesos secret file
+- name: enable mesos secret file to metronome
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
 
 - name: create metronome group
@@ -49,6 +58,7 @@
   user:
     name: av_metronome
     group: av_metronome
+    groups: marathon
     create_home: no
     system: yes
     state: present

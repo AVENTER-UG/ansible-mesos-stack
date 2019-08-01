@@ -1,5 +1,5 @@
 ---
-
+mesos_user: "marathon"
 mesos_password: "marathon"
 
 metronome_version: "0.6.33-b28106a"
