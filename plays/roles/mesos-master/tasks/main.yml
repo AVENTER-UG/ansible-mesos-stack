@@ -44,7 +44,16 @@
     - "requireClientAuthScheme=sasl"
 
 - name: Remove deprecated config files
-  file: path=/etc/mesos-master/authenticate state=absent
+  file: 
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/mesos-master/authenticate"
+    - "/etc/mesos-master/authenticate_http_readonly"
+    - "/etc/mesos-master/authenticate_http_readwrite"
+
+- name: enable cluster http readwrite authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
 
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
@@ -54,9 +63,6 @@
 
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
-
-#- name: clean blank spaces in zk config
-#  shell: sed -i '/^\s*$/d' /etc/mesos/zk
 
 - name: set quorom count
   lineinfile: dest=/etc/mesos-master/quorum state=present regexp="^" line="{{ quorum }}" create=yes
@@ -76,12 +82,6 @@
 
 - name: enable cluster agent authentication
   lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
-
-- name: enable cluster http readonly authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
-
-- name: enable cluster http readwrite authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
 
 - name: enable cluster credentials
   lineinfile: dest=/etc/mesos-master/credentials state=present create=yes regexp="^" line="/etc/mesos/credentials"

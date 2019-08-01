@@ -38,14 +38,14 @@
 - name: create metronome group
   group:
     name: av_metronome
-    gid: 987
+    gid: 986
     system: yes
     state: present
 
 - name: create metronome user
   user:
     name: av_metronome
-    uid: 987
+    uid: 986
     group: av_metronome
     create_home: no
     system: yes
