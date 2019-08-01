@@ -1,6 +1,7 @@
 # v0.11.0
 
 - Activate Metronome
+- Chronos is deprecated and will not be installed. Use Metronome instead.
 - Add Metronome User
 - Add Mesos-DNS User
 - Add Marathon User

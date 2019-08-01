@@ -33,7 +33,6 @@
   hosts: worker
   serial: 40%    
   roles:
-    - { role: chronos }
     - { role: consul-agent }
     - { role: docker }    
     - { role: weave }
