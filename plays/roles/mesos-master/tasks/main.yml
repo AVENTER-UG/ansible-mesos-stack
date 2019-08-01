@@ -14,6 +14,9 @@
   with_items:
     - { line: 'exclude=mesos-*' }
 
+- name: enable zookeeper authentication
+  lineinfile: dest=/etc/zookeeper/conf/java.env state=present regexp="^" line="SERVER_JVMFLAGS=\"-Djava.security.auth.login.config=/etc/zookeeper/conf/jaas.conf\"" create=yes
+
 - name: set master ID
   lineinfile: dest=/var/lib/zookeeper/myid state=present regexp="^" line="{{ myid }}" create=yes
 
@@ -31,6 +34,15 @@
   with_items:
     - "{% for host in groups['manager'] %}server.{{ hostvars[host].myid }}={{ host }}:2888:3888\n{% endfor %}"
 
+- name: add sasl to config
+  lineinfile:
+    dest=/etc/zookeeper/conf/zoo.cfg
+    line="{{ item }}"
+    state=present
+  with_items:
+    - "authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider"
+    - "requireClientAuthScheme=sasl"
+
 - name: Remove deprecated config files
   file: path=/etc/mesos-master/authenticate state=absent
 
@@ -41,7 +53,7 @@
   file: path=/etc/mesos/zk state=absent
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 #- name: clean blank spaces in zk config
 #  shell: sed -i '/^\s*$/d' /etc/mesos/zk

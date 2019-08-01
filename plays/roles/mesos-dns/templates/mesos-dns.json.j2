@@ -1,5 +1,5 @@
 {
-  "zk": "zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
+  "zk": "zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
   "masters": [{% for host in groups['manager'] %}"{{ hostvars[host]['ansible_default_ipv4']['address'] }}:5050"{% if not loop.last %},{% endif %}{% endfor %}],
   "mesosCredentials": {
     "principal": "{{ mesos_user }}",

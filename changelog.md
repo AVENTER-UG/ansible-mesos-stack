@@ -10,6 +10,7 @@
 - Performance optimation of Mesos Master
 - Extend Mesos Slave isolation
 - Change deprecated parameters of mesos
+- Add authentication to zookeeper
 
 # v0.10.0
 
