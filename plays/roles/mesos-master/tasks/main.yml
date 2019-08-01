@@ -45,15 +45,11 @@
 
 - name: Remove deprecated config files
   file: 
-    path: "{{ item }}"
+    path: "{{ items }}"
     state: absent
   with_items:
     - "/etc/mesos-master/authenticate"
     - "/etc/mesos-master/authenticate_http_readonly"
-    - "/etc/mesos-master/authenticate_http_readwrite"
-
-- name: enable cluster http readwrite authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
 
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
@@ -79,6 +75,9 @@
 
 - name: enable cluster authentication
   lineinfile: dest=/etc/mesos-master/authenticate_frameworks state=present create=yes regexp="^" line="true"
+
+- name: enable cluster http readwrite authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
 
 - name: enable cluster agent authentication
   lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"

@@ -65,6 +65,9 @@
 - name: set mesos isolation
   lineinfile: dest=/etc/mesos-slave/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities"
 
+- name: set image provider
+  lineinfile: dest=/etc/mesos-slave/image_providers state=present create=yes regexp="^" line="appc,docker"
+
 - name: copy mesos credential
   template: src=credential.j2 dest=/etc/mesos/credential mode=0640  
 
