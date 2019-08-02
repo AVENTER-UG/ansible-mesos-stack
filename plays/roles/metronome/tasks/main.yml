@@ -31,7 +31,7 @@
   file: path=/etc/sysconfig/metronome state=absent
 
 - name: configure metronome zookeeper
-  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
 
 - name: configure mesos master nodes to metronome
   lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
