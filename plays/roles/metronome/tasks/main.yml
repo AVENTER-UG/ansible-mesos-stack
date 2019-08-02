@@ -31,7 +31,7 @@
   file: path=/etc/sysconfig/metronome state=absent
 
 - name: configure metronome zookeeper
-  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_ZK_URL=" line="METRONOME_ZK_URL=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ hostvars[host]['ansible_default_ipv4']['address'] }}:2181{% if not loop.last %},{% endif %}{% endfor %}/metronome"
 
 - name: configure mesos master nodes to metronome
   lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^METRONOME_MESOS_MASTER_URL=" line="METRONOME_MESOS_MASTER_URL=zk://{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
@@ -47,6 +47,27 @@
 
 - name: enable mesos secret file to metronome
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
+
+- name: enable mesos leader url
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_LEADER_UI_URL=http://leader.mesos:5050" create=yes
+
+- name: add http port
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_PLAY_SERVER_HTTP_PORT=9000" create=yes
+
+- name: add http port
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="" create=yes
+
+- name: add metronome mesos user
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_USER=root" create=yes
+
+- name: add libprocess port
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="LIBPROCESS_PORT=15201" create=yes
+
+- name: add metronome confirm timeout
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_SCHEDULER_TASK_LAUNCH_CONFIRM_TIMEOUT=600000" create=yes
+
+- name: add metronome launch timeout
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_SCHEDULER_TASK_LAUNCH_TIMEOUT=600000" create=yes
 
 - name: create metronome group
   group:

@@ -6,6 +6,7 @@ Wants=network.target
 [Service]
 User=av_metronome
 EnvironmentFile=-/etc/sysconfig/metronome
+ExecStartPre=/bin/ping -c1 leader.mesos
 ExecStart=/opt/mesosphere/metronome/bin/metronome
 Restart=always
 RestartSec=20

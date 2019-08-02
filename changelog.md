@@ -1,6 +1,8 @@
 # v0.11.1
 
 - Disable auto weavescope restart via systemd
+- Add metronome parameters
+- Change zookeeper ZK string from DNS to IP
 
 # v0.11.0
 
