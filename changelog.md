@@ -1,3 +1,7 @@
+# v0.11.1
+
+- Disable auto weavescope restart via systemd
+
 # v0.11.0
 
 This will update weave! It can be, that the docker daemon will restart after the weave update.

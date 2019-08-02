@@ -21,7 +21,7 @@ Please don't hesitate an talk with us if you have questions.
 
 - https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
 
-## v0.11.0
+## v0.11.1
 
 ### Manager node
 
