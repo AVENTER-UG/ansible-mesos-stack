@@ -12,7 +12,6 @@
     state: installed
 
 - name: configure docker dns
-  sudo: yes
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=

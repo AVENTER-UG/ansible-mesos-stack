@@ -1,7 +1,6 @@
 ---
 
 - name: install dnsmasq packages
-  sudo: yes
   yum:
     name: 
       - dnsmasq
@@ -21,7 +20,6 @@
   copy: src=dhclient-enter-hooks dest=/etc/dhclient-enter-hooks mode=0755
 
 - name: restart NetworkManager if its installed
-  sudo: yes
   service:
     name: NetworkManager
     state: restarted
@@ -29,12 +27,10 @@
   when: rpm_check.stdout.find('is not installed') == -1   
 
 - name: collect nameservers
-  sudo: yes
   shell: "cat /etc/resolv.conf | grep -i '^nameserver' | cut -d ' ' -f2"
   register: nameservers_output
 
 - name: collect dns search list
-  sudo: yes
   shell: "cat /etc/resolv.conf | grep -i '^search' | cut -d ' ' -f2- | tr ' ' '\n'"
   register: dns_search_list_output
 
@@ -47,27 +43,29 @@
     domain_search_list: "{{ dns_search_list_output.stdout_lines }}"
 
 - name: ensure dnsmasq.d directory exists
-  sudo: yes
   file:
     path: /etc/dnsmasq.d/
     state: directory
 
 - name: configure dnsmasq for consul
-  sudo: yes
   template:
     src: 10-consul
     dest: /etc/dnsmasq.d/10-consul
     mode: 0755
 
+- name: configure dnsmasq for consul
+  template:
+    src: 20-mesos
+    dest: /etc/dnsmasq.d/20-consul
+    mode: 0755    
+
 - name: enable dnsmasq
-  sudo: yes
   service:
     name: dnsmasq
     state: started
     enabled: yes
 
 - name: add dnsmasq to /etc/resolv.conf
-  sudo: yes
   template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
