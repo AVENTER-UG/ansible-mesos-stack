@@ -1,5 +1,6 @@
 ---
 
-registrator_image: "gliderlabs/registrator:master"
+#registrator_image: "gliderlabs/registrator:master"
+registrator_image: "avhost/go-registrator:latest"
 registrator_uri: "consul://{{ ansible_default_ipv4.address }}:8500"
 registrator_docker_socket: "/var/run/weave/weave.sock"

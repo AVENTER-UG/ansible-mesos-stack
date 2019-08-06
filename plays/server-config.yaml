@@ -73,6 +73,13 @@
     - { role: elasticsearch }
     - { role: mongodb }    
     - { role: graylog }    
+   
+- name: Init Jobs
+  hosts: worker
+  roles:
+    - { role: cadvisor }
+    - { role: registrator }    
+  
 
 
     

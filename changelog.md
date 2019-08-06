@@ -2,6 +2,7 @@
 
 - Disable auto weavescope restart via systemd
 - Add metronome parameters
+- Change Registrator and CAdvisor to systemd
 
 # v0.11.0
 
