@@ -30,6 +30,3 @@
       dest: /etc/cni/net.d/10-weave.conflist
       mode: 0644
 
-  - name: restart mesos-slave
-    command: systemctl restart mesos-slave
-
