@@ -24,3 +24,12 @@
       line: "/opt/cni/bin" 
       create: yes       
 
+  - name: copy cni config
+    copy: 
+      src: weave.conflist
+      dest: /etc/cni/net.d/10-weave.conflist
+      mode: 0644
+
+  - name: restart mesos-slave
+    command: systemctl restart mesos-slave
+

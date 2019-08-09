@@ -3,6 +3,7 @@
 - Disable auto weavescope restart via systemd
 - Add metronome parameters
 - Change Registrator and CAdvisor to systemd
+- Fix Mesos CNI missing type in weave
 
 # v0.11.0
 
