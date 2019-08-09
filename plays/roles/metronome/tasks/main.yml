@@ -19,6 +19,21 @@
     state: link
     force: true
 
+- name: create metronome group
+  group:
+    name: av_metronome
+    system: yes
+    state: present
+
+- name: create metronome user
+  user:
+    name: av_metronome
+    group: av_metronome
+    groups: marathon
+    create_home: no
+    system: yes
+    state: present    
+
 - name: Recursively change ownership of a directory
   file:
     path: /opt/mesosphere/metronome
@@ -68,21 +83,6 @@
 
 - name: add metronome launch timeout
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_SCHEDULER_TASK_LAUNCH_TIMEOUT=600000" create=yes
-
-- name: create metronome group
-  group:
-    name: av_metronome
-    system: yes
-    state: present
-
-- name: create metronome user
-  user:
-    name: av_metronome
-    group: av_metronome
-    groups: marathon
-    create_home: no
-    system: yes
-    state: present
 
 - name: copy metronome systemd 
   copy: 
