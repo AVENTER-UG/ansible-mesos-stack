@@ -5,6 +5,7 @@
 - Change Registrator and CAdvisor to systemd
 - Fix Mesos CNI missing type in weave
 - Fix missing agent http credentials
+- Fix set mesos-agent hostname after rerun
 
 # v0.11.0
 

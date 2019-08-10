@@ -27,7 +27,7 @@
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: set hostname in mesos
-  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}"  regexp="^"create=yes
+  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
 
 - name: increase the mesos-slave executor timeout
   lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" regexp="^" create=yes
