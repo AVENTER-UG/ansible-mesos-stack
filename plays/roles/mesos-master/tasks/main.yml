@@ -49,7 +49,6 @@
     state: absent
   with_items:
     - "/etc/mesos-master/authenticate"
-    - "/etc/mesos-master/authenticate_http_readonly"
 
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
@@ -78,6 +77,9 @@
 
 - name: enable cluster http readwrite authentication
   lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
+
+- name: enable cluster http readonly authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"      
 
 - name: enable cluster agent authentication
   lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
