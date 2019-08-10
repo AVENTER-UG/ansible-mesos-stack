@@ -4,6 +4,7 @@
 - Add metronome parameters
 - Change Registrator and CAdvisor to systemd
 - Fix Mesos CNI missing type in weave
+- Fix missing agent http credentials
 
 # v0.11.0
 

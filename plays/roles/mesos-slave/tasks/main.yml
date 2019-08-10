@@ -27,31 +27,31 @@
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: set hostname in mesos
-  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
+  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}"  regexp="^"create=yes
 
 - name: increase the mesos-slave executor timeout
-  lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" create=yes
+  lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" regexp="^" create=yes
 
 - name: add containerizer to the mesos-slave
-  lineinfile: dest=/etc/mesos-slave/containerizers state=present line="docker,mesos" create=yes  
+  lineinfile: dest=/etc/mesos-slave/containerizers state=present line="docker,mesos" regexp="^" create=yes  
 
 - name: add mesos-slave credentials
-  lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" create=yes  
+  lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" regexp="^" create=yes  
 
 - name: add mesos-slave http credentials
-  lineinfile: dest=/etc/mesos-slave/http_credentials state=present line="/etc/mesos/credential" create=yes  
+  lineinfile: dest=/etc/mesos-slave/http_credentials state=present line="/etc/mesos/http_credentials" regexp="^" create=yes  
 
 - name: enable cluster http readonly authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
+  lineinfile: dest=/etc/mesos-slave/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
 
 - name: enable cluster http readwrite authentication
-  lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"  
+  lineinfile: dest=/etc/mesos-slave/authenticate_http_readwrite state=present create=yes regexp="^" line="true"  
 
 - name: enable cluster http authenticators
-  lineinfile: dest=/etc/mesos-master/http_authenticators state=present create=yes regexp="^" line="basic"  
+  lineinfile: dest=/etc/mesos-slave/http_authenticators state=present create=yes regexp="^" line="basic"  
 
 - name: add weave.socks to the mesos-slave
-  lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" create=yes  
+  lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes  
 
 - name: set slave ip in mesos
   lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
@@ -70,6 +70,9 @@
 
 - name: copy mesos credential
   template: src=credential.j2 dest=/etc/mesos/credential mode=0640  
+
+- name: copy mesos http credential
+  template: src=http_credentials.j2 dest=/etc/mesos/http_credentials mode=0640  
 
 - name: ensure mesos-slave service is started and enabled
   service:
