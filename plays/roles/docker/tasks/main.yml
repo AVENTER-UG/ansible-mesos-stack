@@ -10,8 +10,7 @@
       - xfsprogs
       - docker-ce-18.06.1.ce
     state: installed
-  ignore_errors: true
-
+  
 - name: disable docker update
   lineinfile:
     dest=/etc/yum.conf
