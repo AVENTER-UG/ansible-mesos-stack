@@ -111,6 +111,15 @@
 - name: set slave removal rate limit
   lineinfile: dest=/etc/mesos-master/agent_removal_rate_limit state=present create=yes regexp="^" line="100/1mins"
 
+- name: set mesos module directory
+  lineinfile: dest=/etc/mesos-master/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules"
+
+- name: create mesos module directory
+  file:
+    path: /etc/mesos/modules
+    state: directory
+    mode: 0750
+
 - name: copy mesos credentials
   template: src=credentials.j2 dest=/etc/mesos/credentials mode=0640
 

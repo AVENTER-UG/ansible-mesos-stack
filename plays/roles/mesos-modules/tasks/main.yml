@@ -1,0 +1,14 @@
+---
+
+- name: create mesos module directory
+  file:
+    path: /etc/mesos/modules
+    state: directory
+    mode: 0750    
+
+
+- name: copy logrotate module
+  copy: 
+    src: logrotate.config 
+    dest: /etc/mesos/modules/logrotate.config
+    mode: 0640

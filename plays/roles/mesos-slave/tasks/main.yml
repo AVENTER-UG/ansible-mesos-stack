@@ -12,13 +12,14 @@
     line="{{ item.line }}"
     insertafter='EOF'
   with_items:
-    - { line: 'exclude=mesos-*' }
+    - { line: 'exclude=mesos-*' }  
 
-- name: copy modules config
-  copy: 
-    src: modules.config 
-    dest: /etc/mesos-slave/modules 
-    mode: 0755    
+- name: Remove deprecated config files
+  file: 
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/mesos-slave/modules"    
 
 - name: Delete old zk entry
   file: path=/etc/mesos/zk state=absent
@@ -70,6 +71,15 @@
 
 - name: set image provider
   lineinfile: dest=/etc/mesos-slave/image_providers state=present create=yes regexp="^" line="appc,docker"
+
+- name: set mesos module directory
+  lineinfile: dest=/etc/mesos-slave/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules"
+
+- name: create mesos module directory
+  file:
+    path: /etc/mesos/modules
+    state: directory
+    mode: 0750    
 
 - name: copy mesos credential
   template: src=credential.j2 dest=/etc/mesos/credential mode=0640  

@@ -25,7 +25,7 @@ Please don't hesitate an talk with us if you have questions.
 
 ### Manager node
 
-This Update will deploy a new docker version. The docker engine will be restartet, your containers will be going down.
+This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |

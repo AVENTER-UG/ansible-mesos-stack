@@ -1,5 +1,7 @@
 # v0.11.1
 
+This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
+
 - Disable auto weavescope restart via systemd
 - Add metronome parameters
 - Change Registrator and CAdvisor to systemd
@@ -8,6 +10,7 @@
 - Fix set mesos-agent hostname after rerun
 - Set MESOS_MASTER env variable. Needed for some plugin.
 - Disable Docker update
+- Change Mesos Modules from single file to config folder
 
 # v0.11.0
 

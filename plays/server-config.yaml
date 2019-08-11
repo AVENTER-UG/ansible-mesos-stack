@@ -16,7 +16,8 @@
   serial: 40%
   roles:
     - { role: consul }
-    - { role: mesos-dns } 
+    - { role: mesos-dns }
+    - { role: mesos-modules } 
     - { role: mesos-master }        
 
 - name: Configure DNS
@@ -37,6 +38,7 @@
     - { role: docker }    
     - { role: weave_plugin_mesos }
     - { role: weave }
+    - { role: mesos-modules } 
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
