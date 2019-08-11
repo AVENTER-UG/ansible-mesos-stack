@@ -32,7 +32,6 @@ Please don't hesitate an talk with us if you have questions.
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.5.3      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
-| Docker  18.09.ce   | Docker engine                     | RPM                                |
 | Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
@@ -40,7 +39,7 @@ Please don't hesitate an talk with us if you have questions.
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
 | Mesos 1.6.1        | Mesos slave                | RPM          |
-| Docker  18.06.1.ce | Docker engine              | RPM          |
+| Docker  19.03.1-ce | Docker engine              | RPM          |
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |
 | DNSMasq 2          | Container DNS              | RPM          |

@@ -6,6 +6,7 @@
 - Fix Mesos CNI missing type in weave
 - Fix missing agent http credentials
 - Fix set mesos-agent hostname after rerun
+- Update docker to 19.03.1-ce
 
 # v0.11.0
 

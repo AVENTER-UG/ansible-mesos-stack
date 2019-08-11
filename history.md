@@ -13,7 +13,6 @@ This will update weave! It can be, that the docker daemon will restart after the
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.5.3      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
-| Docker  18.09.ce   | Docker engine                     | RPM                                |
 | Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
@@ -58,7 +57,6 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.3.0      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
-| Docker  18.09.ce   | Docker engine                     | RPM                                |
 | Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
@@ -97,7 +95,6 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Marathon 1.7.189   | Marathon masters  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
 | Consul  1.3.0      | Consul server     | Binary                             |
-| Docker  18.09.ce   | Docker engine     | RPM                                |
 | Metronome 0.6.30   | Schedule Server    | JAVA dependencies to Marathon      |
 
 ### Worker node
@@ -136,7 +133,6 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Marathon 1.7.50    | Marathon masters  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
 | Consul  1.3.0      | Consul server     | Binary                             |
-| Docker  18.06.1.ce | Docker engine     | RPM                                |
 
 ### Worker node
 
@@ -176,7 +172,6 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Marathon 1.7.50    | Marathon masters  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
 | Consul  0.9.3      | Consul server     | Binary                             |
-| Docker  18.06.1.ce | Docker engine     | RPM                                |
 
 ### Worker node
 
@@ -213,7 +208,6 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 | Marathon 1.5.4     | Marathon masters  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster | dependencies to Mesos/Marathon RPM |
 | Consul  0.9.3      | Consul server     | Binary                             |
-| Docker  17.12.0-ce | Docker engine     | RPM                                |
 
 ### Worker node
 
