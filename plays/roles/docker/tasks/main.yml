@@ -11,6 +11,14 @@
       - docker-ce-18.06.1.ce
     state: installed
 
+- name: disable docker update
+  lineinfile:
+    dest=/etc/yum.conf
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - { line: 'exclude=docker-*' }
+
 - name: configure docker dns
   lineinfile:
     dest: /etc/sysconfig/docker

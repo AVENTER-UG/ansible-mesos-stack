@@ -7,6 +7,7 @@
 - Fix missing agent http credentials
 - Fix set mesos-agent hostname after rerun
 - Set MESOS_MASTER env variable. Needed for some plugin.
+- Disable Docker update
 
 # v0.11.0
 
