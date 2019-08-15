@@ -12,6 +12,7 @@ This will change the way how to load the configuration of mesos libs. If you add
 - Disable Docker update
 - Change Mesos Modules from single file to config folder
 - Add seccomp mesos isolator
+- Add USER env to mesos config to fix the "invalid-user" in the log files
 
 # v0.11.0
 
