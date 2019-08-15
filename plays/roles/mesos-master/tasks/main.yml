@@ -59,8 +59,8 @@
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
-- name: configure mesos-master string
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_MASTER=*" line="MESOS_MASTER=zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+- name: configure mesos-zk string
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"
 
 - name: configure user env string
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"  
