@@ -5,6 +5,7 @@
     name:
       - mesos-1.8.0
     state: installed
+  ignore_errors: true    
     
 - name: disable mesos update
   lineinfile:
@@ -31,19 +32,19 @@
   file: 
     path: /etc/mesos/ssl
     state: directory
-    mode: 0750
+    mode: 0755
 
 - name: copy ssl cert
   copy:
     src: mesos.crt
     dest: /etc/mesos/ssl/mesos.crt
-    mode: 0640
+    mode: 0644
 
 - name: copy ssl key
   copy:
     src: mesos.key
     dest: /etc/mesos/ssl/mesos.key
-    mode: 0640
+    mode: 0644
 
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"

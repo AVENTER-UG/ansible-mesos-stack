@@ -64,7 +64,7 @@
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes
 
 - name: enable mesos leader url
-  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_LEADER_UI_URL=http://leader.mesos:5050" create=yes
+  lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_MESOS_LEADER_UI_URL=https://leader.mesos:5050" create=yes
 
 - name: add http port
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_PLAY_SERVER_HTTP_PORT=9000" create=yes
@@ -83,6 +83,19 @@
 
 - name: add metronome launch timeout
   lineinfile: dest=/etc/sysconfig/metronome state=present line="METRONOME_SCHEDULER_TASK_LAUNCH_TIMEOUT=600000" create=yes
+
+- name: enable ssl for mesos libprocess
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+
+- name: enable ssl verify for mesos libprocess
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  
+
+- name: add mesos libprocess ssl key file
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
+
+- name: add mesos libprocess ssl cert file
+  lineinfile: dest=/etc/sysconfig/metronome create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
+
 
 - name: copy metronome systemd 
   copy: 

@@ -4,3 +4,6 @@ mesos_password: "marathon"
 
 metronome_version: "0.6.33-b28106a"
 metronome_download_url: "https://s3.amazonaws.com/downloads.mesosphere.io/metronome/builds/{{ metronome_version }}/metronome-{{ metronome_version }}.tgz"
+
+libprocess_enable_ssl: "true"
+libprocess_enable_ssl_verify: "false"

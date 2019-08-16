@@ -59,6 +59,18 @@
 - name: enable vault plugin
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes,vips,task_killing,gpu_resources" create=yes
 
+- name: enable ssl for mesos libprocess
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+
+- name: enable ssl verify for mesos libprocess
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  
+
+- name: add mesos libprocess ssl key file
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
+
+- name: add mesos libprocess ssl cert file
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
+
 - name: Change group owner of secret file
   file:
     path: /etc/mesos/marathon.secret

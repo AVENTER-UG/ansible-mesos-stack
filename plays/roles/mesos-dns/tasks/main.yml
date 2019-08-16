@@ -1,21 +1,4 @@
 ---
-- name: download mesos-dns
-  get_url:
-    url: "{{ mesos_dns_download_url }}"
-    dest: /usr/bin/mesos-dns
-    mode: '0755'
-    force: yes
-
-- name: create config dir for mesos-dns
-  file:
-    path: /etc/mesos-dns
-    state: directory
-
-- name: create mesos-dns config file
-  template: 
-    src: mesos-dns.json.j2 
-    dest: /etc/mesos-dns/config.json 
-    mode: 0640
 
 - name: create mesos_dns group
   group:
@@ -27,9 +10,31 @@
   user:
     name: av_mesos_dns
     group: av_mesos_dns
+    groups: marathon
     create_home: no
     system: yes
     state: present
+
+- name: download mesos-dns
+  get_url:
+    url: "{{ mesos_dns_download_url }}"
+    dest: /usr/bin/mesos-dns
+    owner: av_mesos_dns
+    mode: '0755'
+    force: yes
+
+- name: create config dir for mesos-dns
+  file:
+    path: /etc/mesos-dns
+    owner: av_mesos_dns
+    state: directory
+
+- name: create mesos-dns config file
+  template: 
+    src: mesos-dns.json.j2 
+    dest: /etc/mesos-dns/config.json 
+    owner: av_mesos_dns
+    mode: 0640
 
 - name: copy mesos-dns systemd 
   copy: 
