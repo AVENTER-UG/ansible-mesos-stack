@@ -7,3 +7,4 @@ metronome_download_url: "https://s3.amazonaws.com/downloads.mesosphere.io/metron
 
 libprocess_enable_ssl: "true"
 libprocess_enable_ssl_verify: "false"
+libprocess_ssl_require_cert: "true"

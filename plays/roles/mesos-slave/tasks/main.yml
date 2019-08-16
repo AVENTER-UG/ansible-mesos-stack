@@ -47,76 +47,97 @@
     mode: 0644
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
 
 - name: configure mesos-zk string
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"  
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"   mode=0640
 
 - name: configure user env string
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"  
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"   mode=0640
 
 - name: enable ssl for mesos libprocess
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}" mode=0640
 
 - name: enable ssl verify for mesos
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}" 
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  mode=0640
 
 - name: add mesos libprocess ssl key file
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key"  mode=0640
 
 - name: add mesos libprocess ssl cert file
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt"  mode=0640
+
+- name: enable required ssl cert
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
+
+- name: set mesos libprocess ssl downgrade
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" mode=0640
 
 - name: set hostname in mesos
-  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
+  lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes mode=0640
 
 - name: increase the mesos-slave executor timeout
-  lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" regexp="^" create=yes
+  lineinfile: dest=/etc/mesos-slave/executor_registration_timeout state=present line="5mins" regexp="^" create=yes mode=0640
 
 - name: add containerizer to the mesos-slave
-  lineinfile: dest=/etc/mesos-slave/containerizers state=present line="docker,mesos" regexp="^" create=yes  
+  lineinfile: dest=/etc/mesos-slave/containerizers state=present line="docker,mesos" regexp="^" create=yes mode=0640
 
 - name: add mesos-slave credentials
-  lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" regexp="^" create=yes  
+  lineinfile: dest=/etc/mesos-slave/credential state=present line="/etc/mesos/credential" regexp="^" create=yes mode=0640
 
 - name: add mesos-slave http credentials
-  lineinfile: dest=/etc/mesos-slave/http_credentials state=present line="/etc/mesos/http_credentials" regexp="^" create=yes  
+  lineinfile: dest=/etc/mesos-slave/http_credentials state=present line="/etc/mesos/http_credentials" regexp="^" create=yes mode=0640
 
 - name: enable cluster http readonly authentication
-  lineinfile: dest=/etc/mesos-slave/authenticate_http_readonly state=present create=yes regexp="^" line="true"  
+  lineinfile: dest=/etc/mesos-slave/authenticate_http_readonly state=present create=yes regexp="^" line="true" mode=0640
 
 - name: enable cluster http readwrite authentication
-  lineinfile: dest=/etc/mesos-slave/authenticate_http_readwrite state=present create=yes regexp="^" line="true"  
+  lineinfile: dest=/etc/mesos-slave/authenticate_http_readwrite state=present create=yes regexp="^" line="true" mode=0640
 
 - name: enable cluster http authenticators
-  lineinfile: dest=/etc/mesos-slave/http_authenticators state=present create=yes regexp="^" line="basic"  
+  lineinfile: dest=/etc/mesos-slave/http_authenticators state=present create=yes regexp="^" line="basic" mode=0640
 
 - name: add weave.socks to the mesos-slave
-  lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes  
+  lineinfile: dest=/etc/mesos-slave/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes mode=0640
 
 - name: set slave ip in mesos
-  lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}"
+  lineinfile: dest=/etc/mesos-slave/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}" mode=0640
 
 - name: disable hostname lookup
-  lineinfile: dest=/etc/mesos-slave/hostname_lookup state=present create=yes regexp="^" line="false"
+  lineinfile: dest=/etc/mesos-slave/hostname_lookup state=present create=yes regexp="^" line="false" mode=0640
 
 - name: set memory profiling
-  lineinfile: dest=/etc/mesos-slave/memory_profiling state=present create=yes regexp="^" line="true"
+  lineinfile: dest=/etc/mesos-slave/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
 
 - name: set mesos isolation
-  lineinfile: dest=/etc/mesos-slave/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities,linux/seccomp"
+  lineinfile: dest=/etc/mesos-slave/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities,linux/seccomp" mode=0640
 
 - name: set image provider
-  lineinfile: dest=/etc/mesos-slave/image_providers state=present create=yes regexp="^" line="appc,docker"
+  lineinfile: dest=/etc/mesos-slave/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640
 
 - name: set mesos module directory
-  lineinfile: dest=/etc/mesos-slave/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules"
+  lineinfile: dest=/etc/mesos-slave/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
 - name: set mesos seccomp directory
-  lineinfile: dest=/etc/mesos-slave/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp"
+  lineinfile: dest=/etc/mesos-slave/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp" mode=0640
 
 - name: set mesos seccomp directory
-  lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json"
+  lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
+
+- name: set mesos executor env with ssl
+  template: 
+    src: executor.json.js
+    dest: /etc/mesos-slave/executor_environment_variables
+    mode: 0640
+  when:
+    - libprocess_enable_ssl == "true"
+
+- name: set mesos executor env with ssl
+  file:
+    path: /etc/mesos-slave/executor_environment_variables
+    state: absent
+  when:
+    - libprocess_enable_ssl == "false"
 
 - name: create mesos module directory
   file:

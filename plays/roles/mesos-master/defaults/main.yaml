@@ -7,4 +7,7 @@ quorum: "1"
 
 libprocess_enable_ssl: "true"
 libprocess_enable_ssl_verify: "false"
+libprocess_ssl_require_cert: "false"
+libprocess_ssl_enable_downgrade: "true"
+
 

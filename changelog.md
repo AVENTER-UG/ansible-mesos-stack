@@ -2,8 +2,6 @@
 
 This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
 
-This will enable SSL communication for the mesos agents and mesos server. The verification of the ssl certificate is disabled (default). If you want to disable SSL, please add ```libprocess_enable_ssl: "false"``` to your group_vars inventory configuration. More information to Mesos and SSL: http://mesos.apache.org/documentation/latest/ssl/
-
 - Disable auto weavescope restart via systemd
 - Add metronome parameters
 - Change Registrator and CAdvisor to systemd
@@ -15,7 +13,8 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 - Change Mesos Modules from single file to config folder
 - Add seccomp mesos isolator
 - Add USER env to mesos config to fix the "invalid-user" in the log files
-- Add basic SSL support for Mesos
+- Add basic SSL support for Mesos. You can enable it with the ansible group_vars ```libprocess_enable_ssl: "true"```
+- Enable SSL in Marathon, Mesos-DNS, Metronome. You can enable it with the ansible group_vars ```libprocess_enable_ssl: "true"```
 - Seperate Zookeeper from Mesos-Master role
 - DEPRECATED: Graylog, Cadvisor, Grafana, Prometheus, Prometheus Nodeexporter, MongoDB. All these will move into a seperated playbook.
 
