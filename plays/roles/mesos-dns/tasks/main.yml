@@ -15,7 +15,7 @@
   template: 
     src: mesos-dns.json.j2 
     dest: /etc/mesos-dns/config.json 
-    mode: 0644
+    mode: 0640
 
 - name: create mesos_dns group
   group:

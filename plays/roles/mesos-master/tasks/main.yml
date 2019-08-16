@@ -53,11 +53,14 @@
 - name : Start zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
 
-- name: Delete old zk entry
-  file: path=/etc/mesos/zk state=absent
+- name: create zk file
+  file: 
+    path: /etc/mesos/zk 
+    state: touch
+    mode: 0640
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: configure mesos-zk string
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"
