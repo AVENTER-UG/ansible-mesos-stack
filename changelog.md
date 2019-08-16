@@ -17,6 +17,7 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 - Add USER env to mesos config to fix the "invalid-user" in the log files
 - Add basic SSL support for Mesos
 - Seperate Zookeeper from Mesos-Master role
+- DEPRECATED: Graylog, Cadvisor, Grafana, Prometheus, Prometheus Nodeexporter, MongoDB. All these will move into a seperated playbook.
 
 # v0.11.0
 

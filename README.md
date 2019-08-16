@@ -27,6 +27,8 @@ Please don't hesitate an talk with us if you have questions.
 
 This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
 
+This will enable SSL communication for the mesos agents and mesos server. The verification of the ssl certificate is disabled (default). If you want to disable SSL, please add ```libprocess_enable_ssl: "false"``` to your group_vars inventory configuration. More information to Mesos and SSL: http://mesos.apache.org/documentation/latest/ssl/
+
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.8.0        | Mesos masters                     | RPM                                |
@@ -41,15 +43,15 @@ This will change the way how to load the configuration of mesos libs. If you add
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
 | Mesos 1.6.1        | Mesos slave                | RPM          |
-| Docker  19.03.1-ce | Docker engine              | RPM          |
+| Docker 19.03.1-ce  | Docker engine              | RPM          |
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |
 | DNSMasq 2          | Container DNS              | RPM          |
-| CAdavisor          | Docker engine monitoring   | Docker image |
+| CAdavisor (DEPRECATED read changelog.md)         | Docker engine monitoring   | Docker image |
 | Registrator        | Register Microservier name | Docker image |
 | Consul  1.5.3      | Consul Client              | Binary       |
 
-### Graylog 
+### Graylog DEPRECATED (read changelog.md)
 
 | Software version    | Role           | Install type |
 | ------------------- | :------------: | :----------: |
@@ -57,7 +59,7 @@ This will change the way how to load the configuration of mesos libs. If you add
 | Elasticsearch 5.3.1 | Search Engine  | RPM          |
 | MongoDB             | NoSQL Database | RPM          |
 
-### Prometheus
+### Prometheus DEPRECATED (read changelog.md)
 
 | Software version | Role                            | Install type |
 | ---------------- | :-----------------------------: | :----------: |
