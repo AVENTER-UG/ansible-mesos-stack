@@ -17,6 +17,7 @@
   roles:
     - { role: consul }
     - { role: mesos-dns }
+    - { role: zookeeper }
     - { role: mesos-master }        
 
 - name: Configure DNS
@@ -26,7 +27,6 @@
     - worker
   roles:
     - { role: dnsmasq }
-
  
 - name: Configure Worker Server
   become: yes

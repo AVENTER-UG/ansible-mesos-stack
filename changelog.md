@@ -2,6 +2,8 @@
 
 This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
 
+This will enable SSL communication for the mesos agents and mesos server. The verification of the ssl certificate is disabled (default). If you want to disable SSL, please add ```libprocess_enable_ssl: "false"``` to your group_vars inventory configuration. More information to Mesos and SSL: http://mesos.apache.org/documentation/latest/ssl/
+
 - Disable auto weavescope restart via systemd
 - Add metronome parameters
 - Change Registrator and CAdvisor to systemd
@@ -13,6 +15,8 @@ This will change the way how to load the configuration of mesos libs. If you add
 - Change Mesos Modules from single file to config folder
 - Add seccomp mesos isolator
 - Add USER env to mesos config to fix the "invalid-user" in the log files
+- Add basic SSL support for Mesos
+- Seperate Zookeeper from Mesos-Master role
 
 # v0.11.0
 

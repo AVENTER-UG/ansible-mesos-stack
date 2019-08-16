@@ -3,3 +3,6 @@
 mesos_password: "marathon"
 mesos_user: "marathon"
 mesos_clustername: "AVENTER"
+
+libprocess_enable_ssl: "true"
+libprocess_enable_ssl_verify: "false"

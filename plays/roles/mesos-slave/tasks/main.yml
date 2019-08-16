@@ -19,12 +19,30 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "/etc/mesos-slave/modules"    
+    - "/etc/mesos-slave/modules"
 
 - name: create zk file
   file: 
     path: /etc/mesos/zk 
     state: touch
+    mode: 0640
+
+- name: create ssl directory
+  file: 
+    path: /etc/mesos/ssl
+    state: directory
+    mode: 0750
+
+- name: copy ssl cert
+  copy:
+    src: mesos.crt
+    dest: /etc/mesos/ssl/mesos.crt
+    mode: 0640
+
+- name: copy ssl key
+  copy:
+    src: mesos.key
+    dest: /etc/mesos/ssl/mesos.key
     mode: 0640
 
 - name: configure zk access
@@ -35,6 +53,18 @@
 
 - name: configure user env string
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"  
+
+- name: enable ssl for mesos libprocess
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"
+
+- name: enable ssl verify for mesos
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}" 
+
+- name: add mesos libprocess ssl key file
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
+
+- name: add mesos libprocess ssl cert file
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
 
 - name: set hostname in mesos
   lineinfile: dest=/etc/mesos-slave/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
