@@ -35,13 +35,13 @@
 
 - name: copy ssl cert
   copy:
-    src: mesos.crt
+    src: "{{ mesos_ssl_crt }}"
     dest: /etc/mesos/ssl/mesos.crt
     mode: 0644
 
 - name: copy ssl key
   copy:
-    src: mesos.key
+    src: "{{ mesos_ssl_key }}"
     dest: /etc/mesos/ssl/mesos.key
     mode: 0644    
 

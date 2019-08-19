@@ -91,7 +91,7 @@
 
 - name: add ssl keystore
   copy:
-    src: marathon.jks 
+    src: "{{ marathon_ssl_jks }}"
     dest: /etc/mesos/ssl/marathon.jks
     owner: root
     group: marathon  

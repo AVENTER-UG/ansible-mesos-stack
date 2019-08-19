@@ -19,3 +19,6 @@ libprocess_enable_ssl_verify: "false"
 libprocess_ssl_require_cert: "false"
 libprocess_ssl_enable_downgrade: "true"
 
+marathon_ssl_jks: "../files/marathon.jks"
+mesos_ssl_key: "../files/mesos.key"
+mesos_ssl_crt: "../files/mesos.crt"

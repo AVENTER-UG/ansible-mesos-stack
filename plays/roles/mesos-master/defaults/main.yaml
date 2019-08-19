@@ -11,3 +11,7 @@ libprocess_ssl_require_cert: "false"
 libprocess_ssl_enable_downgrade: "true"
 
 
+mesos_ssl_key: "../files/mesos.key"
+mesos_ssl_crt: "../files/mesos.crt"
+
+
