@@ -7,6 +7,13 @@
       - bind-utils
     state: latest
 
+- name: Remove deprecated config files
+  file: 
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/dnsmasq.d/20-consul"    
+
 - name: Check if NetworkManager is installed
   command: rpm -q NetworkManager
   register: rpm_check
@@ -56,7 +63,7 @@
 - name: configure dnsmasq for consul
   template:
     src: 20-mesos
-    dest: /etc/dnsmasq.d/20-consul
+    dest: /etc/dnsmasq.d/20-mesos
     mode: 0755    
 
 - name: enable dnsmasq
