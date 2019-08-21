@@ -46,6 +46,14 @@
     dest: /etc/mesos/ssl/mesos.key
     mode: 0644
 
+- name: Remove deprecated config files
+  file: 
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/etc/mesos-slave/seccomp_config_dir"  
+    - "/etc/mesos-slave/seccomp_profile_name"
+
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
 
@@ -110,7 +118,7 @@
   lineinfile: dest=/etc/mesos-slave/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
 
 - name: set mesos isolation
-  lineinfile: dest=/etc/mesos-slave/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities,linux/seccomp" mode=0640
+  lineinfile: dest=/etc/mesos-slave/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities" mode=0640
 
 - name: set image provider
   lineinfile: dest=/etc/mesos-slave/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640
@@ -118,11 +126,11 @@
 - name: set mesos module directory
   lineinfile: dest=/etc/mesos-slave/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
-- name: set mesos seccomp directory
-  lineinfile: dest=/etc/mesos-slave/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp" mode=0640
-
-- name: set mesos seccomp directory
-  lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
+#- name: set mesos seccomp directory
+#  lineinfile: dest=/etc/mesos-slave/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp" mode=0640
+#
+#- name: set mesos seccomp directory
+#  lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
 
 - name: set mesos executor env with ssl
   template: 
@@ -132,7 +140,7 @@
   when:
     - libprocess_enable_ssl == "true"
 
-- name: set mesos executor env with ssl
+- name: set mesos executor env without ssl
   file:
     path: /etc/mesos-slave/executor_environment_variables
     state: absent

@@ -11,7 +11,7 @@ This will change the way how to load the configuration of mesos libs. If you add
 - Set MESOS_MASTER env variable. Needed for some plugin.
 - Disable Docker update
 - Change Mesos Modules from single file to config folder
-- Add seccomp mesos isolator
+- Add but not activate seccomp mesos isolator, its only workign with mesos 1.8.1
 - Add USER env to mesos config to fix the "invalid-user" in the log files
 - Add basic SSL support for Mesos. You can enable it with the ansible group_vars ```libprocess_enable_ssl: "true"```
 - Enable SSL in Marathon, Mesos-DNS, Metronome. You can enable it with the ansible group_vars ```libprocess_enable_ssl: "true"```
