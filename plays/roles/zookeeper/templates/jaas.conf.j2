@@ -1,0 +1,11 @@
+Server {
+  org.apache.zookeeper.server.auth.DigestLoginModule required
+  user_super="{{ zookeeper_admin_secret }}"
+  user_client="{{ zookeeper_client_secret }}";
+};
+
+Client {
+  org.apache.zookeeper.server.auth.DigestLoginModule required
+  username="client"
+  password="{{ zookeeper_client_secret }}";
+};

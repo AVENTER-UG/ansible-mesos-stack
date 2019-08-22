@@ -59,11 +59,43 @@
 - name: enable vault plugin
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_ENABLE_FEATURES=secrets,external_volumes,vips,task_killing,gpu_resources" create=yes
 
+- name: enable ssl for mesos libprocess
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+
+- name: enable ssl verify for mesos libprocess
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  
+
+- name: add mesos libprocess ssl key file
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
+
+- name: add mesos libprocess ssl cert file
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
+
+- name: enable required ssl cert
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CERT={{ libprocess_ssl_require_cert }}" 
+
+- name: set mesos libprocess ssl downgrade
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" 
+
+- name: set ssl keystore file
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^MARATHON_SSL_KEYSTORE_PATH=*" line="MARATHON_SSL_KEYSTORE_PATH=/etc/mesos/ssl/marathon.jks" 
+
+- name: set ssl keystore password
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^MARATHON_SSL_KEYSTORE_PASSWORD=*" line="MARATHON_SSL_KEYSTORE_PASSWORD={{ marathon_jks_password }}" 
+
 - name: Change group owner of secret file
   file:
     path: /etc/mesos/marathon.secret
     owner: root
     group: marathon
+
+- name: add ssl keystore
+  copy:
+    src: "{{ marathon_ssl_jks }}"
+    dest: /etc/mesos/ssl/marathon.jks
+    owner: root
+    group: marathon  
+    mode: 0640  
 
 - name: symlink marathon
   file: 

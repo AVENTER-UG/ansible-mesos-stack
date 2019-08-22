@@ -12,3 +12,13 @@ vault_http_protocol: "http"
 
 marathon_vault_url: "https://github.com/avast/marathon-vault-plugin/releases/download/{{ marathon_vault_release }}/bundle_{{ marathon_vault_version }}.tar"
 marathon_basic_auth: "{{ mesos_user }}:{{ mesos_password }}"
+marathon_jks_password: "D2dK4hSnyXbFmfYj"
+
+libprocess_enable_ssl: "false"
+libprocess_enable_ssl_verify: "false"
+libprocess_ssl_require_cert: "false"
+libprocess_ssl_enable_downgrade: "true"
+
+marathon_ssl_jks: "../files/marathon.jks"
+mesos_ssl_key: "../files/mesos.key"
+mesos_ssl_crt: "../files/mesos.crt"

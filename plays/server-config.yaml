@@ -16,7 +16,8 @@
   serial: 40%
   roles:
     - { role: consul }
-    - { role: mesos-dns } 
+    - { role: mesos-dns }
+    - { role: zookeeper }
     - { role: mesos-master }        
 
 - name: Configure DNS
@@ -26,7 +27,6 @@
     - worker
   roles:
     - { role: dnsmasq }
-
  
 - name: Configure Worker Server
   become: yes
@@ -37,6 +37,7 @@
     - { role: docker }    
     - { role: weave_plugin_mesos }
     - { role: weave }
+    - { role: mesos-modules } 
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
@@ -73,6 +74,13 @@
     - { role: elasticsearch }
     - { role: mongodb }    
     - { role: graylog }    
+   
+- name: Init Jobs
+  hosts: worker
+  roles:
+    - { role: cadvisor }
+    - { role: registrator }    
+  
 
 
     

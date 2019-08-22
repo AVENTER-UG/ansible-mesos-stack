@@ -5,6 +5,12 @@
     "principal": "{{ mesos_user }}",
     "secret": "{{ mesos_password }}"
   },  
+
+  {% if libprocess_enable_ssl %}
+  "MesosHTTPSOn": true,
+  "CertFile":"/etc/mesos/ssl/mesos.crt",
+  "KeyFile":"/etc/mesos/ssl/mesos.key",
+  {% endif %}
   "mesosAuthentication": "basic",
   "refreshSeconds": 60,
   "ttl": 60,
@@ -12,6 +18,7 @@
   "port": 61053,
   "resolvers": ["127.0.0.1"],
   "timeout": 5,
+  "IPSources": [ "host" ],
   "email": "root.mesos-dns.mesos"
 }
 

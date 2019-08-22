@@ -21,9 +21,13 @@ Please don't hesitate an talk with us if you have questions.
 
 - https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
 
-## v0.11.0
+## v0.11.1
 
 ### Manager node
+
+This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
+
+This will enable SSL communication for the mesos agents and mesos server. The verification of the ssl certificate is disabled (default). If you want to disable SSL, please add ```libprocess_enable_ssl: "false"``` to your group_vars inventory configuration. More information to Mesos and SSL: http://mesos.apache.org/documentation/latest/ssl/
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
@@ -32,7 +36,6 @@ Please don't hesitate an talk with us if you have questions.
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.5.3      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
-| Docker  18.09.ce   | Docker engine                     | RPM                                |
 | Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
 
 ### Worker node
@@ -40,15 +43,15 @@ Please don't hesitate an talk with us if you have questions.
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
 | Mesos 1.6.1        | Mesos slave                | RPM          |
-| Docker  18.06.1.ce | Docker engine              | RPM          |
+| Docker 19.03.1-ce  | Docker engine              | RPM          |
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |
 | DNSMasq 2          | Container DNS              | RPM          |
-| CAdavisor          | Docker engine monitoring   | Docker image |
+| CAdavisor (DEPRECATED read changelog.md)         | Docker engine monitoring   | Docker image |
 | Registrator        | Register Microservier name | Docker image |
 | Consul  1.5.3      | Consul Client              | Binary       |
 
-### Graylog 
+### Graylog DEPRECATED (read changelog.md)
 
 | Software version    | Role           | Install type |
 | ------------------- | :------------: | :----------: |
@@ -56,7 +59,7 @@ Please don't hesitate an talk with us if you have questions.
 | Elasticsearch 5.3.1 | Search Engine  | RPM          |
 | MongoDB             | NoSQL Database | RPM          |
 
-### Prometheus
+### Prometheus DEPRECATED (read changelog.md)
 
 | Software version | Role                            | Install type |
 | ---------------- | :-----------------------------: | :----------: |

@@ -1,22 +1,16 @@
 ---
 
-- name: install docker py
-  pip:
-    name: docker-compose
-    version: 1.9.0
-
-#- name: remove registrator container
-#  docker_container:
-#    name: registratorMaster
-#    state: absent
-
 - name: download and run registrator
-  docker_container:
-    name: registratorMaster
-    image: "{{ registrator_image }}"
-    pull: true
-    restart_policy: always
-    volumes:
-      - "{{ registrator_docker_socket }}:/tmp/docker.sock"
-    state: started
-    command: -cleanup=true -ttl=120 -ttl-refresh=60 -resync=10 -internal=true {{ registrator_uri }}
+  template: 
+    src: "registrator.systemd.j2"
+    dest: "/etc/systemd/system/registrator.service"
+    mode: 0644
+
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: start registrator
+  service:
+    name: "registrator"
+    enabled: yes
+    state: restarted

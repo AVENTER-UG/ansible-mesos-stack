@@ -1,3 +1,23 @@
+# v0.11.1
+
+This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
+
+- Disable auto weavescope restart via systemd
+- Add metronome parameters
+- Change Registrator and CAdvisor to systemd
+- Fix Mesos CNI missing type in weave
+- Fix missing agent http credentials
+- Fix set mesos-agent hostname after rerun
+- Set MESOS_MASTER env variable. Needed for some plugin.
+- Disable Docker update
+- Change Mesos Modules from single file to config folder
+- Add but not activate seccomp mesos isolator, its only workign with mesos 1.8.1
+- Add USER env to mesos config to fix the "invalid-user" in the log files
+- Add basic SSL support for Mesos. You can enable it with the ansible group_vars ```libprocess_enable_ssl: "true"```
+- Enable SSL in Marathon, Mesos-DNS, Metronome. You can enable it with the ansible group_vars ```libprocess_enable_ssl: "true"```
+- Seperate Zookeeper from Mesos-Master role
+- DEPRECATED: Graylog, Cadvisor, Grafana, Prometheus, Prometheus Nodeexporter, MongoDB. All these will move into a seperated playbook.
+
 # v0.11.0
 
 This will update weave! It can be, that the docker daemon will restart after the weave update.

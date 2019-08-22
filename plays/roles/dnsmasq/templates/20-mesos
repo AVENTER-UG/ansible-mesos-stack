@@ -10,6 +10,7 @@ server={{ dns1 }}
 server={{ dns2 }}
 
 # configure DNS resolution to consul servers
-server=/marathon.{{ consul_domain }}/{{ dns1 }}#53
-server=/service.{{ consul_domain }}/{{ ansible_default_ipv4.address }}#8600
+{% for host in groups['manager'] %}
+server=/mesos/{{ hostvars[host]['ansible_default_ipv4']['address'] }}#61053
+{% endfor %}
 

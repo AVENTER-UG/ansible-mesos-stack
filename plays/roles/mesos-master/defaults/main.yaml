@@ -5,6 +5,13 @@ mesos_user: "marathon"
 mesos_clustername: "DEFAULT"
 quorum: "1"
 
-zookeeper_admin_secret: "zookeeper"
-zookeeper_client_secret: "zookeeper"
+libprocess_enable_ssl: "false"
+libprocess_enable_ssl_verify: "false"
+libprocess_ssl_require_cert: "false"
+libprocess_ssl_enable_downgrade: "true"
+
+
+mesos_ssl_key: "../files/mesos.key"
+mesos_ssl_crt: "../files/mesos.crt"
+
 

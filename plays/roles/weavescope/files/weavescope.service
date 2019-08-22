@@ -7,6 +7,5 @@ Requires=docker.service
 TimeoutStartSec=0
 EnvironmentFile=-/etc/weave.env
 ExecStart=/usr/local/bin/scope launch $WEAVE_PEERS
-Restart=on-failure
 [Install]
 WantedBy=weave.target

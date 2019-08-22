@@ -3,8 +3,8 @@
   yum:
     name:
       - mesos-1.8.0
-      - mesosphere-zookeeper-3.4.6
     state: installed
+  ignore_errors: true
 
 - name: disable mesos update
   lineinfile:
@@ -14,51 +14,63 @@
   with_items:
     - { line: 'exclude=mesos-*' }
 
-- name: enable zookeeper authentication
-  lineinfile: dest=/etc/zookeeper/conf/java.env state=present regexp="^" line="SERVER_JVMFLAGS=\"-Djava.security.auth.login.config=/etc/zookeeper/conf/jaas.conf\"" create=yes
-
-- name: set master ID
-  lineinfile: dest=/var/lib/zookeeper/myid state=present regexp="^" line="{{ myid }}" create=yes
-
-- name: remove server line in zookeeper config
-  lineinfile:
-    dest=/etc/zookeeper/conf/zoo.cfg    
-    state=absent
-    regexp='^server.' 
-
-- name: add zookeepers to config
-  lineinfile:
-    dest=/etc/zookeeper/conf/zoo.cfg
-    line="{{ item }}"
-    state=present
-  with_items:
-    - "{% for host in groups['manager'] %}server.{{ hostvars[host].myid }}={{ host }}:2888:3888\n{% endfor %}"
-
-- name: add sasl to config
-  lineinfile:
-    dest=/etc/zookeeper/conf/zoo.cfg
-    line="{{ item }}"
-    state=present
-  with_items:
-    - "authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider"
-    - "requireClientAuthScheme=sasl"
-
 - name: Remove deprecated config files
   file: 
     path: "{{ item }}"
     state: absent
   with_items:
     - "/etc/mesos-master/authenticate"
-    - "/etc/mesos-master/authenticate_http_readonly"
 
-- name : Start zookeeper server and enable at reboot
-  service : name=zookeeper state=restarted enabled=yes
+- name: create zk file
+  file: 
+    path: /etc/mesos/zk 
+    state: touch
+    mode: 0640
 
-- name: Delete old zk entry
-  file: path=/etc/mesos/zk state=absent
+- name: create ssl directory
+  file: 
+    path: /etc/mesos/ssl
+    state: directory
+    mode: 0755
+
+- name: copy ssl cert
+  copy:
+    src: "{{ mesos_ssl_crt }}"
+    dest: /etc/mesos/ssl/mesos.crt
+    mode: 0644
+
+- name: copy ssl key
+  copy:
+    src: "{{ mesos_ssl_key }}"
+    dest: /etc/mesos/ssl/mesos.key
+    mode: 0644    
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+
+- name: configure mesos-zk string
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"
+
+- name: configure user env string
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"  
+
+- name: enable ssl for mesos libprocess
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+
+- name: enable ssl verify for mesos libprocess
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  
+
+- name: add mesos libprocess ssl key file
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
+
+- name: add mesos libprocess ssl cert file
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
+
+- name: enable required sll cert
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CERT={{ libprocess_ssl_require_cert }}" 
+
+- name: set mesos libprocess ssl downgrade
+  lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" 
 
 - name: set quorom count
   lineinfile: dest=/etc/mesos-master/quorum state=present regexp="^" line="{{ quorum }}" create=yes
@@ -78,6 +90,9 @@
 
 - name: enable cluster http readwrite authentication
   lineinfile: dest=/etc/mesos-master/authenticate_http_readwrite state=present create=yes regexp="^" line="true"    
+
+- name: enable cluster http readonly authentication
+  lineinfile: dest=/etc/mesos-master/authenticate_http_readonly state=present create=yes regexp="^" line="true"      
 
 - name: enable cluster agent authentication
   lineinfile: dest=/etc/mesos-master/authenticate_agents state=present create=yes regexp="^" line="true"
@@ -109,6 +124,15 @@
 - name: set slave removal rate limit
   lineinfile: dest=/etc/mesos-master/agent_removal_rate_limit state=present create=yes regexp="^" line="100/1mins"
 
+- name: set mesos module directory
+  lineinfile: dest=/etc/mesos-master/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules"
+
+- name: create mesos module directory
+  file:
+    path: /etc/mesos/modules
+    state: directory
+    mode: 0750
+
 - name: copy mesos credentials
   template: src=credentials.j2 dest=/etc/mesos/credentials mode=0640
 
@@ -117,9 +141,6 @@
 
 - name: copy marathon secret
   template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640  
-
-- name: copy zookeeper jaas file
-  template: src=jaas.conf.j2 dest=/etc/zookeeper/conf/jaas.conf mode=0640  
 
 - name: start necessary services
   service:
