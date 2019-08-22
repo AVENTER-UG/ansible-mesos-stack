@@ -2,7 +2,7 @@
 - name: install mesos master packages
   yum:
     name:
-      - mesos-1.8.0
+      - "{{ mesos_rpm }}"
     state: installed
   ignore_errors: true
 

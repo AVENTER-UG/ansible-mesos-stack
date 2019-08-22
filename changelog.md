@@ -1,3 +1,5 @@
+# v0.12.0
+
 # v0.11.1
 
 This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.

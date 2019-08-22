@@ -21,7 +21,7 @@ Please don't hesitate an talk with us if you have questions.
 
 - https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
 
-## v0.11.1
+## v0.12.0
 
 ### Manager node
 
@@ -36,7 +36,7 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.5.3      | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
-| Metronome 0.6.30   | Schedule Server                    | JAVA dependencies to Marathon      |
+| Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
 
 ### Worker node
 
@@ -47,7 +47,7 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |
 | DNSMasq 2          | Container DNS              | RPM          |
-| CAdavisor (DEPRECATED read changelog.md)         | Docker engine monitoring   | Docker image |
+| CAdavisor (DEPRECATED read changelog.md)        | Docker engine monitoring   | Docker image |
 | Registrator        | Register Microservier name | Docker image |
 | Consul  1.5.3      | Consul Client              | Binary       |
 
