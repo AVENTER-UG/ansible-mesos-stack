@@ -21,8 +21,8 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
-| Mesos 1.6.1        | Mesos slave                | RPM          |
-| Docker 19.03.1-ce  | Docker engine              | RPM          |
+| Mesos 1.8.0        | Mesos slave                | RPM          |
+| Docker 18.06.1.ce  | Docker engine              | RPM          |
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |
 | DNSMasq 2          | Container DNS              | RPM          |
@@ -64,7 +64,7 @@ This will update weave! It can be, that the docker daemon will restart after the
 
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
-| Mesos 1.6.1        | Mesos slave                | RPM          |
+| Mesos 1.8.0        | Mesos slave                | RPM          |
 | Docker  18.06.1.ce | Docker engine              | RPM          |
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |
@@ -108,7 +108,7 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
-| Mesos 1.6.1        | Mesos slave                | RPM          |
+| Mesos 1.8.0        | Mesos slave                | RPM          |
 | Docker  18.06.1.ce | Docker engine              | RPM          |
 | Weave 2.1.3        | Container networking       | Docker image |
 | Weavescope 1.6.7   | Container Management       | Docker image |
@@ -146,7 +146,7 @@ With this Version we will include Mesos-DNS for Service Discovery of Mesos tasks
 
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
-| Mesos 1.6.1        | Mesos slave                | RPM          |
+| Mesos 1.8.0        | Mesos slave                | RPM          |
 | Docker  18.06.1.ce | Docker engine              | RPM          |
 | Weave 2.1.3        | Container networking       | Docker image |
 | Weavescope 1.6.7   | Container Management       | Docker image |

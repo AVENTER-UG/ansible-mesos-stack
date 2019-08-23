@@ -31,7 +31,7 @@
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 40%    
+  serial: 20%    
   roles:
     - { role: consul-agent }
     - { role: docker }    

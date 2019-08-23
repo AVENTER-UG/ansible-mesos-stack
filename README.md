@@ -31,7 +31,7 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.8.0        | Mesos masters                     | RPM                                |
+| Mesos 1.8.1        | Mesos masters                     | RPM                                |
 | Marathon 1.8.218   | Marathon masters                  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.5.3      | Service Discovery for Container   | Binary                             |
@@ -42,7 +42,7 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 
 | Software version   | Role                       | Install type |
 | ------------------ | :------------------------: | :----------: |
-| Mesos 1.6.1        | Mesos slave                | RPM          |
+| Mesos 1.8.1        | Mesos slave                | RPM          |
 | Docker 19.03.1-ce  | Docker engine              | RPM          |
 | Weave 2.5.2        | Container networking       | Docker image |
 | Weavescope 1.11.3  | Container Management       | Docker image |

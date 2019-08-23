@@ -1,5 +1,12 @@
 # v0.12.0
 
+This will update Mesos to the version 1.8.1. Be sure its compatible with your framework.
+This will update the docker engine to 19.03.1. The update will restart the dockerengine. Your contailers will be down during the update process of the worker. Please be sure, that you have a downtime for your system.
+
+- Update apache mesos to version 1.8.1
+- Enable seccomb
+- Update Docker Engine to 19.03.1
+
 # v0.11.1
 
 This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
