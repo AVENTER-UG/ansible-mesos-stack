@@ -6,6 +6,7 @@ This will update the docker engine to 19.03.1. The update will restart the docke
 - Update apache mesos to version 1.8.1
 - Enable seccomb
 - Update Docker Engine to 19.03.1
+- Change Docker storage driver from devicemapper to overlay2
 
 # v0.11.1
 
