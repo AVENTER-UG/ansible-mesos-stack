@@ -7,6 +7,7 @@ This will update the docker engine to 19.03.1. The update will restart the docke
 - Enable seccomb
 - Update Docker Engine to 19.03.1
 - Change Docker storage driver from devicemapper to overlay2
+- deactivate docker live restore
 
 # v0.11.1
 

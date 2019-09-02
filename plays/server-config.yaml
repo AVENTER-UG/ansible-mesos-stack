@@ -37,7 +37,7 @@
     - { role: docker }    
     - { role: weave_plugin_mesos }
     - { role: weave }
-    - { role: mesos-modules } 
+    - { role: mesos-modules-slave } 
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
     - { role: weavescope }    
