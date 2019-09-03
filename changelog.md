@@ -8,6 +8,8 @@ This will update the docker engine to 19.03.1. The update will restart the docke
 - Update Docker Engine to 19.03.1
 - Change Docker storage driver from devicemapper to overlay2
 - deactivate docker live restore
+- add container dns to mesos-slave
+- remove google dns from resolv.conf
 
 # v0.11.1
 

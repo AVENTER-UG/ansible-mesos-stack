@@ -1,0 +1,11 @@
+{
+  "mesos": [
+    {
+      "network_mode": "CNI",
+      "network_name": "weave",
+      "dns": {
+        "nameservers": [ "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}" ]
+      }
+    }
+  ]
+}
