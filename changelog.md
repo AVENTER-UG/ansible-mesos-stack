@@ -10,6 +10,7 @@ This will update the docker engine to 19.03.1. The update will restart the docke
 - deactivate docker live restore
 - add container dns to mesos-slave
 - remove google dns from resolv.conf
+- change mesos-dns to give out per default the containers ip
 
 # v0.11.1
 
