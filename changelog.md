@@ -2,6 +2,7 @@
 
 This will update Mesos to the version 1.8.1. Be sure its compatible with your framework.
 This will update the docker engine to 19.03.1. The update will restart the dockerengine. Your contailers will be down during the update process of the worker. Please be sure, that you have a downtime for your system.
+This will change the mesos dns config. If you want to resolv the host ip, Please use ".slave.mesos".
 
 - Update apache mesos to version 1.8.1
 - Enable seccomb
