@@ -10,7 +10,7 @@ libprocess_enable_ssl_verify: "false"
 libprocess_ssl_require_cert: "false"
 libprocess_ssl_enable_downgrade: "true"
 
-mesos_rpm: "http://repos.mesosphere.com/el/7/x86_64/RPMS/mesos-1.8.1-2.0.1.el7.x86_64.rpm"
+mesos_rpm: "http://repos.mesosphere.com/el/7/x86_64/RPMS/mesos-1.9.0-2.0.1.el7.x86_64.rpm"
 
 mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"

@@ -1,3 +1,7 @@
+# v0.13.0
+
+- Update apache mesos to version 1.9.0
+
 # v0.12.0
 
 This will update Mesos to the version 1.8.1. Be sure its compatible with your framework.

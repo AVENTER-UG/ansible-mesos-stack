@@ -7,7 +7,7 @@ This playbook deploys a full Mesos cluster. It includes, so many masters and wor
 
 ## Requirements
 
-- CentOS 1.7
+- CentOS 7
 
 ## How to use
 
@@ -21,17 +21,14 @@ Please don't hesitate an talk with us if you have questions.
 
 - https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
 
-## v0.12.0
+## v0.13.0
 
 ### Manager node
 
-This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
-
-This will enable SSL communication for the mesos agents and mesos server. The verification of the ssl certificate is disabled (default). If you want to disable SSL, please add ```libprocess_enable_ssl: "false"``` to your group_vars inventory configuration. More information to Mesos and SSL: http://mesos.apache.org/documentation/latest/ssl/
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.8.1        | Mesos masters                     | RPM                                |
+| Mesos 1.9.0        | Mesos masters                     | RPM                                |
 | Marathon 1.8.218   | Marathon masters                  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Consul  1.5.3      | Service Discovery for Container   | Binary                             |
