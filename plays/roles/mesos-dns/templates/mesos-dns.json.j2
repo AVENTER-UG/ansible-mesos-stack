@@ -6,7 +6,7 @@
     "secret": "{{ mesos_password }}"
   },  
 
-  {% if libprocess_enable_ssl %}
+  {% if libprocess_enable_ssl == "true" %}
   "MesosHTTPSOn": true,
   "CertFile":"/etc/mesos/ssl/mesos.crt",
   "KeyFile":"/etc/mesos/ssl/mesos.key",
@@ -18,7 +18,7 @@
   "port": 61053,
   "resolvers": ["127.0.0.1"],
   "timeout": 5,
-  "IPSources": [ "host" ],
+  "IPSources": [ "docker", "mesos", "netinfo", "host" ],
   "email": "root.mesos-dns.mesos"
 }
 

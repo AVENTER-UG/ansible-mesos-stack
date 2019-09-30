@@ -1,18 +1,24 @@
 ---
+  
+- name: enable mesos update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^exclude=mesos-*"
+    line: '#exclude=mesos-*'
+    state: present
+
 - name: install mesos master packages
   yum:
     name:
-      - mesos-1.8.0
-    state: installed
-  ignore_errors: true
+      - "{{ mesos_rpm }}"
+    state: latest
 
-- name: disable mesos update
+- name: enable mesos update
   lineinfile:
-    dest=/etc/yum.conf
-    line="{{ item.line }}"
-    state=present
-  with_items:
-    - { line: 'exclude=mesos-*' }
+    dest: "/etc/yum.conf"
+    regexp: "^#exclude=mesos-*"
+    line: 'exclude=mesos-*'
+    state: present
 
 - name: Remove deprecated config files
   file: 

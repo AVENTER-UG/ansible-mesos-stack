@@ -1,20 +1,25 @@
 ---
 
+- name: enable mesos update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^exclude=mesos-*"
+    line: '#exclude=mesos-*'
+    state: present
+
 - name: install mesos slave packages
   yum:
     name:
-      - mesos-1.8.0
-    state: installed
-  ignore_errors: true    
-    
+      - "{{ mesos_rpm }}"
+    state: present
+
 - name: disable mesos update
   lineinfile:
-    dest=/etc/yum.conf
-    line="{{ item.line }}"
-    insertafter='EOF'
-  with_items:
-    - { line: 'exclude=mesos-*' }  
-
+    dest: "/etc/yum.conf"
+    regexp: "^#exclude=mesos-*"
+    line: 'exclude=mesos-*'
+    state: present
+    
 - name: Remove deprecated config files
   file: 
     path: "{{ item }}"
@@ -126,11 +131,11 @@
 - name: set mesos module directory
   lineinfile: dest=/etc/mesos-slave/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
-#- name: set mesos seccomp directory
-#  lineinfile: dest=/etc/mesos-slave/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp" mode=0640
-#
-#- name: set mesos seccomp directory
-#  lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
+- name: set mesos seccomp directory
+  lineinfile: dest=/etc/mesos-slave/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp" mode=0640
+
+- name: set mesos seccomp directory
+  lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
 
 - name: set mesos executor env with ssl
   template: 
@@ -146,6 +151,12 @@
     state: absent
   when:
     - libprocess_enable_ssl == "false"
+
+- name: set mesos container dns
+  template: 
+    src: container_dns.j2
+    dest: /etc/mesos-slave/default_container_dns
+    mode: 0640
 
 - name: create mesos module directory
   file:

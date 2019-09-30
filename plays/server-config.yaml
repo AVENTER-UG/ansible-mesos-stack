@@ -31,15 +31,16 @@
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 40%    
+  serial: 20%    
   roles:
     - { role: consul-agent }
     - { role: docker }    
     - { role: weave_plugin_mesos }
     - { role: weave }
-    - { role: mesos-modules } 
+    - { role: mesos-modules-slave } 
     - { role: mesos-slave }    
     - { role: rexray_s3fs_plugin } 
+    - { role: rexray } 
     - { role: weavescope }    
 
 - name: Start Frameworks
