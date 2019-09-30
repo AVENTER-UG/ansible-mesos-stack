@@ -12,6 +12,7 @@ This will change the mesos dns config. If you want to resolv the host ip, Please
 - add container dns to mesos-slave
 - remove google dns from resolv.conf
 - change mesos-dns to give out per default the containers ip
+- Bugfix: Mesos-DNS enable SSL is working now
 
 # v0.11.1
 

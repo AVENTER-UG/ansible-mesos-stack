@@ -1,7 +1,15 @@
 ---
 
+- name: install packages centos
+  yum:
+    name:
+      - curl
+    state: latest
+    update_cache: yes
+  when: ansible_distribution == "CentOS"  
+
 - name: download rexray
-  shell: "curl -sSL https://dl.bintray.com/emccode/rexray/install | sh -s -- stable"
+  shell: "curl -sSL https://rexray.io/install | sh -s -- stable"
 
 - name: copy rexray config
   template: src=rexray-config.yml.j2 dest=/etc/rexray/config.yml mode=0644

@@ -6,7 +6,7 @@
     "secret": "{{ mesos_password }}"
   },  
 
-  {% if libprocess_enable_ssl %}
+  {% if libprocess_enable_ssl == "true" %}
   "MesosHTTPSOn": true,
   "CertFile":"/etc/mesos/ssl/mesos.crt",
   "KeyFile":"/etc/mesos/ssl/mesos.key",
