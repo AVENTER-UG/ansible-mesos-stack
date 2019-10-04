@@ -46,7 +46,6 @@ This will enable SSL communication for the mesos agents and mesos server. The ve
 | Prometheus 1.7.1 | Timesserie database for metrics | Docker image |
 
 
-
 ## v0.11.1
 
 ### Manager node

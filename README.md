@@ -37,16 +37,17 @@ Please don't hesitate an talk with us if you have questions.
 
 ### Worker node
 
-| Software version   | Role                       | Install type |
-| ------------------ | :------------------------: | :----------: |
-| Mesos 1.8.1        | Mesos slave                | RPM          |
-| Docker 19.03.1-ce  | Docker engine              | RPM          |
-| Weave 2.5.2        | Container networking       | Docker image |
-| Weavescope 1.11.3  | Container Management       | Docker image |
-| DNSMasq 2          | Container DNS              | RPM          |
-| CAdavisor (DEPRECATED read changelog.md)        | Docker engine monitoring   | Docker image |
-| Registrator        | Register Microservier name | Docker image |
-| Consul  1.5.3      | Consul Client              | Binary       |
+| Software version   | Role                              | Install type |
+| ------------------ | :-------------------------------: | :----------: |
+| Mesos 1.9.0        | Mesos slave                       | RPM          |
+| Docker 19.03.1-ce  | Docker engine                     | RPM          |
+| Weave 2.5.2        | Container networking              | Docker image |
+| Weavescope 1.11.3  | Container Management              | Docker image |
+| DNSMasq 2          | Container DNS                     | RPM          |
+| CAdavisor          | Docker engine monitoring          | Docker image |
+| Registrator        | Register Microservier name        | Docker image |
+| Consul  1.5.3      | Consul Client                     | Binary       |
+| Rexray 0.11.4      | Persistant Storage                | RPM          |
 
 ### Graylog DEPRECATED (read changelog.md)
 
