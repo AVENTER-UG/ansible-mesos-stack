@@ -7,6 +7,7 @@ server={{ dns1 }}
 server={{ dns2 }}
 
 # configure DNS resolution to consul servers
-server=/marathon.{{ consul_domain }}/{{ dns1 }}#53
-server=/service.{{ consul_domain }}/{{ ansible_default_ipv4.address }}#8600
+{% for host in groups['manager'] %}
+server=/weave.local/172.17.0.1#53
+{% endfor %}
 

@@ -7,13 +7,6 @@
       - bind-utils
     state: latest
 
-- name: Remove deprecated config files
-  file: 
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - "/etc/dnsmasq.d/20-consul"    
-
 - name: Check if NetworkManager is installed
   command: rpm -q NetworkManager
   register: rpm_check
@@ -49,6 +42,22 @@
   set_fact:
     domain_search_list: "{{ dns_search_list_output.stdout_lines }}"
 
+- name: except docker interface
+  lineinfile: 
+    dest: "/etc/dnsmasq.conf"
+    create: yes 
+    state: present 
+    regexp: "^except-interface=*" 
+    line: "except-interface=docker0" 
+
+- name: set bind interface
+  lineinfile: 
+    dest: "/etc/dnsmasq.conf"
+    create: yes 
+    state: present 
+    regexp: "^bind-interfaces*" 
+    line: "bind-interfaces" 
+
 - name: ensure dnsmasq.d directory exists
   file:
     path: /etc/dnsmasq.d/
@@ -58,13 +67,19 @@
   template:
     src: 10-consul
     dest: /etc/dnsmasq.d/10-consul
-    mode: 0755
+    mode: 0644
 
-- name: configure dnsmasq for consul
+- name: configure dnsmasq for mesos-dns
   template:
     src: 20-mesos
     dest: /etc/dnsmasq.d/20-mesos
-    mode: 0755    
+    mode: 0644    
+
+- name: configure dnsmasq for weave
+  template:
+    src: 30-weave
+    dest: /etc/dnsmasq.d/30-mesos
+    mode: 0644    
 
 - name: enable dnsmasq
   service:

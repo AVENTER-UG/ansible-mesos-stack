@@ -1,6 +1,7 @@
 # v0.13.0
 
 - Update apache mesos to version 1.9.0
+- Enable weavedns for container dns
 
 # v0.12.0
 
