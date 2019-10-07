@@ -31,7 +31,7 @@ Please don't hesitate an talk with us if you have questions.
 | Mesos 1.9.0        | Mesos masters                     | RPM                                |
 | Marathon 1.8.218   | Marathon masters                  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Consul  1.5.3      | Service Discovery for Container   | Binary                             |
+| Consul  1.5.3 (deprecated)     | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
 
@@ -46,7 +46,7 @@ Please don't hesitate an talk with us if you have questions.
 | DNSMasq 2          | Container DNS                     | RPM          |
 | CAdavisor          | Docker engine monitoring          | Docker image |
 | Registrator        | Register Microservier name        | Docker image |
-| Consul  1.5.3      | Consul Client                     | Binary       |
+| Consul  1.5.3 (deprecated)     | Consul Client                     | Binary       |
 | Rexray 0.11.4      | Persistant Storage                | RPM          |
 
 ### Graylog DEPRECATED (read changelog.md)
