@@ -2,6 +2,7 @@
 
 - Update apache mesos to version 1.9.0
 - Enable weavedns for container dns and mark consul as deprecated.
+- Mark Go Registrator as deprecated
 
 # v0.12.0
 

@@ -45,7 +45,7 @@ Please don't hesitate an talk with us if you have questions.
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
 | CAdavisor          | Docker engine monitoring          | Docker image |
-| Registrator        | Register Microservier name        | Docker image |
+| Registrator (deprecated)       | Register Microservies name        | Docker image |
 | Consul  1.5.3 (deprecated)     | Consul Client                     | Binary       |
 | Rexray 0.11.4      | Persistant Storage                | RPM          |
 
