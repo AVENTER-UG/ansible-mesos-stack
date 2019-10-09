@@ -39,7 +39,6 @@
     - { role: weave }
     - { role: mesos-modules-slave } 
     - { role: mesos-slave }    
-    - { role: rexray_s3fs_plugin } 
     - { role: rexray } 
     - { role: weavescope }    
 

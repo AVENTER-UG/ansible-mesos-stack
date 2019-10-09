@@ -2,7 +2,8 @@
 
 - Update apache mesos to version 1.9.0
 - Enable weavedns for container dns and mark consul as deprecated.
-- Mark Go Registrator as deprecated
+- Mark Go Registrator as deprecated.
+- rexray plugins are deprecated now. We move it into the standalone server package. If you still want, or have to use the docker plugin, please add it in the server-config.yaml playbook.
 
 # v0.12.0
 

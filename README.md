@@ -2,7 +2,7 @@
 
 [![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/AVENTER/donate)
 
-This playbook deploys a full Mesos cluster. It includes, so many masters and worker how you like. But the minimum should be three masters. Do be honest, it also works with one master. The access to mesos (agent and master), also to marathon need a credentials. The default one is "marathon:marathon".
+This playbook deploys a full Mesos Stack. It includes, so many masters and worker how you like. But the minimum should be three masters. Do be honest, it also works with one master. The access to mesos (agent and master), also to marathon need credentials. The default one is "marathon:marathon".
 
 
 ## Requirements

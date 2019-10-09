@@ -4,6 +4,7 @@
   yum:
     name:
       - curl
+      - s3fs-fuse
     state: latest
     update_cache: yes
   when: ansible_distribution == "CentOS"  
