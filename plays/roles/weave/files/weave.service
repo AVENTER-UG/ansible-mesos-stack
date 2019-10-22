@@ -4,6 +4,7 @@ Documentation=http://docs.weave.works/
 After=docker.service
 Requires=docker.service
 [Service]
+Restart=on-failure
 TimeoutStartSec=0
 EnvironmentFile=-/etc/weave.env
 EnvironmentFile=-/etc/weave.%H.env
