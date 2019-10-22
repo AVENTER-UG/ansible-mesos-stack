@@ -4,7 +4,7 @@
 - Enable weavedns for container dns and mark consul as deprecated.
 - Mark Go Registrator as deprecated.
 - rexray plugins are deprecated now. We move it into the standalone server package. If you still want, or have to use the docker plugin, please add it in the server-config.yaml playbook.
-- Add weave and weavescope restart at failure
+- Add weave and weavescope restart via systemd
 
 # v0.12.0
 
