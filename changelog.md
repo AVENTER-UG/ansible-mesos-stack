@@ -5,6 +5,7 @@
 - Mark Go Registrator as deprecated.
 - rexray plugins are deprecated now. We move it into the standalone server package. If you still want, or have to use the docker plugin, please add it in the server-config.yaml playbook.
 - Add weave and weavescope restart via systemd
+- Remove mount/umount and mknod of the seccomp
 
 # v0.12.0
 
