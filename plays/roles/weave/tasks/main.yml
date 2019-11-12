@@ -5,7 +5,6 @@
 
 - name: copy Weave systemd scripts into place
   copy: src={{ item }} dest=/etc/systemd/system mode=0755
-  state: present
   with_items:
     - weave.service
 

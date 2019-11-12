@@ -7,6 +7,9 @@
 - Add weave and weavescope restart via systemd
 - Remove mount/umount and mknod of the seccomp
 - Add ceph-client binaries to rexray
+- Update: Nodeexporter to version 0.18.2
+- Bugfix: Rexray systemd
+
 
 # v0.12.0
 

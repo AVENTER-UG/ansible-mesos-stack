@@ -34,6 +34,7 @@ Please don't hesitate an talk with us if you have questions.
 | Consul  1.5.3 (deprecated)     | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
+| Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
 ### Worker node
 
@@ -48,6 +49,7 @@ Please don't hesitate an talk with us if you have questions.
 | Registrator (deprecated)       | Register Microservies name        | Docker image |
 | Consul  1.5.3 (deprecated)     | Consul Client                     | Binary       |
 | Rexray 0.11.4      | Persistant Storage                | RPM          |
+| Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
 ### Graylog DEPRECATED (read changelog.md)
 
