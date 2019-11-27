@@ -79,7 +79,6 @@
   hosts: worker
   roles:
     - { role: cadvisor }
-    - { role: registrator }    
   
 
 
