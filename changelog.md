@@ -8,6 +8,7 @@
 - Remove mount/umount and mknod of the seccomp
 - Add ceph-client binaries to rexray
 - Update: Nodeexporter to version 0.18.2
+- Update: Weave to 2.6.0
 - Bugfix: Rexray systemd
 - Disable fastd in weavescope per default. have to enable it manualy.
 - Disable consul per defaults.

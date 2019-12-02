@@ -42,7 +42,7 @@ Please don't hesitate an talk with us if you have questions.
 | ------------------ | :-------------------------------: | :----------: |
 | Mesos 1.9.0        | Mesos slave                       | RPM          |
 | Docker 19.03.1-ce  | Docker engine                     | RPM          |
-| Weave 2.5.2        | Container networking              | Docker image |
+| Weave 2.6.0        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
 | CAdavisor          | Docker engine monitoring          | Docker image |
