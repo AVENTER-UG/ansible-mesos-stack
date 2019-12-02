@@ -51,7 +51,7 @@
     src={{ consul_download_folder }}/{{ consul_archive }}
     dest={{ consul_home }}/bin
     copy=no
-  when: consul_was_downloaded|changed
+  when: consul_was_downloaded == True
 
 - name: create TLS key
   no_log: True
@@ -90,7 +90,7 @@
     owner={{ consul_user }}
     group={{ consul_group }}
     recurse=yes
-  when: consul_was_downloaded|changed
+  when: consul_was_downloaded == True
 
 - name: copy consul systemd script
   template: >

@@ -15,7 +15,6 @@
   hosts: manager
   serial: 40%
   roles:
-    - { role: consul }
     - { role: mesos-dns }
     - { role: zookeeper }
     - { role: mesos-master }        
@@ -33,7 +32,6 @@
   hosts: worker
   serial: 20%    
   roles:
-    - { role: consul-agent }
     - { role: docker }    
     - { role: weave_plugin_mesos }
     - { role: weave }

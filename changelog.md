@@ -9,7 +9,8 @@
 - Add ceph-client binaries to rexray
 - Update: Nodeexporter to version 0.18.2
 - Bugfix: Rexray systemd
-- disable fastd in weavescope per default. have to enable it manualy.
+- Disable fastd in weavescope per default. have to enable it manualy.
+- Disable consul per defaults.
 
 
 # v0.12.0
