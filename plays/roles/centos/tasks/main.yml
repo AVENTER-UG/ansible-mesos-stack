@@ -1,7 +1,6 @@
 ---
 
 - name: deactivate selinux permanent
-  sudo: yes
   lineinfile:
     dest: /etc/sysconfig/selinux
     regexp: ^SELINUX=
