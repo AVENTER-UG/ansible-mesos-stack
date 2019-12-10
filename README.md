@@ -1,6 +1,6 @@
 # Ansible script to install a whole mesos stack
 
-[![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/AVENTER/donate)
+[![Donate](https://img.shields.io/liberapay/receives/AVENTER.svg?logo=liberapay)](https://liberapay.com/mesos)
 
 This playbook deploys a full Mesos Stack. It includes, so many masters and worker how you like. But the minimum should be three masters. Do be honest, it also works with one master. The access to mesos (agent and master), also to marathon need credentials. The default one is "marathon:marathon".
 
