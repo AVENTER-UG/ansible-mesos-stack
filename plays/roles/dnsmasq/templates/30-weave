@@ -7,7 +7,5 @@ server={{ dns1 }}
 server={{ dns2 }}
 
 # configure DNS resolution to consul servers
-{% for host in groups['manager'] %}
 server=/weave.local/172.17.0.1#53
-{% endfor %}
 
