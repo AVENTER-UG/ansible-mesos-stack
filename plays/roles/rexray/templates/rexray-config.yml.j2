@@ -1,28 +1,31 @@
+rexray:
+  logLevel: warn
+  modules:
+    default-docker:
+      type: csi
+      host: unix:///var/run/docker/plugins/rexray.sock
+      spec: /var/lib/docker/plugins/rexray.spec
+      libstorage:
+        service: s3fs
+    rbd:
+      type: csi
+      host: unix:///var/run/docker/plugins/rbd.sock
+      spec: /var/lib/docker/plugins/rbd.spec
+      libstorage:
+        service: rbd
 
 libstorage:
   logging:
-    level:         warn
+    level:         debug
     httpRequests:  true
     httpResponses: true
-  integration:
-    volume:
-      operations:
-        mount:
-          preempt: true
+  service: s3fs
   server:
     services:
-      rbd:
-        driver: rbd
-        integration:
-          volume:
-            operations:
-              remove:
-                disable: true
-              path:
-                cache:
-                  enabled: false
       s3fs:
         driver: s3fs
+      rbd:
+        driver: rbd
 
 s3fs:
   accessKey: {{ s3_access_key }}
