@@ -12,6 +12,7 @@
 - Bugfix: Rexray systemd
 - Disable fastd in weavescope per default. have to enable it manualy.
 - Disable consul per defaults.
+- Add multiple storage provider example to rexray
 
 
 # v0.12.0
