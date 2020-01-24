@@ -1,28 +1,28 @@
 
-rexray:
-  logLevel: warn
-  modules:
-    default-docker:
-      type: docker
-      desc: The default docker module.
-      host: unix:///run/docker/plugins/s3fs.sock
-      libstorage:
-        service: s3fs
+libstorage:
+  logging:
+    level:         warn
+    httpRequests:  true
+    httpResponses: true
+  integration:
+    volume:
+      operations:
+        mount:
+          preempt: true
+  server:
+    services:
+      rbd:
+        driver: rbd
         integration:
           volume:
             operations:
-              create:
-                default:
-                  fsType: ext4
-              mount:
-                preempt: false
-  modules:
-    rbd-docker:
-      type: docker
-      desc: The ceph docker module.
-      host: unix:///run/docker/plugins/rbd.sock
-      libstorage:
-        service: rbd
+              remove:
+                disable: true
+              path:
+                cache:
+                  enabled: false
+      s3fs:
+        driver: s3fs
 
 s3fs:
   accessKey: {{ s3_access_key }}
@@ -38,6 +38,6 @@ s3fs:
 
 rbd:
   defaultPool: docker
-  cephArgs: --id docker
+  cephArgs: "--cluster ceph --id docker --user docker"
 
 
