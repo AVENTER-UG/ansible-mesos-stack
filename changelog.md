@@ -1,3 +1,8 @@
+# dev 
+
+- Add inventory example
+
+
 # v0.13.0
 
 - Update apache mesos to version 1.9.0

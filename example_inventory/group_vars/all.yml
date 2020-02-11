@@ -1,0 +1,16 @@
+---
+
+become: false
+become_user: root
+become_method: sudo
+
+node_exporter_release: "0.18.1"
+node_exporter_arch: "amd64"
+
+weave_password: "CRYPTME"
+dns1: "8.8.8.8"
+dns2: "8.8.8.4"
+mesos_clustername: "MESOS"
+mesos_password: "password"
+marathon_basic_auth: "marathon:marathon"
+quorum: "1"

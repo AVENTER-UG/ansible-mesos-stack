@@ -1,0 +1,8 @@
+s3_access_key: ""
+s3_secret_key: ""
+s3_region_endpoint: ""
+s3_region: ""
+s3_encryption_password: ""
+s3_root_directory: ""
+
+

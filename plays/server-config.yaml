@@ -47,37 +47,15 @@
   roles:
     - { role: marathon }
     - { role: metronome }
-  
-- name: Install PROMETHEUS and Grafana
-  become: yes
-  hosts: grafana
-  roles:
-    - { role: prometheus }
-    - { role: grafana }
 
 - name: Install PROMETHEUS node-exporter on all servers
   become: yes
   hosts: 
     - manager
     - worker
-    - vpn
-    - grafana
-    - legacy
   roles:     
     - { role: prometheus-node-exporter }
    
-- name: Configure Graylog
-  hosts: graylog
-  roles:
-    - { role: elasticsearch }
-    - { role: mongodb }    
-    - { role: graylog }    
-   
-- name: Init Jobs
-  hosts: worker
-  roles:
-    - { role: cadvisor }
-  
 
 
     
