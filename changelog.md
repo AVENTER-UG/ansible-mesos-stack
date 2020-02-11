@@ -13,6 +13,7 @@
 - Disable fastd in weavescope per default. have to enable it manualy.
 - Disable consul per defaults.
 - Add multiple storage provider example to rexray
+- Remove the old vagrant files
 
 
 # v0.12.0
