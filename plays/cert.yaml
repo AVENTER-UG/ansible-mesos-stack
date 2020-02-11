@@ -1,0 +1,25 @@
+- name: gather all hosts information
+  hosts: all
+  
+- name: Configure Manager Server
+  become: yes
+  hosts: manager
+  serial: 40%
+  roles:
+    - { role: mesos-master }        
+
+- name: Configure Worker Server
+  become: yes
+  hosts: worker
+  serial: 20%    
+  roles:
+    - { role: mesos-slave }    
+
+- name: Start Frameworks
+  become: yes
+  hosts: manager
+  serial: 40%
+  roles:
+    - { role: marathon }
+  
+    

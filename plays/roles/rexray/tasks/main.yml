@@ -4,15 +4,28 @@
   yum:
     name:
       - curl
+      - s3fs-fuse
     state: latest
     update_cache: yes
   when: ansible_distribution == "CentOS"  
 
 - name: download rexray
-  shell: "curl -sSL https://rexray.io/install | sh -s -- stable"
+  shell: "curl -sSL https://rexray.io/install | sh -s -- stable 0.11.4"
 
 - name: copy rexray config
   template: src=rexray-config.yml.j2 dest=/etc/rexray/config.yml mode=0644
   
-- name: start and enable rexray
-  service: name=rexray state=restarted enabled=yes
+- name: copy rexray systemd scripts into place
+  copy: src={{ item }} dest=/etc/systemd/system mode=0755
+  with_items:
+    - rexray.service
+
+- name: reload systemd
+  command: systemctl daemon-reload
+  
+- name: start rexray
+  service:
+    name: "rexray"
+    enabled: yes
+    state: started
+  ignore_errors: true    

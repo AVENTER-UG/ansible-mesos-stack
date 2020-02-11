@@ -1,3 +1,21 @@
+# v0.13.0
+
+- Update apache mesos to version 1.9.0
+- Enable weavedns for container dns and mark consul as deprecated.
+- Mark Go Registrator as deprecated.
+- rexray plugins are deprecated now. We move it into the standalone server package. If you still want, or have to use the docker plugin, please add it in the server-config.yaml playbook.
+- Add weave and weavescope restart via systemd
+- Remove mount/umount and mknod of the seccomp
+- Add ceph-client binaries to rexray
+- Update: Nodeexporter to version 0.18.2
+- Update: Weave to 2.6.0
+- Bugfix: Rexray systemd
+- Disable fastd in weavescope per default. have to enable it manualy.
+- Disable consul per defaults.
+- Add multiple storage provider example to rexray
+- Remove the old vagrant files
+
+
 # v0.12.0
 
 This will update Mesos to the version 1.8.1. Be sure its compatible with your framework.

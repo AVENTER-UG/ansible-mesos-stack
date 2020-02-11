@@ -4,10 +4,11 @@ Documentation=http://docs.weave.works/
 After=docker.service
 Requires=docker.service
 [Service]
+Restart=always
 TimeoutStartSec=0
 EnvironmentFile=-/etc/weave.env
 EnvironmentFile=-/etc/weave.%H.env
-ExecStartPre=/usr/local/bin/weave launch --without-dns --rewrite-inspect --no-dns --no-restart $WEAVE_PEERS
+ExecStartPre=/usr/local/bin/weave launch --rewrite-inspect --no-restart $WEAVE_PEERS
 ExecStart=/usr/bin/docker attach weave
 ExecStop=/usr/local/bin/weave stop
 [Install]

@@ -4,6 +4,7 @@ Documentation=http://docs.weave.works/
 After=weave.service
 Requires=docker.service
 [Service]
+Restart=always
 TimeoutStartSec=0
 EnvironmentFile=-/etc/weave.env
 ExecStart=/usr/local/bin/scope launch $WEAVE_PEERS

@@ -1,20 +1,29 @@
 rexray:
   logLevel: warn
-  osDrivers:
-  - linux
-  storageDrivers:
-  - s3fs
-  volumeDrivers:
-  - docker
+  modules:
+    default-docker:
+      type: csi
+      host: unix:///var/run/docker/plugins/rexray.sock
+      spec: /var/lib/docker/plugins/rexray.spec
+      libstorage:
+        service: s3fs
+    rbd:
+      type: csi
+      host: unix:///var/run/docker/plugins/rbd.sock
+      spec: /var/lib/docker/plugins/rbd.spec
+      libstorage:
+        service: rbd
+
 libstorage:
+  logging:
+    level:         warn
   service: s3fs
-  integration:
-    volume:
-      operations:
-        mount:
-          preempt: true
-        unmount:
-          ignoreusedcount: true  
+  server:
+    services:
+      s3fs:
+        driver: s3fs
+      rbd:
+        driver: rbd
 
 s3fs:
   accessKey: {{ s3_access_key }}
@@ -27,4 +36,9 @@ s3fs:
   - nonempty
   - url=https://{{ s3_region_endpoint }}
   - use_path_request_style
+
+rbd:
+  defaultPool: docker
+  cephArgs: "--cluster ceph --id docker --user docker"
+
 

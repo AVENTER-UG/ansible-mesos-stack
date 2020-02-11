@@ -1,13 +1,13 @@
 # Ansible script to install a whole mesos stack
 
-[![Donate](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/AVENTER/donate)
+[![Donate](https://img.shields.io/liberapay/receives/AVENTER.svg?logo=liberapay)](https://liberapay.com/mesos)
 
-This playbook deploys a full Mesos cluster. It includes, so many masters and worker how you like. But the minimum should be three masters. Do be honest, it also works with one master. The access to mesos (agent and master), also to marathon need a credentials. The default one is "marathon:marathon".
+This playbook deploys a full Mesos Stack. It includes, so many masters and worker how you like. But the minimum should be three masters. Do be honest, it also works with one master. The access to mesos (agent and master), also to marathon need credentials. The default one is "marathon:marathon".
 
 
 ## Requirements
 
-- CentOS 1.7
+- CentOS 7
 
 ## How to use
 
@@ -21,35 +21,35 @@ Please don't hesitate an talk with us if you have questions.
 
 - https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
 
-## v0.12.0
+## v0.13.0
 
 ### Manager node
 
-This will change the way how to load the configuration of mesos libs. If you add your own config to the file ```/etc/mesos-slave/modules``` please migrate the content.
-
-This will enable SSL communication for the mesos agents and mesos server. The verification of the ssl certificate is disabled (default). If you want to disable SSL, please add ```libprocess_enable_ssl: "false"``` to your group_vars inventory configuration. More information to Mesos and SSL: http://mesos.apache.org/documentation/latest/ssl/
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.8.1        | Mesos masters                     | RPM                                |
+| Mesos 1.9.0        | Mesos masters                     | RPM                                |
 | Marathon 1.8.218   | Marathon masters                  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Consul  1.5.3      | Service Discovery for Container   | Binary                             |
+| Consul  1.5.3 (deprecated)     | Service Discovery for Container   | Binary                             |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
+| Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
 ### Worker node
 
-| Software version   | Role                       | Install type |
-| ------------------ | :------------------------: | :----------: |
-| Mesos 1.8.1        | Mesos slave                | RPM          |
-| Docker 19.03.1-ce  | Docker engine              | RPM          |
-| Weave 2.5.2        | Container networking       | Docker image |
-| Weavescope 1.11.3  | Container Management       | Docker image |
-| DNSMasq 2          | Container DNS              | RPM          |
-| CAdavisor (DEPRECATED read changelog.md)        | Docker engine monitoring   | Docker image |
-| Registrator        | Register Microservier name | Docker image |
-| Consul  1.5.3      | Consul Client              | Binary       |
+| Software version   | Role                              | Install type |
+| ------------------ | :-------------------------------: | :----------: |
+| Mesos 1.9.0        | Mesos slave                       | RPM          |
+| Docker 19.03.1-ce  | Docker engine                     | RPM          |
+| Weave 2.6.0        | Container networking              | Docker image |
+| Weavescope 1.11.3  | Container Management              | Docker image |
+| DNSMasq 2          | Container DNS                     | RPM          |
+| CAdavisor          | Docker engine monitoring          | Docker image |
+| Registrator (deprecated)       | Register Microservies name        | Docker image |
+| Consul  1.5.3 (deprecated)     | Consul Client                     | Binary       |
+| Rexray 0.11.4      | Persistant Storage                | RPM          |
+| Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
 ### Graylog DEPRECATED (read changelog.md)
 
