@@ -63,12 +63,6 @@
     path: /etc/dnsmasq.d/
     state: directory
 
-- name: configure dnsmasq for consul
-  template:
-    src: 10-consul
-    dest: /etc/dnsmasq.d/10-consul
-    mode: 0644
-
 - name: configure dnsmasq for mesos-dns
   template:
     src: 20-mesos

@@ -2,3 +2,4 @@
 
 docker_registry: "dockereg"
 docker_registry_port: "5000"
+dns_domain: "local"
