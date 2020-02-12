@@ -1,0 +1,21 @@
+[all_servers]
+mesos-manager-0	 client_address=10.0.0.1 
+mesos-manager-1	 client_address=10.0.0.2
+mesos-manager-2	 client_address=10.0.0.3
+mesos-worker-0   client_address=10.0.0.4 
+mesos-worker-1   client_address=10.0.0.5
+mesos-worker-2   client_address=10.0.0.6 
+
+[worker]
+mesos-worker-0
+mesos-worker-1
+mesos-worker-2
+
+[manager]
+mesos-manager-0 myid=1
+mesos-manager-1 myid=2	
+mesos-manager-2 myid=3	
+
+[marathon]
+mesos-manager-1
+
