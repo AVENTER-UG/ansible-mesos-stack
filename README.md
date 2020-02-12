@@ -1,6 +1,8 @@
 # Ansible Playbook to install a complete Apache Mesos stack
 
+
 [![Donate](https://img.shields.io/liberapay/receives/AVENTER.svg?logo=liberapay)](https://liberapay.com/mesos)
+[![Support Chat](https://img.shields.io/static/v1?label=Chat&message=Support&color=brightgreen)](https://riot.im/app/#/room/#support:matrix.aventer.biz)
 
 This playbook deploys a full Apache Mesos stack. The access to mesos (agent and master) and marathon need credentials. The default one is "marathon:marathon".
 
@@ -15,15 +17,7 @@ This playbook deploys a full Apache Mesos stack. The access to mesos (agent and 
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 ```
 
-## Support
-
-Please don't hesitate an talk with us if you have questions.
-
-- https://riot.im/app/#/room/#avEnterSupport:matrix.aventer.biz
-
-## dev
-
-### Manager node
+## Manager node
 
 
 | Software version   | Role                              | Install type                       |
@@ -35,7 +29,7 @@ Please don't hesitate an talk with us if you have questions.
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
 | Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
-### Worker node
+## Worker node
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
