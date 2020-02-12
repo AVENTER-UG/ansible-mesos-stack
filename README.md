@@ -38,6 +38,6 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 | Weave 2.6.0        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
-| CAdavisor          | Docker engine monitoring          | Docker image |
+| CAdavisor (deprecated)         | Docker engine monitoring          | Docker image |
 | Rexray 0.11.4      | Persistant Storage                | RPM          |
 | Nodeexporter 0.18.2| Metric Exporter                   | Binary
