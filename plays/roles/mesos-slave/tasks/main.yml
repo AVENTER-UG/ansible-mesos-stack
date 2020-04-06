@@ -58,6 +58,7 @@
   with_items:
     - "/etc/mesos-slave/seccomp_config_dir"  
     - "/etc/mesos-slave/seccomp_profile_name"
+    
 
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
@@ -136,7 +137,7 @@
 
 - name: set mesos seccomp directory
   lineinfile: dest=/etc/mesos-slave/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
-
+    
 - name: set mesos executor env with ssl
   template: 
     src: executor.json.js

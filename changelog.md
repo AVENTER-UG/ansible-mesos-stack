@@ -4,6 +4,7 @@
 - mark cadvisor as deprecated. cadvisor it to collecting metric of the docker engine and there containers. With the possibility to use container without docker or without the docker enginge, it makes no sense to keep it.
 - change the variable consul_domain to dns_domain
 - remove consul from dnsmasq
+- Add weave cleanup script as workaround for https://github.com/weaveworks/weave/issues/3406
 
 
 # v0.13.0
