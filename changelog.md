@@ -5,6 +5,9 @@
 - change the variable consul_domain to dns_domain
 - remove consul from dnsmasq
 - Add weave cleanup script as workaround for https://github.com/weaveworks/weave/issues/3406
+- Fix mesos dns group
+- Fix metronome systemd
+- Ansible Ignore errors of writing resolv.conf
 
 
 # v0.13.0

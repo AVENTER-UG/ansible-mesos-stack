@@ -15,7 +15,7 @@
   hosts: manager
   serial: 40%
   roles:
-    - { role: mesos-dns }
+    - { role: mesos-dns }    
     - { role: zookeeper }
     - { role: mesos-master }        
 
@@ -40,7 +40,7 @@
     - { role: rexray } 
     - { role: weavescope }    
 
-- name: Start Frameworks
+- name: Install and Start Frameworks
   become: yes
   hosts: manager
   serial: 40%
