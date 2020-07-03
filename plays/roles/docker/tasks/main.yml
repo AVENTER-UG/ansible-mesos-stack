@@ -10,12 +10,18 @@
     line: '#exclude=docker-*'
     state: present
 
+- name: install containerd
+  yum: 
+    name:
+      - "{{ containerd_package }}"
+
 - name: install docker packages
   yum:
     name:
       - e2fsprogs
       - xfsprogs
       - docker-ce-19.03.1
+      - containerd.io
     state: installed
 
 - name: disable docker update

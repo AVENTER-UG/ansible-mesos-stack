@@ -4,6 +4,6 @@
   lineinfile:
     dest: /etc/sysconfig/selinux
     regexp: ^SELINUX=
-    line: SELINUX='disabled'
+    line: SELINUX=disabled
     state: present
     create: yes

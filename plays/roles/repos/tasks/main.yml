@@ -4,8 +4,13 @@
       - epel-release
     state: installed
 
-- name: install mesos repo
-  yum:
-    name:
-      - "http://repos.mesosphere.io/el/7/noarch/RPMS/{{ mesosphere_repo }}"
-    state: installed    
+#- name: install mesosphere repo
+#  yum:
+#    name:
+#      - "http://repos.mesosphere.io/el/7/noarch/RPMS/{{ mesosphere_repo }}"
+#    state: installed    
+
+- name: copy mesos repo
+  copy: src={{ item }} dest=/etc/yum.repos.d/bintray-mesos-el.repo
+  with_items:
+    - bintray-mesos-el.repo
