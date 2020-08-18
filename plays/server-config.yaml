@@ -48,14 +48,5 @@
     - { role: marathon }
     - { role: metronome }
 
-- name: Install PROMETHEUS node-exporter on all servers
-  become: yes
-  hosts: 
-    - manager
-    - worker
-  roles:     
-    - { role: prometheus-node-exporter }
-   
-
 
     

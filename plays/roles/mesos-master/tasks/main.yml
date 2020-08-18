@@ -13,7 +13,7 @@
       - "{{ mesos_rpm }}"
     state: latest
 
-- name: enable mesos update
+- name: disable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^#exclude=mesos-*"
