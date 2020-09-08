@@ -8,6 +8,7 @@
 - Fix mesos dns group
 - Fix metronome systemd
 - Ansible Ignore errors of writing resolv.conf
+- Add linux filemode to the rexray service
 
 
 # v0.13.0
