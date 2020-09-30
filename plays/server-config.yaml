@@ -15,9 +15,9 @@
   hosts: manager
   serial: 40%
   roles:
-    - { role: mesos-dns }    
+    - { role: mesos-dns }
     - { role: zookeeper }
-    - { role: mesos-master }        
+    - { role: mesos-master }
 
 - name: Configure DNS
   become: yes
@@ -32,13 +32,13 @@
   hosts: worker
   serial: 20%    
   roles:
-    - { role: docker }    
+    - { role: docker }
     - { role: weave_plugin_mesos }
     - { role: weave }
     - { role: mesos-modules-slave } 
-    - { role: mesos-slave }    
+    - { role: mesos-slave }
     - { role: rexray } 
-    - { role: weavescope }    
+    - { role: weavescope }
 
 - name: Install and Start Frameworks
   become: yes

@@ -10,11 +10,6 @@
     line: '#exclude=docker-*'
     state: present
 
-#- name: install containerd
-#  yum: 
-#    name:
-#      - "{{ containerd_package }}"
-#
 - name: install docker packages
   yum:
     name:
