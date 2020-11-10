@@ -2,14 +2,18 @@
 
 - name: download Weave scope
   get_url: url=https://github.com/weaveworks/scope/releases/download/{{ weavescope_version }}/scope dest=/usr/local/bin/ mode=0755
+  when: weavescope_enable |bool  
 
 - name: copy WeaveScope systemd scripts into place
   copy: src={{ item }} dest=/etc/systemd/system mode=0755
   with_items:
     - weavescope.service
+  when: weavescope_enable |bool      
+
 
 - name: reload systemd
   command: systemctl daemon-reload
+  when: weavescope_enable |bool    
   
 - name: start weave scope
   service:
@@ -17,6 +21,7 @@
     enabled: yes
     state: started
   ignore_errors: true    
+  when: weavescope_enable |bool    
     
 
 

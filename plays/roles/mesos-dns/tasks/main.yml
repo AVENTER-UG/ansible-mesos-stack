@@ -6,6 +6,12 @@
     system: yes
     state: present
 
+- name: create marathon group
+  group:
+    name: marathon
+    system: yes
+    state: present    
+
 - name: create mesos_dns user
   user:
     name: av_mesos_dns

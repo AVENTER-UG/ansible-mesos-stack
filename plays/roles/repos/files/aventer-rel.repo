@@ -1,0 +1,6 @@
+[aventer-rel]
+name=AVENTER stable repository $releasever
+baseurl=http://rpm.aventer.biz/CentOS/$releasever/$basearch/
+enabled=1
+gpgkey=https://www.aventer.biz/assets/support_aventer.asc
+gpgcheck=1

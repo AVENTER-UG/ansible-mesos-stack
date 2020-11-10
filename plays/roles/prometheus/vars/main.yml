@@ -1,4 +1,0 @@
----
-# vars file for prometheus
-    
-local_env: { RAILS_ENV: ['{{ prometheus_rails_env }}'] }

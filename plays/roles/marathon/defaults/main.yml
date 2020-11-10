@@ -5,7 +5,7 @@ mesos_user: "marathon"
 
 marathon_vault_release: "0.9.5"
 marathon_vault_version: "1.6.352"
-vault_hostname: vault.marathon.{{ consul_domain }}
+vault_hostname: vault.marathon.{{ dns_domain }}
 vault_token: "imatokenandwhatuare"
 vault_port: "8200"
 vault_http_protocol: "http"
@@ -22,3 +22,5 @@ libprocess_ssl_enable_downgrade: "true"
 marathon_ssl_jks: "../files/marathon.jks"
 mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
+
+

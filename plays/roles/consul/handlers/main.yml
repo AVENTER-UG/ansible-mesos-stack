@@ -1,9 +1,0 @@
----
-- name: restart consul
-  action: service name=consul state=restarted enabled=yes
-
-- name: reload consul config
-  command: pkill -1 consul
-
-- name: reload systemd
-  command: systemctl daemon-reload

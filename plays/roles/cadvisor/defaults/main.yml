@@ -1,4 +1,0 @@
----
-cadvisor_version: "latest"
-container_port: 8070
-cadvisor_image: "google/cadvisor:{{ cadvisor_version }}"

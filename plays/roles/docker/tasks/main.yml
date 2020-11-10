@@ -16,6 +16,7 @@
       - e2fsprogs
       - xfsprogs
       - docker-ce-19.03.1
+      - containerd.io
     state: installed
 
 - name: disable docker update
@@ -29,7 +30,7 @@
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: OPTIONS=' --dns {{ ansible_default_ipv4.address }} --dns-search {{ consul_domain }} --log-driver=journald  '
+    line: OPTIONS=' --dns {{ ansible_default_ipv4.address }} --dns-search {{ dns_domain }} --log-driver=journald  '
     state: present
     create: yes
 

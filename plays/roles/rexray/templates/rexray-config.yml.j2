@@ -15,6 +15,9 @@ rexray:
         service: rbd
 
 libstorage:
+  integration:
+    volume:
+      filemode: 755
   logging:
     level:         warn
   service: s3fs

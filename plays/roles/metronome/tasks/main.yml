@@ -18,6 +18,7 @@
     dest: /opt/mesosphere/metronome
     state: link
     force: true
+  ignore_errors: true
 
 - name: create metronome group
   group:

@@ -1,5 +1,33 @@
 # Past Versions
 
+## v0.13.0
+
+### Manager node
+
+
+| Software version   | Role                              | Install type                       |
+| ------------------ | :-------------------------------: | :--------------------------------: |
+| Mesos 1.9.0        | Mesos Masters                     | RPM                                |
+| Marathon 1.8.218   | Marathon masters                  | RPM                                |
+| Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
+| Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
+| Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
+| Nodeexporter 0.18.2| Metric Exporter                   | Binary
+
+### Worker node
+
+| Software version   | Role                              | Install type |
+| ------------------ | :-------------------------------: | :----------: |
+| Mesos 1.9.0        | Mesos Agent                       | RPM          |
+| Docker 19.03.1-ce  | Docker engine                     | RPM          |
+| Weave 2.6.0        | Container networking              | Docker image |
+| Weavescope 1.11.3  | Container Management              | Docker image |
+| DNSMasq 2          | Container DNS                     | RPM          |
+| CAdavisor (deprecated)         | Docker engine monitoring          | Docker image |
+| Rexray 0.11.4      | Persistant Storage                | RPM          |
+| Nodeexporter 0.18.2| Metric Exporter                   | Binary
+
+
 
 ## v0.12.0
 

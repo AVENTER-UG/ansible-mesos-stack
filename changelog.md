@@ -1,6 +1,18 @@
-# dev 
+# v0.14.0
 
 - Add inventory example
+- mark cadvisor as deprecated. cadvisor it to collecting metric of the docker engine and there containers. With the possibility to use container without docker or without the docker enginge, it makes no sense to keep it.
+- change the variable consul_domain to dns_domain
+- remove consul from dnsmasq
+- Add weave cleanup script as workaround for https://github.com/weaveworks/weave/issues/3406
+- Fix mesos dns group
+- Fix metronome systemd
+- Ansible Ignore errors of writing resolv.conf
+- Add linux filemode to the rexray service
+- disable Firewall
+- Dev Mesos-Slave names to Mesos-Agent. Migrate old config.
+- Migrate Apache Mesos to 1.10.0
+- Install AVENTER RPM Repository
 
 
 # v0.13.0
