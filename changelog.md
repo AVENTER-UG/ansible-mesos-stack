@@ -1,4 +1,4 @@
-# dev
+# v0.14.0
 
 - Add inventory example
 - mark cadvisor as deprecated. cadvisor it to collecting metric of the docker engine and there containers. With the possibility to use container without docker or without the docker enginge, it makes no sense to keep it.
