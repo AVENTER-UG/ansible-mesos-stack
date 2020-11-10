@@ -22,7 +22,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.9.0        | Mesos masters                     | RPM                                |
+| Mesos 1.10.0       | Mesos Masters                     | RPM                                |
 | Marathon 1.8.218   | Marathon masters                  | RPM                                |
 | Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
@@ -33,7 +33,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
-| Mesos 1.9.0        | Mesos slave                       | RPM          |
+| Mesos 1.10.0       | Mesos Agent                       | RPM          |
 | Docker 19.03.1-ce  | Docker engine                     | RPM          |
 | Weave 2.6.0        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |

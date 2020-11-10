@@ -10,6 +10,9 @@
 - Ansible Ignore errors of writing resolv.conf
 - Add linux filemode to the rexray service
 - disable Firewall
+- Dev Mesos-Slave names to Mesos-Agent. Migrate old config.
+- Migrate Apache Mesos to 1.10.0
+- Install AVENTER RPM Repository
 
 
 # v0.13.0
