@@ -13,6 +13,7 @@
 - Dev Mesos-Slave names to Mesos-Agent. Migrate old config.
 - Migrate Apache Mesos to 1.10.0
 - Install AVENTER RPM Repository
+- Add ansible tags to reconfigure weave and dns
 
 
 # v0.13.0

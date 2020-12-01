@@ -13,8 +13,22 @@ This playbook deploys a full Apache Mesos stack. The access to mesos (agent and 
 
 ## How to use
 
+### Install the whole stack
+
 ```bash
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
+```
+
+### Reconfigure DNS
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags dns
+```
+
+### Reconfigure Weave
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags weave
 ```
 
 ## Manager node

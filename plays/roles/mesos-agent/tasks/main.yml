@@ -44,12 +44,16 @@
     src: "{{ mesos_ssl_crt }}"
     dest: /etc/mesos/ssl/mesos.crt
     mode: 0644
+  tags:
+    - cert
 
 - name: copy ssl key
   copy:
     src: "{{ mesos_ssl_key }}"
     dest: /etc/mesos/ssl/mesos.key
     mode: 0644
+  tags:
+    - cert
 
 - name: Remove deprecated config files
   file: 
@@ -205,6 +209,8 @@
     state: restarted
   with_items:
     - mesos-slave
+  tags:
+    - cert
 
 - name: ensure mesos-master service is disabled
   service:

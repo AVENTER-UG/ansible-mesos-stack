@@ -96,6 +96,8 @@
     owner: root
     group: marathon  
     mode: 0640  
+  tags:
+    - cert
 
 - name: symlink marathon
   file: 
@@ -114,3 +116,5 @@
     name: "marathon"
     enabled: yes
     state: restarted
+  tags:
+    - cert
