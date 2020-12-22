@@ -134,7 +134,7 @@
   lineinfile: dest=/etc/mesos-agent/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes mode=0640
 
 - name: set slave ip in mesos
-  lineinfile: dest=/etc/mesos-agent/ip state=present create=yes regexp="^" line="{{ ansible_default_ipv4.address }}" mode=0640
+  lineinfile: dest=/etc/mesos-agent/ip state=present create=yes regexp="^" line="{{ mesos_ip_address }}" mode=0640
 
 - name: disable hostname lookup
   lineinfile: dest=/etc/mesos-agent/hostname_lookup state=present create=yes regexp="^" line="false" mode=0640

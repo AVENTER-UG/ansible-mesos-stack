@@ -13,3 +13,6 @@ mesos_rpm: "mesos-1.10.0"
 
 mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
+
+mesos_ip_address: "{{ ansible_default_ipv4.address }}"
+
