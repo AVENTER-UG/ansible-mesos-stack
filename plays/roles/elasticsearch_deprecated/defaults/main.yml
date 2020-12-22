@@ -1,7 +1,0 @@
----
-
-es_version: "5.3.1"
-es_repo: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ es_version }}.rpm"
-es_cluster_name: "mycluster"
-es_path_data: "/var/lib/elasticsearch/"
-

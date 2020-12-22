@@ -37,9 +37,9 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.10.0       | Mesos Masters                     | RPM                                |
-| Marathon 1.8.218   | Marathon masters                  | RPM                                |
-| Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
+| Marathon 1.10.17   | Marathon masters                  | RPM                                |
+| Zookeeper 3.8.5    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
+| Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | RPM                                |
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
 | Nodeexporter 0.18.2| Metric Exporter                   | Binary
 

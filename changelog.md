@@ -1,6 +1,10 @@
 # dev
 
 - Add ansible tags to reconfigure weave and dns
+- Migrate to AVENTER Zookeeper Version 3.5.8
+- Migrate to AVENTER Mesos DNS Version 0.7.0
+- Migrate to AVENTER Marathon Version 1.10.17
+- Change Marathon Systemd Config
 
 # v0.14.0
 

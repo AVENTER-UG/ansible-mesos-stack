@@ -3,7 +3,7 @@
 - name: install marathon packages
   yum:
     name:
-      - marathon-1.8.218
+      - marathon-1.10.17
     state: installed
 
 - name: create vault plugin directory for marathon
