@@ -13,7 +13,7 @@
   hosts: worker
   serial: 20%    
   roles:
-    - { role: mesos-slave }    
+    - { role: mesos-agent }    
 
 - name: Start Frameworks
   become: yes

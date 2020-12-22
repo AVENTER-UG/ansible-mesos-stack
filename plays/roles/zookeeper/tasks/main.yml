@@ -2,7 +2,7 @@
 - name: install zookeeper packages
   yum:
     name:
-      - mesosphere-zookeeper-3.4.6
+      - aventer-zookeeper-3.5.8
     state: installed
 
 - name: enable zookeeper authentication

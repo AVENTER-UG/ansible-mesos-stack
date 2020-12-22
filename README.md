@@ -13,8 +13,22 @@ This playbook deploys a full Apache Mesos stack. The access to mesos (agent and 
 
 ## How to use
 
+### Install the whole stack
+
 ```bash
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
+```
+
+### Reconfigure DNS
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags dns
+```
+
+### Reconfigure Weave
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags weave
 ```
 
 ## Manager node
@@ -23,9 +37,9 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.10.0       | Mesos Masters                     | RPM                                |
-| Marathon 1.8.218   | Marathon masters                  | RPM                                |
-| Zookeeper 3.4.6    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | Binary                             |
+| Marathon 1.10.17   | Marathon masters                  | RPM                                |
+| Zookeeper 3.5.8    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
+| Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | RPM                                |
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
 | Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
@@ -38,6 +52,5 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 | Weave 2.6.0        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
-| CAdavisor (deprecated)         | Docker engine monitoring          | Docker image |
 | Rexray 0.11.4      | Persistant Storage                | RPM          |
 | Nodeexporter 0.18.2| Metric Exporter                   | Binary

@@ -15,7 +15,9 @@
   hosts: manager
   serial: 40%
   roles:
-    - { role: mesos-dns }
+    - role: mesos-dns 
+      tags:
+        - dns
     - { role: zookeeper }
     - { role: mesos-master }
 
@@ -25,7 +27,9 @@
     - manager
     - worker
   roles:
-    - { role: dnsmasq }
+    - role: dnsmasq
+      tags:
+        - dns
  
 - name: Configure Worker Server
   become: yes
@@ -33,9 +37,13 @@
   serial: 20%    
   roles:
     - { role: docker }
-    - { role: weave_plugin_mesos }
-    - { role: weave }
-    - { role: mesos-modules-slave } 
+    - role: weave_plugin_mesos
+      tags:
+        - weave
+    - role: weave
+      tags:
+        - weave
+    - { role: mesos-modules-agent } 
     - { role: mesos-agent }
     - { role: rexray } 
     - { role: weavescope }

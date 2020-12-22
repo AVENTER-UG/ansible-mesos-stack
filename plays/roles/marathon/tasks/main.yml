@@ -3,7 +3,7 @@
 - name: install marathon packages
   yum:
     name:
-      - marathon-1.8.218
+      - marathon-1.10.17
     state: installed
 
 - name: create vault plugin directory for marathon
@@ -96,6 +96,8 @@
     owner: root
     group: marathon  
     mode: 0640  
+  tags:
+    - cert
 
 - name: symlink marathon
   file: 
@@ -114,3 +116,5 @@
     name: "marathon"
     enabled: yes
     state: restarted
+  tags:
+    - cert

@@ -9,13 +9,13 @@
 - name: extract metronome archive
   unarchive:
     src: /tmp/metronome.tgz
-    dest: /opt/mesosphere/
+    dest: /opt/
     remote_src: yes
 
 - name: symlink metronome metronome 
   file: 
-    src: /opt/mesosphere/metronome-{{ metronome_version }}
-    dest: /opt/mesosphere/metronome
+    src: /opt/metronome-{{ metronome_version }}
+    dest: /opt/metronome
     state: link
     force: true
   ignore_errors: true
