@@ -1,5 +1,9 @@
 # dev
 
+- Add more ansible tags for seperated roleout
+
+# v0.15.0
+
 - Add ansible tags to reconfigure weave and dns
 - Migrate to AVENTER Zookeeper Version 3.5.8
 - Migrate to AVENTER Mesos DNS Version 0.7.0
