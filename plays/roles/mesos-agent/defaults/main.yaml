@@ -16,3 +16,6 @@ mesos_ssl_crt: "../files/mesos.crt"
 
 mesos_ip_address: "{{ ansible_default_ipv4.address }}"
 
+mesos_logs_dir: "/var/log/mesos"
+mesos_ulimit: "16384"
+

@@ -62,6 +62,9 @@
   with_items:
     - "/etc/mesos-agent/seccomp_config_dir"  
     - "/etc/mesos-agent/seccomp_profile_name"
+    - "/etc/default/mesos"
+    - "/etc/default/mesos-agent"
+    - "/etc/mesos/modules/logrotate.config"
 
 - name: Check if old mesos-slave folder exist
   stat: path=/etc/mesos-slave
@@ -102,6 +105,15 @@
 
 - name: enable required ssl cert
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
+
+- name: set ulimit
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^ULIMIT=*" line="ULIMIT=\"-n {{ mesos_ulimit }}\""  mode=0640
+
+- name: set logs dir
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LOGS=*" line="LOGS={{ mesos_logs_dir }}"  mode=0640
+
+- name: configure mesos-zk string
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"
 
 - name: set mesos libprocess ssl downgrade
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" mode=0640
@@ -151,12 +163,9 @@
 - name: set mesos module directory
   lineinfile: dest=/etc/mesos-agent/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
-- name: set mesos seccomp directory
-  lineinfile: dest=/etc/mesos-agent/seccomp_config_dir state=present create=yes regexp="^" line="/etc/mesos/seccomp" mode=0640
+- name: set mesos work-dir
+  lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
 
-- name: set mesos seccomp directory
-  lineinfile: dest=/etc/mesos-agent/seccomp_profile_name state=present create=yes regexp="^" line="default.json" mode=0640
-    
 - name: set mesos executor env with ssl
   template: 
     src: executor.json.js

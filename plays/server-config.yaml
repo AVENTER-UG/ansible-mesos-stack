@@ -15,6 +15,7 @@
       tags:
         - manager
         - worker
+        - repos
 
 - name: Configure Manager Server
   become: yes
@@ -33,6 +34,7 @@
       tags:
         - manager
         - mesos
+        - mesos-manager
 
 - name: Configure DNS
   become: yes
@@ -63,13 +65,10 @@
       tags:
         - weave
         - worker
-    - role: mesos-modules-agent
-      tags:
-        - mesos
-        - worker
     - role: mesos-agent
       tags:
         - mesos
+        - mesos-agent
         - worker
     - role: rexray
       tags:

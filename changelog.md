@@ -1,6 +1,8 @@
 # dev
 
 - Add more ansible tags for seperated roleout
+- Remove unsupportet mesos-agent plugin
+- Add work_dir to the agent
 
 # v0.15.0
 
