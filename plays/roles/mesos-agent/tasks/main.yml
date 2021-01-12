@@ -55,6 +55,10 @@
   tags:
     - cert
 
+- name: Check if old mesos-slave folder exist
+  stat: path=/etc/mesos-slave
+  register: mesos_slave
+
 - name: Remove deprecated config files
   file: 
     path: "{{ item }}"
@@ -65,14 +69,6 @@
     - "/etc/default/mesos"
     - "/etc/default/mesos-agent"
     - "/etc/mesos/modules/logrotate.config"
-
-- name: Check if old mesos-slave folder exist
-  stat: path=/etc/mesos-slave
-  register: mesos_slave
-
-- name: Rename old mesos-slave folder to mesos-agent
-  command: mv /etc/mesos-slave /etc/mesos-agent
-  when: mesos_slave.stat.exists
 
 - name: Check if old mesos-slave config file
   stat: path=/etc/default/mesos-slave
@@ -163,6 +159,9 @@
 - name: set mesos module directory
   lineinfile: dest=/etc/mesos-agent/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
+- name: set mesos csi directory
+  lineinfile: dest=/etc/mesos-slave/csi_plugin_config_dir state=present create=yes regexp="^" line="/etc/mesos/csi" mode=0640                             
+    
 - name: set mesos work-dir
   lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
 
@@ -192,6 +191,12 @@
     path: /etc/mesos/modules
     state: directory
     mode: 0750    
+
+- name: create mesos csi directory
+  file:
+    path: /etc/mesos/csi
+    state: directory
+    mode: 0750            
 
 - name: create mesos seccomp directory
   file:

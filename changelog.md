@@ -3,6 +3,7 @@
 - Add more ansible tags for seperated roleout
 - Remove unsupportet mesos-agent plugin
 - Add work_dir to the agent
+- Add csi isolator and plugin directory
 
 # v0.15.0
 
