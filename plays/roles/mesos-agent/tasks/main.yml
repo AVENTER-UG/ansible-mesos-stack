@@ -163,7 +163,7 @@
   lineinfile: dest=/etc/mesos-slave/csi_plugin_config_dir state=present create=yes regexp="^" line="/etc/mesos/csi" mode=0640                             
     
 - name: set mesos work-dir
-  lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
+  lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0640
 
 - name: set mesos executor env with ssl
   template: 
