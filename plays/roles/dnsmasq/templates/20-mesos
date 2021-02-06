@@ -3,9 +3,6 @@ addn-hosts=/etc/hosts
 # Never forward addresses in the non-routed address spaces.
 bogus-priv
 
-server={{ dns1 }}
-server={{ dns2 }}
-
 # configure DNS resolution to consul servers
 {% for host in groups['manager'] %}
 server=/mesos/{{ hostvars[host]['ansible_default_ipv4']['address'] }}#61053

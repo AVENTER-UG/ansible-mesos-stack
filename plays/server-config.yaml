@@ -7,8 +7,15 @@
     - manager
     - worker
   roles:
-    - { role: centos }
-    - { role: repos }
+    - role: centos
+      tags:
+        - manager
+        - worker
+    - role: repos
+      tags:
+        - manager
+        - worker
+        - repos
 
 - name: Configure Manager Server
   become: yes
@@ -18,8 +25,16 @@
     - role: mesos-dns 
       tags:
         - dns
-    - { role: zookeeper }
-    - { role: mesos-master }
+        - manager
+    - role: zookeeper
+      tags:
+        - zookeeper
+        - manager
+    - role: mesos-master
+      tags:
+        - manager
+        - mesos
+        - mesos-manager
 
 - name: Configure DNS
   become: yes
@@ -30,31 +45,56 @@
     - role: dnsmasq
       tags:
         - dns
+        - manager
+        - worker
  
 - name: Configure Worker Server
   become: yes
   hosts: worker
   serial: 20%    
   roles:
-    - { role: docker }
+    - role: docker
+      tags:
+        - docker
+        - worker
     - role: weave_plugin_mesos
       tags:
         - weave
+        - plugin
+        - worker
+    - role: csi_plugin_mesos
+      tags:
+        - worker
+        - plugin
     - role: weave
       tags:
         - weave
-    - { role: mesos-modules-agent } 
-    - { role: mesos-agent }
-    - { role: rexray } 
-    - { role: weavescope }
+        - worker
+    - role: mesos-agent
+      tags:
+        - mesos
+        - mesos-agent
+        - worker
+    - role: rexray
+      tags:
+        - rexray
+        - worker
+    - role: weavescope
+      tags:
+        - weave
+        - worker
 
 - name: Install and Start Frameworks
   become: yes
   hosts: manager
   serial: 40%
   roles:
-    - { role: marathon }
-    - { role: metronome }
+    - role: marathon
+      tags:
+        - marathon
+    - role: metronome
+      tags:
+        - metronome
 
 
     

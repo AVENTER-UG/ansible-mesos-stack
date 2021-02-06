@@ -1,4 +1,14 @@
-# dev
+# v0.16.0
+
+- Add more ansible tags for seperated roleout
+- Remove unsupportet mesos-agent plugin
+- Add work_dir to the agent
+- Add csi isolator and plugin directory
+- Update Apache Mesos to 1.11.0
+- Change Weave Plugin Discovery
+- Remove unusedNode Exporter
+
+# v0.15.0
 
 - Add ansible tags to reconfigure weave and dns
 - Migrate to AVENTER Zookeeper Version 3.5.8

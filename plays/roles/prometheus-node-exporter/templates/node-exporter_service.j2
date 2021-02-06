@@ -1,9 +1,0 @@
-[Unit]
-Description=node Exporter
-
-[Service]
-User=root
-ExecStart=/opt/node-exporter/node_exporter-{{ node_exporter_release }}.linux-{{ node_exporter_arch }}/node_exporter --web.listen-address=0.0.0.0:9100
-
-[Install]
-WantedBy=default.target

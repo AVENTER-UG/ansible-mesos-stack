@@ -1,0 +1,13 @@
+---
+  - name: create mesos csi directory
+    file:
+      path: /etc/mesos/csi
+      state: directory
+      mode: 0750   
+
+  - name: add csi plugin dir
+    lineinfile: 
+      dest: /etc/mesos-agent/csi_plugin_config_dir
+      state: present 
+      line: "/etc/mesos/csi"
+      create: yes  
