@@ -6,6 +6,7 @@
 
 This playbook deploys a full Apache Mesos stack. The access to mesos (agent and master) and marathon need credentials. The default one is "marathon:marathon".
 
+**Breaking change Deprecated authentication credential text format support.**
 
 ## Requirements
 
@@ -31,26 +32,42 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags weave
 ```
 
+### Reconfigure Worker
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags worker
+```
+
+### Reconfigure Manager
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags manager
+```
+
+### Reconfigure Mesos Plugins
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags plugin
+```
+
 ## Manager node
 
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.10.0       | Mesos Masters                     | RPM                                |
+| Mesos 1.11.0       | Mesos Masters                     | RPM                                |
 | Marathon 1.10.17   | Marathon masters                  | RPM                                |
 | Zookeeper 3.5.8    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Mesos-DNS 0.7.0    | Service Discovery for Mesos Tasks | RPM                                |
 | Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
-| Nodeexporter 0.18.2| Metric Exporter                   | Binary
 
 ## Worker node
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
-| Mesos 1.10.0       | Mesos Agent                       | RPM          |
+| Mesos 1.11.0       | Mesos Agent                       | RPM          |
 | Docker 19.03.1-ce  | Docker engine                     | RPM          |
 | Weave 2.6.0        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
 | Rexray 0.11.4      | Persistant Storage                | RPM          |
-| Nodeexporter 0.18.2| Metric Exporter                   | Binary

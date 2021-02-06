@@ -3,30 +3,30 @@
   - name: create cni directory
     file: 
       state: directory
-      path: "/etc/cni/net.d"
+      path: "/etc/mesos/cni/net.d"
 
   - name: create cni directory
     file: 
       state: directory
-      path: "/etc/cni/bin"
+      path: "/etc/mesos/cni/bin"
 
   - name: add cni config dir
     lineinfile: 
-      dest: /etc/mesos-slave/network_cni_config_dir
+      dest: /etc/mesos-agent/network_cni_config_dir
       state: present 
-      line: "/etc/cni/net.d" 
+      line: "/etc/mesos/cni/net.d" 
       create: yes  
   
   - name: add cni plugin dir
     lineinfile: 
-      dest: /etc/mesos-slave/network_cni_plugins_dir 
+      dest: /etc/mesos-agent/network_cni_plugins_dir 
       state: present 
-      line: "/opt/cni/bin" 
+      line: "/etc/mesos/cni/bin" 
       create: yes       
 
   - name: copy cni config
     copy: 
       src: weave.conflist
-      dest: /etc/cni/net.d/10-weave.conflist
+      dest: /etc/mesos/cni/net.d/10-weave.conflist
       mode: 0644
 
