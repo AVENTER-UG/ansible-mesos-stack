@@ -21,7 +21,7 @@
     state: present    
 
 - name: copy Weave systemd docker config for Mesos slave
-  copy: src=docker_socket dest=/etc/mesos-slave/ mode=0644
+  copy: src=docker_socket dest=/etc/mesos-agent/ mode=0644
 
 - name: copy Weave env
   template: src=weave.env.j2 dest=/etc/weave.env mode=0644

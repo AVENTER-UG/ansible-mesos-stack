@@ -62,10 +62,6 @@
         - weave
         - plugin
         - worker
-    - role: csi_plugin_mesos
-      tags:
-        - worker
-        - plugin
     - role: weave
       tags:
         - weave
