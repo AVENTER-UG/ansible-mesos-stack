@@ -140,7 +140,7 @@
   lineinfile: dest=/etc/mesos-master/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules"
 
 - name: set mesos work-dir
-  lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
+  lineinfile: dest=/etc/mesos-master/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
 
 - name: create mesos module directory
   file:
