@@ -47,6 +47,12 @@
         - dns
         - manager
         - worker
+    - role: hosts
+      tags:
+        - dns
+        - manager
+        - worker
+        - hosts
  
 - name: Configure Worker Server
   become: yes

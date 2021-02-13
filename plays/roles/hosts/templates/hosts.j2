@@ -1,0 +1,9 @@
+{% for host in groups['all_servers'] %}
+{{ hostvars[host]['client_address'] }} {{ host }} 
+{% endfor %}
+
+
+
+
+ 
+ 
