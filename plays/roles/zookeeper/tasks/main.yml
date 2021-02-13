@@ -34,6 +34,13 @@
     - "authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider"
     - "requireClientAuthScheme=sasl"
 
+- name: disable adminServer
+  lineinfile:
+    dest: /etc/zookeeper/conf/zoo.cfg    
+    state: present
+    regexp: "^admin.enableServer*" 
+    line: "admin.enableServer=false"
+
 - name: copy zookeeper jaas file
   template: src=jaas.conf.j2 dest=/etc/zookeeper/conf/jaas.conf mode=0640  
 
