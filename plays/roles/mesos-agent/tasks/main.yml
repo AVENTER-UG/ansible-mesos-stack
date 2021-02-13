@@ -151,7 +151,7 @@
   lineinfile: dest=/etc/mesos-agent/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
 
 - name: set mesos isolation
-  lineinfile: dest=/etc/mesos-agent/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities,volume/csi" mode=0640
+  lineinfile: dest=/etc/mesos-agent/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities" mode=0640
 
 - name: set image provider
   lineinfile: dest=/etc/mesos-agent/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640

@@ -1,3 +1,8 @@
+# dev
+
+- Rename slave to agent. 
+- Remove CSI Isolator. It's only usable with CIS Plugins
+
 # v0.16.0
 
 - Add more ansible tags for seperated roleout

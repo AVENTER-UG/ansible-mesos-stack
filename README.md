@@ -50,6 +50,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags plugin
 ```
 
+
 ## Manager node
 
 
