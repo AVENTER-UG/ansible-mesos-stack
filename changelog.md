@@ -4,6 +4,7 @@
 - Remove CSI Isolator. It's only usable with CIS Plugins
 - Add update of /etc/hosts to add all mesos servers
 - Disable zookeeper admin server.
+- Fix CNI directory.
 
 # v0.16.0
 

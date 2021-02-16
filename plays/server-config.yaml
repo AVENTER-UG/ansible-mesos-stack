@@ -20,7 +20,7 @@
 - name: Configure Manager Server
   become: yes
   hosts: manager
-  serial: 40%
+  serial: 50%
   roles:
     - role: mesos-dns 
       tags:
@@ -57,7 +57,7 @@
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 20%    
+  serial: 40%    
   roles:
     - role: docker
       tags:

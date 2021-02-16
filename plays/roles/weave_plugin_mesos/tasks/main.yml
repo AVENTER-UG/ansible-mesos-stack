@@ -10,6 +10,14 @@
       state: directory
       path: "/etc/mesos/cni/bin"
 
+  - name: Remove deprecated config files
+    file: 
+      path: "{{ item }}"
+      state: absent
+    with_items:
+      - "/etc/mesos-agent/network_cni_config_dir"
+      - "/etc/mesos-agent/network_cni_plugins_dir"
+
   - name: add cni config dir
     lineinfile: 
       dest: /etc/mesos-agent/network_cni_config_dir

@@ -2,14 +2,14 @@
 
 mesos_password: "marathon"
 mesos_user: "marathon"
-mesos_clustername: "AVENTER"
+mesos_clustername: "DEFAULT"
 
 libprocess_enable_ssl: "false"
 libprocess_enable_ssl_verify: "false"
 libprocess_ssl_require_cert: "false"
 libprocess_ssl_enable_downgrade: "true"
 
-mesos_rpm: "mesos-1.11.0"
+mesos_rpm: "mesos-1.11.1"
 
 mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
