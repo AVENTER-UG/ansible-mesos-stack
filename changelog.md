@@ -5,6 +5,7 @@
 - Add update of /etc/hosts to add all mesos servers
 - Disable zookeeper admin server.
 - Fix CNI directory.
+- Update Mesos to Version 1.11.1
 
 # v0.16.0
 
