@@ -6,6 +6,7 @@
 - Disable zookeeper admin server.
 - Fix CNI directory.
 - Update Mesos to Version 1.11.1
+- Change weave fastd to be configurable
 
 # v0.16.0
 
