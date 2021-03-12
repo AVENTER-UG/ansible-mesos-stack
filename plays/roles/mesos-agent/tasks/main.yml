@@ -90,8 +90,11 @@
 - name: enable ssl for mesos libprocess
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}" mode=0640
 
-- name: enable ssl verify for mesos
+- name: enable ssl verify for mesos (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  mode=0640
+
+- name: enable ssl verify for mesos
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_SERVER_CERT=*" line="LIBPROCESS_SSL_VERIFY_SERVER_CERT={{ libprocess_enable_ssl_verify }}"  mode=0640
 
 - name: add mesos libprocess ssl key file
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key"  mode=0640
@@ -99,8 +102,11 @@
 - name: add mesos libprocess ssl cert file
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt"  mode=0640
 
-- name: enable required ssl cert
+- name: enable required ssl cert (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
+
+- name: enable required ssl cert 
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CLIENT_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CLIENT_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
 
 - name: set ulimit
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^ULIMIT=*" line="ULIMIT=\"-n {{ mesos_ulimit }}\""  mode=0640

@@ -7,6 +7,7 @@
 - Fix CNI directory.
 - Update Mesos to Version 1.11.1
 - Change weave fastd to be configurable
+- Add new SSL Parameters (https://reviews.apache.org/r/71497/)
 
 # v0.16.0
 
