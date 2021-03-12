@@ -19,3 +19,5 @@ mesos_ip_address: "{{ ansible_default_ipv4.address }}"
 mesos_logs_dir: "/var/log/mesos"
 mesos_ulimit: "16384"
 
+libprocess_ssl_hostname_validation_scheme: "openssl"  
+

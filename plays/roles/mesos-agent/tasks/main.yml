@@ -108,6 +108,9 @@
 - name: enable required ssl cert 
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CLIENT_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CLIENT_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
 
+- name: set the ssl hostname validation scheme
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_HOSTNAME_VALIDATION_SCHEME=*" line="LIBPROCESS_SSL_HOSTNAME_VALIDATION_SCHEME={{ libprocess_ssl_hostname_validation_scheme }}"  mode=0640
+
 - name: set ulimit
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^ULIMIT=*" line="ULIMIT=\"-n {{ mesos_ulimit }}\""  mode=0640
 
