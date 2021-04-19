@@ -8,6 +8,8 @@
 - Update Mesos to Version 1.11.1
 - Change weave fastd to be configurable
 - Add new SSL Parameters (https://reviews.apache.org/r/71497/ and https://reviews.apache.org/r/70795/t )
+- Add Containernetworking Plugins
+- Change CNI bin to the default plugins dir
 
 # v0.16.0
 

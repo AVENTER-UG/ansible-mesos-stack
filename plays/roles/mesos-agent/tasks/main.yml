@@ -11,6 +11,7 @@
   yum:
     name:
       - "{{ mesos_rpm }}"
+      - containernetworking-plugins
     state: present
 
 - name: disable mesos update
@@ -170,6 +171,9 @@
 
 - name: set mesos work-dir
   lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0640
+
+- name: set mesos cni plugins dir
+  lineinfile: dest=/etc/mesos-agent/network_cni_plugins_dir state=present create=yes regexp="^" line="/usr/libexec/cni/bin" mode=0640
 
 - name: set mesos executor env with ssl
   template: 
