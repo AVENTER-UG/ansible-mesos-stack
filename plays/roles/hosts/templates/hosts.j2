@@ -1,5 +1,5 @@
 {% for host in groups['all_servers'] %}
-{{ hostvars[host]['client_address'] }} {{ host }} 
+{{ hostvars[host]['client_address'] }} {{ host }} {{ host.split(".")[0] }}
 {% endfor %}
 
 
