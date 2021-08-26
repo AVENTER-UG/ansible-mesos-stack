@@ -1,5 +1,10 @@
 ---
 
+  - name: Creates cni directory if its not exist
+    file:
+      path: /etc/mesos/cni/net.d
+      state: directory
+
   - name: add cni config dir
     lineinfile: 
       dest: /etc/mesos-agent/network_cni_config_dir

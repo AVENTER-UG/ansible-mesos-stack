@@ -63,11 +63,6 @@
       tags:
         - docker
         - worker
-    - role: weave_plugin_mesos
-      tags:
-        - weave
-        - plugin
-        - worker
     - role: weave
       tags:
         - weave
@@ -77,9 +72,10 @@
         - mesos
         - mesos-agent
         - worker
-    - role: rexray
+    - role: weave_plugin_mesos
       tags:
-        - rexray
+        - weave
+        - plugin
         - worker
     - role: weavescope
       tags:
