@@ -10,6 +10,7 @@
 - Add new SSL Parameters (https://reviews.apache.org/r/71497/ and https://reviews.apache.org/r/70795/t )
 - Add Containernetworking Plugins
 - Change CNI bin to the default plugins dir
+- Update Mesos DNS to 0.8.0
 
 # v0.16.0
 

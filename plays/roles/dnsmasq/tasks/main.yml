@@ -72,7 +72,7 @@
 - name: configure dnsmasq for weave
   template:
     src: 30-weave
-    dest: /etc/dnsmasq.d/30-mesos
+    dest: /etc/dnsmasq.d/30-weave
     mode: 0644    
 
 - name: enable dnsmasq
