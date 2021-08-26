@@ -4,6 +4,7 @@
     file:
       path: /etc/mesos/cni/net.d
       state: directory
+      recursive: yes
 
   - name: add cni config dir
     lineinfile: 
