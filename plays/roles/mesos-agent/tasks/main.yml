@@ -10,6 +10,7 @@
 - name: install mesos agent packages
   yum:
     name:
+      - apr-util
       - "{{ mesos_rpm }}"
       - containernetworking-plugins
     state: present
