@@ -17,4 +17,4 @@ mesos_ssl_crt: "../files/mesos.crt"
 
 mesos_ip_address: "{{ ansible_default_ipv4.address }}"
 
-
+libprocess_ssl_hostname_validation_scheme: "openssl"  

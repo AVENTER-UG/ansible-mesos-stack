@@ -1,14 +1,10 @@
 ---
 
-  - name: create cni directory
-    file: 
+  - name: Creates cni directory if its not exist
+    file:
+      path: /etc/mesos/cni/net.d
       state: directory
-      path: "/etc/mesos/cni/net.d"
-
-  - name: create cni directory
-    file: 
-      state: directory
-      path: "/etc/mesos/cni/bin"
+      recurse: yes
 
   - name: add cni config dir
     lineinfile: 
@@ -17,13 +13,6 @@
       line: "/etc/mesos/cni/net.d" 
       create: yes  
   
-  - name: add cni plugin dir
-    lineinfile: 
-      dest: /etc/mesos-agent/network_cni_plugins_dir 
-      state: present 
-      line: "/etc/mesos/cni/bin" 
-      create: yes       
-
   - name: copy cni config
     copy: 
       src: weave.conflist

@@ -21,10 +21,10 @@
     system: yes
     state: present
 
-- name: install zookeeper packages
+- name: install mesos-dns
   yum:
     name:
-      - mesos-dns-v0.7.0
+      - mesos-dns-v0.8.0
     state: installed
 
 - name: Set file permission

@@ -2,7 +2,7 @@
 
 mesos_password: "marathon"
 mesos_user: "marathon"
-mesos_clustername: "AVENTER"
+mesos_clustername: "DEFAULT"
 
 libprocess_enable_ssl: "false"
 libprocess_enable_ssl_verify: "false"
@@ -18,4 +18,6 @@ mesos_ip_address: "{{ ansible_default_ipv4.address }}"
 
 mesos_logs_dir: "/var/log/mesos"
 mesos_ulimit: "16384"
+
+libprocess_ssl_hostname_validation_scheme: "openssl"  
 

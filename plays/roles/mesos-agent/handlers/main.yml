@@ -1,7 +1,7 @@
 ---
 
-- name: restart mesos-slave
-  service: name=mesos-slave state=restarted
+- name: restart mesos-agent
+  service: name=mesos-agent state=restarted
   
 - name: restart docker
   service: name=docker state=restarted sleep=20

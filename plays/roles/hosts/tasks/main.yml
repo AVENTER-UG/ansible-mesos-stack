@@ -1,0 +1,14 @@
+---
+
+- name: Build hosts file for all server
+  blockinfile:
+    dest: /etc/hosts
+    block: "{{ lookup('template', 'hosts.j2') }}"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK "  
+
+- name: restart dnsmasq if its installed
+  service:
+    name: dnsmasq
+    state: restarted
+    enabled: yes   
+

@@ -10,6 +10,7 @@
 - name: install mesos master packages
   yum:
     name:
+      - apr-util
       - "{{ mesos_rpm }}"
     state: latest
 
@@ -69,8 +70,11 @@
 - name: enable ssl for mesos libprocess
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
 
-- name: enable ssl verify for mesos libprocess
+- name: enable ssl verify for mesos libprocess (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  
+
+- name: enable ssl verify for mesos libprocess
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_SERVER_CERT=*" line="LIBPROCESS_SSL_VERIFY_SERVER_CERT={{ libprocess_enable_ssl_verify }}"  
 
 - name: add mesos libprocess ssl key file
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE=/etc/mesos/ssl/mesos.key" 
@@ -78,8 +82,14 @@
 - name: add mesos libprocess ssl cert file
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE=/etc/mesos/ssl/mesos.crt" 
 
-- name: enable required sll cert
+- name: enable required sll cert (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CERT={{ libprocess_ssl_require_cert }}" 
+
+- name: enable required ssl cert 
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CLIENT_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CLIENT_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
+
+- name: set the ssl hostname validation scheme
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_HOSTNAME_VALIDATION_SCHEME=*" line="LIBPROCESS_SSL_HOSTNAME_VALIDATION_SCHEME={{ libprocess_ssl_hostname_validation_scheme }}"  mode=0640
 
 - name: set mesos libprocess ssl downgrade
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" 
@@ -140,7 +150,7 @@
   lineinfile: dest=/etc/mesos-master/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules"
 
 - name: set mesos work-dir
-  lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
+  lineinfile: dest=/etc/mesos-master/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
 
 - name: create mesos module directory
   file:

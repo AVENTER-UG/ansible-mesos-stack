@@ -20,7 +20,7 @@
 - name: Configure Manager Server
   become: yes
   hosts: manager
-  serial: 40%
+  serial: 50%
   roles:
     - role: mesos-dns 
       tags:
@@ -47,25 +47,22 @@
         - dns
         - manager
         - worker
+    - role: hosts
+      tags:
+        - dns
+        - manager
+        - worker
+        - hosts
  
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 20%    
+  serial: 40%    
   roles:
     - role: docker
       tags:
         - docker
         - worker
-    - role: weave_plugin_mesos
-      tags:
-        - weave
-        - plugin
-        - worker
-    - role: csi_plugin_mesos
-      tags:
-        - worker
-        - plugin
     - role: weave
       tags:
         - weave
@@ -75,9 +72,10 @@
         - mesos
         - mesos-agent
         - worker
-    - role: rexray
+    - role: weave_plugin_mesos
       tags:
-        - rexray
+        - weave
+        - plugin
         - worker
     - role: weavescope
       tags:
