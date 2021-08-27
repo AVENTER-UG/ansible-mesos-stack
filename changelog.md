@@ -1,4 +1,4 @@
-# dev
+# v0.17.0
 
 - Rename slave to agent. 
 - Remove CSI Isolator. It's only usable with CIS Plugins
@@ -11,6 +11,8 @@
 - Add Containernetworking Plugins
 - Change CNI bin to the default plugins dir
 - Update Mesos DNS to 0.8.0
+- Change Rexray to RPM
+- Fix small bugs
 
 # v0.16.0
 
