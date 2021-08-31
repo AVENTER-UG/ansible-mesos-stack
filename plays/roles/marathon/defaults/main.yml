@@ -1,7 +1,7 @@
 ---
 
 mesos_password: "marathon"
-mesos_user: "marathon"
+mesos_user: "mesos"
 
 marathon_vault_release: "0.9.5"
 marathon_vault_version: "1.6.352"

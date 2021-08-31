@@ -1,3 +1,7 @@
+# dev
+
+- Change mesos default principal to "mesos"
+
 # v0.17.0
 
 - Rename slave to agent. 
