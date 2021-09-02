@@ -2,6 +2,7 @@
 
 - Change mesos default principal to "mesos"
 - Add posibility to configure multiple insecure registries
+- Add docker_options variable to configure multiple opt parameter for docker
 
 # v0.17.0
 
