@@ -3,6 +3,7 @@
 - Change mesos default principal to "mesos"
 - Add posibility to configure multiple insecure registries
 - Add docker_options variable to configure multiple opt parameter for docker
+- Change Weave systemd to multi-user target
 
 # v0.17.0
 

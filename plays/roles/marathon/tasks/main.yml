@@ -39,7 +39,7 @@
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION=" create=yes
 
 - name: enable mesos principal
-  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION_PRINCIPAL={{ mesos.user }}" create=yes
+  lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION_PRINCIPAL={{ mesos_user }}" create=yes
 
 - name: enable mesos secret file
   lineinfile: dest=/etc/sysconfig/marathon state=present line="MARATHON_MESOS_AUTHENTICATION_SECRET_FILE=/etc/mesos/marathon.secret" create=yes

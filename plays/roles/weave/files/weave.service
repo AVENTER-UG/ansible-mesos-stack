@@ -12,4 +12,4 @@ ExecStartPre=/usr/local/bin/weave launch --rewrite-inspect --no-restart $WEAVE_P
 ExecStart=/usr/bin/docker attach weave
 ExecStop=/usr/local/bin/weave stop
 [Install]
-WantedBy=weave.target
+WantedBy=multi-user.target
