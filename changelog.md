@@ -4,6 +4,8 @@
 - Add posibility to configure multiple insecure registries
 - Add docker_options variable to configure multiple opt parameter for docker
 - Change Weave systemd to multi-user target
+- Fix mesos-dns wrong user 
+- Change dnsmasq role to install on all server
 
 # v0.17.0
 

@@ -22,8 +22,8 @@
 - name: disable docker update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^#exclude=docker-*"
-    line: 'exclude=docker-*'
+    regexp: "^#exclude=mesos* docker* ceph*"
+    line: 'exclude=mesos* docker* ceph*'
     state: present
 
 - name: configure docker dns
