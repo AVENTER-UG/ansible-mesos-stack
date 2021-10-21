@@ -1,4 +1,4 @@
-# dev
+# v0.18.0
 
 - Change mesos default principal to "mesos"
 - Add posibility to configure multiple insecure registries
