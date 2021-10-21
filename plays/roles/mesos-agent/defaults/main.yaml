@@ -1,7 +1,7 @@
 ---
 
 mesos_password: "marathon"
-mesos_user: "marathon"
+mesos_user: "mesos"
 mesos_clustername: "DEFAULT"
 
 libprocess_enable_ssl: "false"

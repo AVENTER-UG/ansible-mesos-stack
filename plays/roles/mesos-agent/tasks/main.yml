@@ -3,8 +3,8 @@
 - name: enable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos-*"
-    line: '#exclude=mesos-*'
+    regexp: "^exclude=mesos* docker* ceph*"
+    line: '#exclude=mesos* docker* ceph*'
     state: present
 
 - name: install mesos agent packages
@@ -18,8 +18,8 @@
 - name: disable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos-*"
-    line: 'exclude=mesos-*'
+    regexp: "^#exclude=mesos* docker* ceph*"
+    line: 'exclude=mesos* docker* ceph*'
     state: present
     
 - name: Remove deprecated config files

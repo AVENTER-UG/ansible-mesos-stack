@@ -1,7 +1,8 @@
 ---
 
-docker_registry: "dockereg"
-docker_registry_port: "5000"
-dns_domain: "local"
+docker_registry:
+  - url: "dockereq:5000"
+  - url: "dockereq1:5000"
 
+docker_options: ""
 containerd_package: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
