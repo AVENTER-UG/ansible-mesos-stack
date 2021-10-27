@@ -1,3 +1,7 @@
+# dev
+
+- Add the possibility to install a docker engine at the manager server
+
 # v0.18.0
 
 - Change mesos default principal to "mesos"

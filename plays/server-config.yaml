@@ -35,6 +35,10 @@
         - manager
         - mesos
         - mesos-manager
+    - role: docker
+      tags:
+        - docker
+      when: docker is defined
 
 - name: Configure DNS
   become: yes
@@ -92,5 +96,3 @@
       tags:
         - metronome
 
-
-    

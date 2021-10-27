@@ -2,7 +2,7 @@
 mesos-manager-0	 client_address=10.0.0.1 
 mesos-manager-1	 client_address=10.0.0.2
 mesos-manager-2	 client_address=10.0.0.3
-mesos-worker-0   client_address=10.0.0.4 
+mesos-worker-0   client_address=10.0.0.4
 mesos-worker-1   client_address=10.0.0.5
 mesos-worker-2   client_address=10.0.0.6 
 
