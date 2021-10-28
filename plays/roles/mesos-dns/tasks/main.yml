@@ -24,7 +24,7 @@
 - name: install mesos-dns
   yum:
     name:
-      - mesos-dns-v0.8.0
+      - "mesos-dns-{{ mesos_dns_version }}"
     state: installed
 
 - name: Set file permission
