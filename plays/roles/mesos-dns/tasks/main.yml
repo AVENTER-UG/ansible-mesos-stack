@@ -21,11 +21,27 @@
     system: yes
     state: present
 
+- name: enable mesos-dns update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^exclude=mesos*"
+    line: '#exclude=mesos* docker* ceph*'
+    state: present
+
 - name: install mesos-dns
   yum:
     name:
       - "mesos-dns-{{ mesos_dns_version }}"
     state: installed
+
+- name: disable mesos-dns update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^#exclude=mesos*"
+    line: 'exclude=mesos* docker* ceph*'
+    state: present
+    
+
 
 - name: Set file permission
   file:

@@ -2,6 +2,8 @@
 
 - Add the possibility to install a docker engine at the manager server
 - Update mesos-dns to version 0.8.1
+- Add configurabel libprocess_ssl_cipher for mesos master and worker
+- Fix enable/disable package update
 
 # v0.18.0
 

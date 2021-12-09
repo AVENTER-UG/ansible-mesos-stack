@@ -9,6 +9,7 @@ libprocess_enable_ssl: "false"
 libprocess_enable_ssl_verify: "false"
 libprocess_ssl_require_cert: "false"
 libprocess_ssl_enable_downgrade: "true"
+libprocess_ssl_ciphers: "AES128-SHA:AES256-SHA:RC4-SHA:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA"
 
 mesos_rpm: "mesos-1.11.0"
 
@@ -18,3 +19,5 @@ mesos_ssl_crt: "../files/mesos.crt"
 mesos_ip_address: "{{ ansible_default_ipv4.address }}"
 
 libprocess_ssl_hostname_validation_scheme: "openssl"  
+
+

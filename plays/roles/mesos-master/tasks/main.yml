@@ -3,7 +3,7 @@
 - name: enable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos* docker* ceph*"
+    regexp: "^exclude=mesos*"
     line: '#exclude=mesos* docker* ceph*'
     state: present
 
@@ -17,7 +17,7 @@
 - name: disable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos* docker* ceph*"
+    regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph*'
     state: present
 
@@ -93,6 +93,9 @@
 
 - name: set mesos libprocess ssl downgrade
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" 
+
+- name: add mesos libprocess ssl ciphers
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CIPHERS=*" line="LIBPROCESS_SSL_CIPHERS={{ libprocess_ssl_ciphers }}"
 
 - name: set quorom count
   lineinfile: dest=/etc/mesos-master/quorum state=present regexp="^" line="{{ quorum }}" create=yes

@@ -3,7 +3,7 @@
 - name: enable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos* docker* ceph*"
+    regexp: "^exclude=mesos*"
     line: '#exclude=mesos* docker* ceph*'
     state: present
 
@@ -18,7 +18,7 @@
 - name: disable mesos update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos* docker* ceph*"
+    regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph*'
     state: present
     
@@ -72,14 +72,6 @@
     - "/etc/default/mesos-agent"
     - "/etc/mesos/modules/logrotate.config"
 
-- name: Check if old mesos-agent config file
-  stat: path=/etc/default/mesos-agent
-  register: default_mesos_agent
-
-- name: Rename old mesos-agent config to mesos-agent
-  command: mv /etc/default/mesos-agent /etc/default/mesos-agent
-  when: default_mesos_agent.stat.exists
-
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
 
@@ -109,6 +101,9 @@
 
 - name: enable required ssl cert 
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_REQUIRE_CLIENT_CERT=*" line="LIBPROCESS_SSL_REQUIRE_CLIENT_CERT={{ libprocess_ssl_require_cert }}"  mode=0640
+
+- name: add mesos libprocess ssl ciphers
+  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CIPHERS=*" line="LIBPROCESS_SSL_CIPHERS={{ libprocess_ssl_ciphers }}"
 
 - name: set the ssl hostname validation scheme
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_HOSTNAME_VALIDATION_SCHEME=*" line="LIBPROCESS_SSL_HOSTNAME_VALIDATION_SCHEME={{ libprocess_ssl_hostname_validation_scheme }}"  mode=0640

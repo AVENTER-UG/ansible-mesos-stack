@@ -20,6 +20,10 @@
 - name: remove plugin tar file
   shell: "rm /etc/marathon/plugins/*.tar"
 
+- name: remove not needed files
+  shell: "rm /etc/default/marathon"
+  ignore_errors: true
+
 - name: copy vault plugin config
   template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
  
