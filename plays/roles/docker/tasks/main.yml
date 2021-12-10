@@ -15,7 +15,7 @@
     name:
       - e2fsprogs
       - xfsprogs
-      - docker-ce-19.03.1
+      - docker-ce
       - containerd.io
     state: installed
 

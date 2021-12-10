@@ -5,6 +5,6 @@ bogus-priv
 
 # configure DNS resolution to consul servers
 {% for host in groups['manager'] %}
-server=/mesos/{{ hostvars[host]['ansible_default_ipv4']['address'] }}#61053
+server=/mesos/{{ hostvars[host]['client_address'] }}#61053
 {% endfor %}
 
