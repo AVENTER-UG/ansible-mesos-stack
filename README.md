@@ -58,16 +58,15 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.11.0       | Mesos Masters                     | RPM                                |
 | Marathon 1.10.17   | Marathon masters                  | RPM                                |
-| Zookeeper 3.5.8    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
+| Zookeeper 3.6.3    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
 | Mesos-DNS 0.8.1    | Service Discovery for Mesos Tasks | RPM                                |
-| Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
 
 ## Worker node
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
 | Mesos 1.11.0       | Mesos Agent                       | RPM          |
-| Docker 19.03.1-ce  | Docker engine                     | RPM          |
+| Docker latest      | Docker engine                     | RPM          |
 | Weave 2.6.0        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |

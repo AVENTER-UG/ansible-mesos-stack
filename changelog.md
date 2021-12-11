@@ -4,6 +4,7 @@
 - Update mesos-dns to version 0.8.1
 - Add configurabel libprocess_ssl_cipher for mesos master and worker
 - Fix enable/disable package update
+- Update to zookeeper 3.6.3
 
 # v0.18.0
 

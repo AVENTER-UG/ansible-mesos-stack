@@ -2,7 +2,7 @@
 - name: install zookeeper packages
   yum:
     name:
-      - aventer-zookeeper-3.5.8
+      - aventer-zookeeper-3.6.3
     state: installed
 
 - name: enable zookeeper authentication

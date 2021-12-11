@@ -92,7 +92,4 @@
     - role: marathon
       tags:
         - marathon
-    - role: metronome
-      tags:
-        - metronome
 
