@@ -5,6 +5,7 @@
 - Add configurabel libprocess_ssl_cipher for mesos master and worker
 - Fix enable/disable package update
 - Update to zookeeper 3.6.3
+- Exclude zookeeper update
 
 # v0.18.0
 

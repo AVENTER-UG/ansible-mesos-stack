@@ -4,7 +4,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph*'
+    line: '#exclude=mesos* docker* ceph* zookeeper*'
     state: present
 
 - name: install mesos master packages
@@ -18,7 +18,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph*'
+    line: 'exclude=mesos* docker* ceph* zookeeper*'
     state: present
 
 - name: Remove deprecated config files
