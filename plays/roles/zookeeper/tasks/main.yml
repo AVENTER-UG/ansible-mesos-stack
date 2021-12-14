@@ -10,7 +10,7 @@
 - name: install zookeeper packages
   yum:
     name:
-      - aventer-zookeeper-3.6.3
+      - aventer-zookeeper-3.7.0
     state: installed
 
 - name: disable zookeeper update
