@@ -1,10 +1,24 @@
 ---
 
+- name: enable marathon update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^exclude=mesos*"
+    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
+    state: present
+
 - name: install marathon packages
   yum:
     name:
       - marathon-1.10.17
     state: installed
+
+- name: disable marathon update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^#exclude=mesos*"
+    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
+    state: present
 
 - name: create vault plugin directory for marathon
   file:

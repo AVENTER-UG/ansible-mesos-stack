@@ -4,7 +4,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph* zookeeper*'
+    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
 
 - name: install zookeeper packages
@@ -17,7 +17,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph* zookeeper*'
+    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
 
 - name: enable zookeeper authentication

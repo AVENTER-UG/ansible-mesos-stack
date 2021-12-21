@@ -25,7 +25,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph*'
+    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
 
 - name: install mesos-dns
@@ -38,7 +38,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph*'
+    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
     
 

@@ -23,7 +23,7 @@
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph* zookeeper*'
+    line: 'exclude=mesos* docker* ceph*'
     state: present
 
 - name: configure docker dns
