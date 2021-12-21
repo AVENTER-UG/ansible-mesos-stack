@@ -61,7 +61,7 @@
   cron:
     name: "prune local docker volumes"
     minute: "0"
-    job: "docker volume prune -f > /dev/null"
+    job: "docker volume prune -f --filter \"label!=tag=mesos\" > /dev/null"
     state: present
 
 - name: reload systemd
