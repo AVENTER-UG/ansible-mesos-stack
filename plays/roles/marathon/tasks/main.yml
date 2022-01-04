@@ -10,7 +10,7 @@
 - name: install marathon packages
   yum:
     name:
-      - marathon-1.10.17
+      - marathon-1.11.30
     state: installed
 
 - name: disable marathon update
