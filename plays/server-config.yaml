@@ -35,6 +35,10 @@
         - manager
         - mesos
         - mesos-manager
+    - role: mesos-ssl 
+      tags:
+        - mesos
+        - ssl
     - role: docker
       tags:
         - docker
@@ -74,6 +78,10 @@
         - mesos
         - mesos-agent
         - worker
+    - role: mesos-ssl 
+      tags:
+        - mesos
+        - ssl
     - role: weave_plugin_mesos
       tags:
         - weave
@@ -92,4 +100,8 @@
     - role: marathon
       tags:
         - marathon
+    - role: marathon-ssl 
+      tags:
+        - marathon
+        - ssl
 

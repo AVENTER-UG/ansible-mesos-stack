@@ -1,0 +1,30 @@
+[ req ]
+default_bits = 2048
+default_md = sha256
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca
+req_extensions = v3_req
+
+[ v3_ca ]
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer
+basicConstraints = CA:true
+
+[req_distinguished_name]
+countryName = {{ ssl_countryName }}
+stateOrProvinceName = {{ ssl_stateOrProvinceName }}
+localityName = SH
+organizationalUnitName	= IT
+commonName = {{ inventory_hostname }}
+commonName_max	= 64
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = {{ inventory_hostname }}
+DNS.2 = marathon.mesos
+DNS.3 = leader.mesos

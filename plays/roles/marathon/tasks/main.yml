@@ -107,16 +107,6 @@
     owner: root
     group: marathon
 
-- name: add ssl keystore
-  copy:
-    src: "{{ marathon_ssl_jks }}"
-    dest: /etc/mesos/ssl/marathon.jks
-    owner: root
-    group: marathon  
-    mode: 0640  
-  tags:
-    - cert
-
 - name: symlink marathon
   file: 
     src: /usr/share/marathon/bin/marathon

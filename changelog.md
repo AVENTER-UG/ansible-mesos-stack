@@ -6,6 +6,8 @@
 - Fix enable/disable package update
 - Update to zookeeper 3.6.3
 - Exclude zookeeper update
+- Generate Marathon java keystore
+- Generate Mesos SSL certificate
 
 # v0.18.0
 

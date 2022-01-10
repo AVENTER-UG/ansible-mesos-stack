@@ -50,6 +50,12 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags plugin
 ```
 
+### Reconfigure Marathon SSL
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags ssl
+```
+
 
 ## Manager node
 
