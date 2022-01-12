@@ -29,7 +29,7 @@
     - role: zookeeper
       tags:
         - zookeeper
-      - manager
+        - manager
     - role: mesos-master
       tags:
         - manager
