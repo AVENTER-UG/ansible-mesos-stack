@@ -1,3 +1,5 @@
 search {{ [dns_domain] | union(domain_search_list) | unique | join(' ') }}
 nameserver 127.0.0.1
+nameserver {{ dns1 }}
+nameserver {{ dns2 }}
 

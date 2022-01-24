@@ -12,10 +12,3 @@
   command: setenforce 0
   ignore_errors: true
 
-- name: disable firewalld
-  command: systemctl disable firewalld
-  ignore_errors: true
-
-- name: stop firewalld
-  command: systemctl stop firewalld
-  ignore_errors: true    

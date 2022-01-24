@@ -11,6 +11,19 @@ This playbook deploys a full Apache Mesos stack. The access to mesos (agent and 
 ## Requirements
 
 - CentOS 7
+- Ansible Galaxy collection: community.general
+
+
+## Informations
+
+- These playbook will install cronjobs to cleanup unused docker images, containers
+and local volumes. To besure that local volumes will not be deledet, add a tag 
+called "mesos" as label. As example: 
+
+```bash
+docker volume create --label tag=mesos donotdelete
+```
+
 
 ## How to use
 
