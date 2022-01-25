@@ -5,6 +5,11 @@
       path: "{{ cert_home }}/{{ inventory_hostname }}.key"
     register: ssl_cert
 
+  - name: Check if there are a executor env file
+    stat: 
+      path: "/etc/mesos-agent/executor_environment_variables"
+    register: executor_env
+
   - name: Copy ssl configuration file
     template: src=mesos.cnf.j2 dest=/etc/pki/tls/mesos.cnf mode=0644
     when: ssl_cert.stat.exists == False
@@ -34,5 +39,15 @@
   
   - name: add mesos libprocess ssl cert file
     lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE={{ cert_home }}/{{ inventory_hostname }}.crt"
+
+
+  - name: add mesos libprocess ssl key file to the executor_env file
+    lineinfile: dest=/etc/mesos-agent/executor_environment_variables create=yes state=present regexp="LIBPROCESS_SSL_KEY_FILE*" line="\"LIBPROCESS_SSL_KEY_FILE\":\"{{ cert_home }}/{{ inventory_hostname }}.key\","
+    when: executor_env.stat.exists == True
+  
+  - name: add mesos libprocess ssl cert file to the executor_env file
+    lineinfile: dest=/etc/mesos-agent/executor_environment_variables create=yes state=present regexp="LIBPROCESS_SSL_CERT_FILE*" line="\"LIBPROCESS_SSL_CERT_FILE\":\"{{ cert_home }}/{{ inventory_hostname }}.crt\""
+    when: executor_env.stat.exists == True
+      
 
 

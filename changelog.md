@@ -8,6 +8,7 @@
 - Exclude zookeeper update
 - Generate Marathon java keystore
 - Generate Mesos SSL certificate
+- Add SSL certificate into the executor env file
 
 # v0.18.0
 
