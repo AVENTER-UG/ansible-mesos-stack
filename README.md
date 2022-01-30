@@ -6,11 +6,22 @@
 
 This playbook deploys a full Apache Mesos stack. The access to mesos (agent and master) and marathon need credentials. The default one is "marathon:marathon".
 
-**Breaking change Deprecated authentication credential text format support.**
-
 ## Requirements
 
 - CentOS 7
+- Ansible Galaxy collection: community.general
+
+
+## Informations
+
+- These playbook will install cronjobs to cleanup unused docker images, containers
+and local volumes. To besure that local volumes will not be deledet, add a tag 
+called "mesos" as label. As example: 
+
+```bash
+docker volume create --label tag=mesos donotdelete
+```
+
 
 ## How to use
 
@@ -50,6 +61,12 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags plugin
 ```
 
+### Reconfigure Marathon SSL
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags ssl
+```
+
 
 ## Manager node
 
@@ -57,18 +74,23 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.11.0       | Mesos Masters                     | RPM                                |
-| Marathon 1.10.17   | Marathon masters                  | RPM                                |
-| Zookeeper 3.5.8    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Mesos-DNS 0.8.0    | Service Discovery for Mesos Tasks | RPM                                |
-| Metronome 0.6.30   | Schedule Server                   | JAVA dependencies to Marathon      |
+| Marathon 1.11.30   | Marathon masters                  | RPM                                |
+| Zookeeper 3.7.0    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
+| Mesos-DNS 0.8.1    | Service Discovery for Mesos Tasks | RPM                                |
 
 ## Worker node
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
 | Mesos 1.11.0       | Mesos Agent                       | RPM          |
-| Docker 19.03.1-ce  | Docker engine                     | RPM          |
-| Weave 2.6.0        | Container networking              | Docker image |
+| Docker latest      | Docker engine                     | RPM          |
+| Weave 2.8.1        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
-| Rexray 0.11.4      | Persistant Storage                | RPM          |
+
+## Persistent Storage
+
+For persistent container storage, we recomend to use our 
+[ansible-docker-volume playbook](https://github.com/AVENTER-UG/ansible-docker-volume)
+to deploy S3 and RBD(ceph) docker-plugins as systemd service.
+

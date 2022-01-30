@@ -1,10 +1,24 @@
 ---
 
+- name: enable marathon update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^exclude=mesos*"
+    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
+    state: present
+
 - name: install marathon packages
   yum:
     name:
-      - marathon-1.10.17
+      - marathon-1.11.30
     state: installed
+
+- name: disable marathon update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^#exclude=mesos*"
+    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
+    state: present
 
 - name: create vault plugin directory for marathon
   file:
@@ -19,6 +33,10 @@
 
 - name: remove plugin tar file
   shell: "rm /etc/marathon/plugins/*.tar"
+
+- name: remove not needed files
+  shell: "rm /etc/default/marathon"
+  ignore_errors: true
 
 - name: copy vault plugin config
   template: src=plugin-conf.json.j2 dest=/etc/marathon/plugins-conf.json mode=0644
@@ -88,16 +106,6 @@
     path: /etc/mesos/marathon.secret
     owner: root
     group: marathon
-
-- name: add ssl keystore
-  copy:
-    src: "{{ marathon_ssl_jks }}"
-    dest: /etc/mesos/ssl/marathon.jks
-    owner: root
-    group: marathon  
-    mode: 0640  
-  tags:
-    - cert
 
 - name: symlink marathon
   file: 

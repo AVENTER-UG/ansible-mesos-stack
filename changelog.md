@@ -1,3 +1,16 @@
+# v0.19.0
+
+- Add the possibility to install a docker engine at the manager server
+- Update mesos-dns to version 0.8.1
+- Add configurabel libprocess_ssl_cipher for mesos master and worker
+- Fix enable/disable package update
+- Update to zookeeper 3.6.3
+- Exclude zookeeper update
+- Generate Marathon java keystore
+- Generate Mesos SSL certificate
+- Remove Rexray
+- Add SSL certificate into the executor env file
+
 # v0.18.0
 
 - Change mesos default principal to "mesos"

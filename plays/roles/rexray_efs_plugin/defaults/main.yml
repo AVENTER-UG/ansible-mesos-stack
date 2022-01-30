@@ -1,6 +1,0 @@
----
-
-rexray_image_efs: "rexray/efs"
-efs_region: "eu-central-1"
-efs_secret_key: ""
-efs_access_key: ""

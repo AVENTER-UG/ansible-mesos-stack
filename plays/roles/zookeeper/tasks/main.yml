@@ -1,9 +1,24 @@
 ---
+
+- name: enable zookeeper update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^exclude=mesos*"
+    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
+    state: present
+
 - name: install zookeeper packages
   yum:
     name:
-      - aventer-zookeeper-3.5.8
+      - aventer-zookeeper-3.7.0
     state: installed
+
+- name: disable zookeeper update
+  lineinfile:
+    dest: "/etc/yum.conf"
+    regexp: "^#exclude=mesos*"
+    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
+    state: present
 
 - name: enable zookeeper authentication
   lineinfile: dest=/etc/zookeeper/conf/java.env state=present regexp="^" line="SERVER_JVMFLAGS=\"-Djava.security.auth.login.config=/etc/zookeeper/conf/jaas.conf\"" create=yes

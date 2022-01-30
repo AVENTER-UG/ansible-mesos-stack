@@ -6,8 +6,8 @@
 - name: enable docker update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos* docker*"
-    line: '#exclude=mesos* docker*'
+    regexp: "^exclude=mesos*"
+    line: '#exclude=mesos* docker* ceph*'
     state: present
 
 - name: install docker packages
@@ -15,14 +15,14 @@
     name:
       - e2fsprogs
       - xfsprogs
-      - docker-ce-19.03.1
+      - docker-ce
       - containerd.io
     state: installed
 
 - name: disable docker update
   lineinfile:
     dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos* docker* ceph*"
+    regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph*'
     state: present
 
@@ -47,7 +47,7 @@
   cron:
     name: "delete all unused docker images "
     minute: "0"
-    job: "docker image prune -a -f > /dev/null"
+    job: "docker image prune -a -f --filter \"label!=org.opencontainers.image.vendor=Weaveworks\" > /dev/null"
     state: present
 
 - name: Add cron job to prune docker containers
@@ -61,7 +61,7 @@
   cron:
     name: "prune local docker volumes"
     minute: "0"
-    job: "docker volume prune -f > /dev/null"
+    job: "docker volume prune -f --filter \"label!=tag=mesos\" > /dev/null"
     state: present
 
 - name: reload systemd

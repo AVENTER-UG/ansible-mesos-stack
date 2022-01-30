@@ -6,20 +6,7 @@
   hosts: manager
   serial: 40%
   roles:
-    - { role: mesos-master }        
+    - { role: marathon-ssl }
 
-- name: Configure Worker Server
-  become: yes
-  hosts: worker
-  serial: 20%    
-  roles:
-    - { role: mesos-agent }    
-
-- name: Start Frameworks
-  become: yes
-  hosts: manager
-  serial: 40%
-  roles:
-    - { role: marathon }
   
     

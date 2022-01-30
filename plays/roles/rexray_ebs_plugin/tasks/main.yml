@@ -1,5 +1,0 @@
----
-
-- name: download and run rexray aws ebs plugin
-  shell: "docker plugin install --grant-all-permissions {{ rexray_image_ebs }} EBS_ACCESSKEY={{ ebs_access_key }} EBS_SECRETKEY={{ ebs_secret_key}} EBS_REGION={{ ebs_region }}"
-  ignore_errors: true

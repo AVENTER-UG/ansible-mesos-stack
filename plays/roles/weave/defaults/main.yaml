@@ -1,5 +1,5 @@
 ---
 
-weave_version: "v2.6.0"
+weave_version: "v2.8.1"
 weave_password: "changeme"
 weave_fastd: "false"
