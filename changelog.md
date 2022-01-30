@@ -1,4 +1,4 @@
-# dev
+# v0.19.0
 
 - Add the possibility to install a docker engine at the manager server
 - Update mesos-dns to version 0.8.1
