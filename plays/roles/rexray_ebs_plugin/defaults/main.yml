@@ -1,7 +1,0 @@
----
-
-rexray_image_ebs: "rexray/ebs"
-ebs_region: "eu-central-1"
-ebs_secret_key: ""
-ebs_access_key: ""
-

@@ -1,8 +1,0 @@
----
-
-rexray_image_s3fs: "rexray/s3fs"
-s3_region_endpoint: "s3.eu-central-1.amazonaws.com"
-s3_region: "eu-central-1"
-s3_secret_key: ""
-s3_access_key: ""
-

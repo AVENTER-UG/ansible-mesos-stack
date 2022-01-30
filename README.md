@@ -6,8 +6,6 @@
 
 This playbook deploys a full Apache Mesos stack. The access to mesos (agent and master) and marathon need credentials. The default one is "marathon:marathon".
 
-**Breaking change Deprecated authentication credential text format support.**
-
 ## Requirements
 
 - CentOS 7
@@ -86,7 +84,13 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | ------------------ | :-------------------------------: | :----------: |
 | Mesos 1.11.0       | Mesos Agent                       | RPM          |
 | Docker latest      | Docker engine                     | RPM          |
-| Weave 2.6.0        | Container networking              | Docker image |
+| Weave 2.8.1        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM          |
-| Rexray 0.11.4      | Persistant Storage                | RPM          |
+
+## Persistent Storage
+
+For persistent container storage, we recomend to use our 
+[ansible-docker-volume playbook](https://github.com/AVENTER-UG/ansible-docker-volume)
+to deploy S3 and RBD(ceph) docker-plugins as systemd service.
+
