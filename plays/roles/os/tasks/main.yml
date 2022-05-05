@@ -1,0 +1,42 @@
+---
+
+- name: UNSUPPORTED - disable cgroup hierarchy
+  lineinfile: 
+    dest: "/etc/default/grub.d/cgroup.cfg"
+    state: present
+    create: yes 
+    regexp: "^" 
+    line: "systemd.unified_cgroup_hierarchy=false"
+    mode: 0640
+  when:
+    ansible_distribution == "Debian"
+
+- name: "get facts of installed packages"
+  package_facts:
+    manager: "auto"
+
+- name: update repository cache ubuntu
+  apt:
+    update_cache: true
+  when:
+    ansible_os_family == "Debian"
+
+- name: install os packages
+  package:
+    name:
+      - gnupg
+    state: present
+
+- name: deactivate selinux permanent
+  lineinfile:
+    dest: /etc/sysconfig/selinux
+    regexp: ^SELINUX=
+    line: SELINUX=disabled
+    state: present
+    create: yes
+  when: "'policycoreutils' is in ansible_facts.packages"      
+
+- name: deactivate selinux temp
+  command: setenforce 0
+  when: "'policycoreutils' is in ansible_facts.packages"      
+

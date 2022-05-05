@@ -8,7 +8,7 @@ This playbook deploys a full Apache Mesos stack. The access to mesos (agent and 
 
 ## Requirements
 
-- CentOS 7
+- CentOS 7 or Debian/Ubuntu
 - Ansible Galaxy collection: community.general
 
 
@@ -73,20 +73,20 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.11.0       | Mesos Masters                     | RPM                                |
-| Marathon 1.11.30   | Marathon masters                  | RPM                                |
-| Zookeeper 3.7.0    | Zookeeper cluster                 | dependencies to Mesos/Marathon RPM |
-| Mesos-DNS 0.8.1    | Service Discovery for Mesos Tasks | RPM                                |
+| Mesos 1.11.0       | Mesos Masters                     | RPM/DEB                            |
+| Marathon 1.11.30   | Marathon masters                  | RPM/DEB                            |
+| Zookeeper 3.8.0    | Zookeeper cluster                 | RPM/DEB                            |
+| Mesos-DNS 0.8.2    | Service Discovery for Mesos Tasks | RPM/DEB                            |
 
 ## Worker node
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
-| Mesos 1.11.0       | Mesos Agent                       | RPM          |
-| Docker latest      | Docker engine                     | RPM          |
+| Mesos 1.11.0       | Mesos Agent                       | RPM/DEB      |
+| Docker latest      | Docker engine                     | RPM/DEB      |
 | Weave 2.8.1        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
-| DNSMasq 2          | Container DNS                     | RPM          |
+| DNSMasq 2          | Container DNS                     | RPM/DEB      |
 
 ## Persistent Storage
 

@@ -1,13 +1,13 @@
 - name: gather all hosts information
   hosts: all
   
-- name: Configure CENTOS
+- name: Configure OS
   become: yes
   hosts: 
     - manager
     - worker
   roles:
-    - role: centos
+    - role: os
       tags:
         - manager
         - worker
@@ -66,6 +66,11 @@
   hosts: worker
   serial: 40%    
   roles:
+    - role: mesos-agent
+      tags:
+        - mesos
+        - mesos-agent
+        - worker
     - role: docker
       tags:
         - docker
@@ -73,11 +78,6 @@
     - role: weave
       tags:
         - weave
-        - worker
-    - role: mesos-agent
-      tags:
-        - mesos
-        - mesos-agent
         - worker
     - role: mesos-ssl 
       tags:
@@ -100,11 +100,13 @@
   serial: 40%
   roles:
     - role: marathon
+      when:
+        ansible_os_family == "RedHat"
       tags:
         - marathon
     - role: marathon-ssl 
       tags:
         - marathon
         - ssl
-      when: libprocess_enable_ssl|bool == True
+      when: libprocess_enable_ssl|bool == True and ansible_os_family == "RedHat"
 

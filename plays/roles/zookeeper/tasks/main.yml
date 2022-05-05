@@ -6,12 +6,27 @@
     regexp: "^exclude=mesos*"
     line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
 
-- name: install zookeeper packages
-  yum:
+
+- name: install zookeeper packages ubuntu
+  package:
     name:
-      - aventer-zookeeper-3.7.0
-    state: installed
+      - openjdk-17-jdk
+      - aventer-zookeeper
+    state: present
+  when:
+    ansible_os_family == "Debian"
+
+- name: install zookeeper packages centos
+  package:
+    name:
+      - java-1.6.0-openjdk.x86_64
+      - aventer-zookeeper
+    state: present
+  when:
+    ansible_os_family == "RedHat"
 
 - name: disable zookeeper update
   lineinfile:
@@ -19,6 +34,8 @@
     regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
 
 - name: enable zookeeper authentication
   lineinfile: dest=/etc/zookeeper/conf/java.env state=present regexp="^" line="SERVER_JVMFLAGS=\"-Djava.security.auth.login.config=/etc/zookeeper/conf/jaas.conf\"" create=yes

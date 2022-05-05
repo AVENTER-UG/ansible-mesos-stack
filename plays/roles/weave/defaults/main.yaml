@@ -3,3 +3,5 @@
 weave_version: "v2.8.1"
 weave_password: "changeme"
 weave_fastd: "false"
+
+mesos_etc_dir: "/etc/mesos-agent"

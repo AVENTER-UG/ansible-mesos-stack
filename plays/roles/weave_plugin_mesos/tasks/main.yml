@@ -8,7 +8,7 @@
 
   - name: add cni config dir
     lineinfile: 
-      dest: /etc/mesos-agent/network_cni_config_dir
+      dest: "{{ mesos_etc_dir }}/network_cni_config_dir"
       state: present 
       line: "/etc/mesos/cni/net.d" 
       create: yes  
