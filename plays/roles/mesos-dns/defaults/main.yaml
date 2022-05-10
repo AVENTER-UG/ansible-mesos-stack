@@ -1,6 +1,6 @@
 ---
 mesos_password: "marathon"
 mesos_user: "mesos"
-mesos_dns_version: "v0.8.1"
+mesos_dns_version: "0.8.2"
 
 libprocess_enable_ssl: "false"

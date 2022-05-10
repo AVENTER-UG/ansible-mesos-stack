@@ -97,9 +97,11 @@
 
 - name: set ssl keystore file
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^MARATHON_SSL_KEYSTORE_PATH=*" line="MARATHON_SSL_KEYSTORE_PATH=/etc/mesos/ssl/marathon.jks" 
+  when: libprocess_enable_ssl|bool == True     
 
 - name: set ssl keystore password
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^MARATHON_SSL_KEYSTORE_PASSWORD=*" line="MARATHON_SSL_KEYSTORE_PASSWORD={{ marathon_jks_password }}" 
+  when: libprocess_enable_ssl|bool == True     
 
 - name: Change group owner of secret file
   file:

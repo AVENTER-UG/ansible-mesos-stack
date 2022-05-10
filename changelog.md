@@ -1,3 +1,8 @@
+# master
+- Add support for Debian based systems.
+- CentOS7 is deprecated and would be removed in the future
+- Update Mesos DNS to v0.8.2
+
 # v0.19.0
 
 - Add the possibility to install a docker engine at the manager server

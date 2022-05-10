@@ -4,5 +4,26 @@
     src: aventer-rel.repo
     dest: /etc/yum.repos.d/aventer-rel.repo
     mode: 0640
+  when:
+    ansible_os_family == "RedHat"
+
+- name: add aventer gpg-key
+  apt_key: 
+    url: https://www.aventer.biz/assets/support_aventer.asc
+    state: present 
+  when:
+    ansible_os_family == "Debian"
+
+- debug: msg="{{ ansible_distribution }}"    
+
+- name: add aventer apt repository
+  apt_repository: 
+    repo: "deb http://rpm.aventer.biz/{{ ansible_distribution }} {{ ansible_lsb.codename|lower }} main"
+    state: present 
+    filename: aventer
+    update_cache: yes    
+  when:
+    ansible_os_family == "Debian"
+      
 
 

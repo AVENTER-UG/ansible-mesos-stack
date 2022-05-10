@@ -21,18 +21,24 @@
     system: yes
     state: present
 
+- debug:
+    var: ansible_os_family
+
+
 - name: enable mesos-dns update
   lineinfile:
     dest: "/etc/yum.conf"
     regexp: "^exclude=mesos*"
     line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
 
 - name: install mesos-dns
-  yum:
+  package:
     name:
-      - "mesos-dns-{{ mesos_dns_version }}"
-    state: installed
+      - "mesos-dns"
+    state: present
 
 - name: disable mesos-dns update
   lineinfile:
@@ -40,8 +46,8 @@
     regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
-    
-
+  when:
+    ansible_os_family == "RedHat"
 
 - name: Set file permission
   file:

@@ -6,14 +6,39 @@
     regexp: "^exclude=mesos*"
     line: '#exclude=mesos* docker* ceph* zookeeper*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
 
-- name: install mesos agent packages
-  yum:
+- name: install mesos agent packages centos
+  package:
     name:
       - apr-util
       - "{{ mesos_rpm }}"
       - containernetworking-plugins
     state: present
+  when:
+    ansible_os_family == "RedHat"
+
+- name: BUGFIX - install nss package to prevent dependencies problems with mesos-agent
+  package:
+    name:
+      - libcurl4-nss-dev
+    state: present
+  when:
+    ansible_os_family == "Debian"
+
+- name: install mesos agent packages ubuntu
+  package:
+    name:
+      - libsvn1
+      - libsasl2-modules
+      - libevent-dev
+      - libcurl4-openssl-dev
+      - containernetworking-plugins
+      - "{{ mesos_deb }}"
+    state: present
+  when:
+    ansible_os_family == "Debian"
 
 - name: disable mesos update
   lineinfile:
@@ -21,13 +46,15 @@
     regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph* zookeeper*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
     
 - name: Remove deprecated config files
   file: 
     path: "{{ item }}"
     state: absent
   with_items:
-    - "/etc/mesos-agent/modules"
+    - "{{ mesos_etc_dir }}/modules"
 
 - name: create zk file
   file: 
@@ -58,7 +85,7 @@
     - cert
 
 - name: Check if old mesos-agent folder exist
-  stat: path=/etc/mesos-agent
+  stat: path={{ mesos_etc_dir }}
   register: mesos_agent
 
 - name: Remove deprecated config files
@@ -66,8 +93,8 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "/etc/mesos-agent/seccomp_config_dir"  
-    - "/etc/mesos-agent/seccomp_profile_name"
+    - "{{ mesos_etc_dir }}/seccomp_config_dir"  
+    - "{{ mesos_etc_dir }}/seccomp_profile_name"
     - "/etc/default/mesos"
     - "/etc/default/mesos-agent"
     - "/etc/mesos/modules/logrotate.config"
@@ -76,7 +103,7 @@
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
 
 - name: configure master access
-  lineinfile: dest=/etc/mesos-agent/master create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/master create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
 
 - name: configure user env string
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"   mode=0640
@@ -121,67 +148,89 @@
   lineinfile: dest=/etc/sysconfig/marathon create=yes state=present regexp="^LIBPROCESS_SSL_ENABLE_DOWNGRADE=*" line="LIBPROCESS_SSL_ENABLE_DOWNGRADE={{ libprocess_ssl_enable_downgrade }}" mode=0640
 
 - name: set hostname in mesos
-  lineinfile: dest=/etc/mesos-agent/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes mode=0640
 
 - name: increase the mesos-agent executor timeout
-  lineinfile: dest=/etc/mesos-agent/executor_registration_timeout state=present line="5mins" regexp="^" create=yes mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/executor_registration_timeout state=present line="5mins" regexp="^" create=yes mode=0640
 
 - name: add containerizer to the mesos-agent
-  lineinfile: dest=/etc/mesos-agent/containerizers state=present line="docker,mesos" regexp="^" create=yes mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/containerizers state=present line="docker,mesos" regexp="^" create=yes mode=0640
 
 - name: add mesos-agent credentials
-  lineinfile: dest=/etc/mesos-agent/credential state=present line="/etc/mesos/credential" regexp="^" create=yes mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/credential state=present line="/etc/mesos/credential" regexp="^" create=yes mode=0640
 
 - name: add mesos-agent http credentials
-  lineinfile: dest=/etc/mesos-agent/http_credentials state=present line="/etc/mesos/http_credentials" regexp="^" create=yes mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/http_credentials state=present line="/etc/mesos/http_credentials" regexp="^" create=yes mode=0640
 
 - name: enable cluster http readonly authentication
-  lineinfile: dest=/etc/mesos-agent/authenticate_http_readonly state=present create=yes regexp="^" line="true" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/authenticate_http_readonly state=present create=yes regexp="^" line="true" mode=0640
 
 - name: enable cluster http readwrite authentication
-  lineinfile: dest=/etc/mesos-agent/authenticate_http_readwrite state=present create=yes regexp="^" line="true" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/authenticate_http_readwrite state=present create=yes regexp="^" line="true" mode=0640
 
 - name: enable cluster http authenticators
-  lineinfile: dest=/etc/mesos-agent/http_authenticators state=present create=yes regexp="^" line="basic" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/http_authenticators state=present create=yes regexp="^" line="basic" mode=0640
 
 - name: add weave.socks to the mesos-agent
-  lineinfile: dest=/etc/mesos-agent/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes mode=0640
 
 - name: set slave ip in mesos
-  lineinfile: dest=/etc/mesos-agent/ip state=present create=yes regexp="^" line="{{ mesos_ip_address }}" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/ip state=present create=yes regexp="^" line="{{ client_address }}" mode=0640
 
 - name: disable hostname lookup
-  lineinfile: dest=/etc/mesos-agent/hostname_lookup state=present create=yes regexp="^" line="false" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/hostname_lookup state=present create=yes regexp="^" line="false" mode=0640
 
 - name: set memory profiling
-  lineinfile: dest=/etc/mesos-agent/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
 
-- name: set mesos isolation
-  lineinfile: dest=/etc/mesos-agent/isolation state=present create=yes regexp="^" line="cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities" mode=0640
+- name: set mesos isolation centos and ubunut
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/isolation" 
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities" 
+    mode: 0640
+  when:
+    ansible_distribution == "Ubuntu" or ansible_os_family == "RedHat"
+
+- name: set mesos isolation debian
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/isolation" 
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid"
+    mode: 0640
+  when:
+    ansible_distribution == "Debian"
 
 - name: set image provider
-  lineinfile: dest=/etc/mesos-agent/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640
 
 - name: set mesos module directory
-  lineinfile: dest=/etc/mesos-agent/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
 - name: set mesos work-dir
-  lineinfile: dest=/etc/mesos-agent/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0640
+
+- name: set mesos webui-dir
+  lineinfile: dest=/etc/mesos-master/webui_dir state=present create=yes regexp="^" line="/usr/share/mesos/webui" mode=0755
 
 - name: set mesos cni plugins dir
-  lineinfile: dest=/etc/mesos-agent/network_cni_plugins_dir state=present create=yes regexp="^" line="/usr/libexec/cni/bin" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/network_cni_plugins_dir state=present create=yes regexp="^" line="/usr/libexec/cni/bin" mode=0640
 
 - name: set mesos executor env with ssl
   template: 
     src: executor.json.js
-    dest: /etc/mesos-agent/executor_environment_variables
+    dest: "{{ mesos_etc_dir }}/executor_environment_variables"
     mode: 0640
   when:
     - libprocess_enable_ssl == "true"
 
 - name: set mesos executor env without ssl
   file:
-    path: /etc/mesos-agent/executor_environment_variables
+    path: "{{ mesos_etc_dir }}/executor_environment_variables"
     state: absent
   when:
     - libprocess_enable_ssl == "false"
@@ -189,7 +238,7 @@
 - name: set mesos container dns
   template: 
     src: container_dns.j2
-    dest: /etc/mesos-agent/default_container_dns
+    dest: "{{ mesos_etc_dir }}/default_container_dns"
     mode: 0640
 
 - name: create mesos module directory
@@ -222,9 +271,10 @@
 - name: copy mesos http credential
   template: src=http_credentials.j2 dest=/etc/mesos/http_credentials mode=0640  
 
-- name: ensure mesos-agent service is started and enabled
+- name: start necessary services
   service:
     name: "{{ item }}"
+    daemon_reload: true
     enabled: yes
     state: restarted
   with_items:
@@ -234,8 +284,7 @@
 
 - name: ensure mesos-master service is disabled
   service:
-    name: "{{ item }}"
+    name: mesos-master
     enabled: no
     state: stopped
-  with_items:
-    - mesos-master
+  ignore_errors: true

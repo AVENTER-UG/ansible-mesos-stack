@@ -1,20 +1,30 @@
 ---
 
-- name: install dnsmasq packages
-  yum:
+- name: "get facts of installed packages"
+  package_facts:
+    manager: "auto"
+
+- name: install dnsmasq packages centos
+  package:
     name: 
       - dnsmasq
       - bind-utils
-    state: latest
+    state: present
+  when:
+    ansible_os_family == "RedHat"
 
-- name: Check if NetworkManager is installed
-  command: rpm -q NetworkManager
-  register: rpm_check
-  ignore_errors: true
+- name: install dnsmasq packages ubuntu
+  package:
+    name: 
+      - dnsmasq
+      - dnsutils
+    state: present
+  when:
+    ansible_os_family == "Debian"
 
 - name: disable update resolv conf of network manager
   copy: src=NetworkManager.conf dest=/etc/NetworkManager/NetworkManager.conf mode=0644
-  when: rpm_check.stdout.find('is not installed') == -1
+  when: "'NetworkManager' is in ansible_facts.packages"      
 
 - name: disable update resolv conf of dhclient
   copy: src=dhclient-enter-hooks dest=/etc/dhclient-enter-hooks mode=0755
@@ -24,7 +34,7 @@
     name: NetworkManager
     state: restarted
     enabled: yes   
-  when: rpm_check.stdout.find('is not installed') == -1   
+  when: "'NetworkManager' is in ansible_facts.packages"      
 
 - name: collect nameservers
   shell: "cat /etc/resolv.conf | grep -i '^nameserver' | cut -d ' ' -f2"

@@ -6,13 +6,37 @@
     regexp: "^exclude=mesos*"
     line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
 
-- name: install mesos master packages
-  yum:
+- name: install mesos master packages centos
+  package:
     name:
       - apr-util
       - "{{ mesos_rpm }}"
-    state: latest
+    state: present
+  when:
+    ansible_os_family == "RedHat"
+
+- name: BUGFIX - install nss package to prevent dependencies problems with mesos-agent
+  package:
+    name:
+      - libcurl4-nss-dev
+    state: present
+  when:
+    ansible_os_family == "Debian"
+
+- name: install mesos master packages ubuntu
+  package:
+    name:
+      - libsvn1
+      - libsasl2-modules
+      - libevent-dev
+      - libcurl4-openssl-dev
+      - "{{ mesos_deb }}"
+    state: present
+  when:
+    ansible_os_family == "Debian"
 
 - name: disable mesos update
   lineinfile:
@@ -20,6 +44,8 @@
     regexp: "^#exclude=mesos*"
     line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
     state: present
+  when:
+    ansible_os_family == "RedHat"
 
 - name: Remove deprecated config files
   file: 
@@ -105,7 +131,7 @@
   lineinfile: dest=/etc/mesos-master/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
 
 - name: set master ip in mesos
-  lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ mesos_ip_address }}"
+  lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ client_address }}"
 
 - name: set cluster hostname
   lineinfile: dest=/etc/mesos-master/cluster state=present create=yes regexp="^" line="{{ mesos_clustername }}"
@@ -155,6 +181,9 @@
 - name: set mesos work-dir
   lineinfile: dest=/etc/mesos-master/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0755
 
+- name: set mesos webui-dir
+  lineinfile: dest=/etc/mesos-master/webui_dir state=present create=yes regexp="^" line="/usr/share/mesos/webui" mode=0755
+
 - name: create mesos module directory
   file:
     path: /etc/mesos/modules
@@ -168,11 +197,12 @@
   template: src=acls.j2 dest=/etc/mesos/acls mode=0640  
 
 - name: copy marathon secret
-  template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640  
+  template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640    
 
 - name: start necessary services
   service:
     name: "{{ item }}"
+    daemon_reload: true
     enabled: yes
     state: restarted
   with_items:
