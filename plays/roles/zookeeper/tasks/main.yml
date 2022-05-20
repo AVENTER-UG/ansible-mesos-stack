@@ -14,7 +14,7 @@
   package:
     name:
       - openjdk-17-jdk
-      - aventer-zookeeper
+      - zookeeper
     state: present
   when:
     ansible_os_family == "Debian"
