@@ -23,7 +23,7 @@
   package:
     name:
       - java-1.6.0-openjdk.x86_64
-      - aventer-zookeeper
+      - zookeeper
     state: present
   when:
     ansible_os_family == "RedHat"
