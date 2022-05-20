@@ -36,7 +36,13 @@
     create: yes
   when: "'policycoreutils' is in ansible_facts.packages"      
 
+- name: check if setenforce command exists
+  stat:
+    path: /usr/sbin/setenforce
+  register: setenforce
+
 - name: deactivate selinux temp
   command: setenforce 0
-  when: "'policycoreutils' is in ansible_facts.packages"      
+  when: setenforce.stat.exists
+    
 
