@@ -18,6 +18,7 @@ mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
 
 mesos_logs_dir: "/var/log/mesos"
+mesos_work_dir: "/var/lib/mesos"
 mesos_ulimit: "16384"
 
 mesos_etc_dir: "/etc/mesos-agent"

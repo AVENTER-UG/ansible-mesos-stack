@@ -212,7 +212,7 @@
   lineinfile: dest={{ mesos_etc_dir }}/modules_dir state=present create=yes regexp="^" line="/etc/mesos/modules" mode=0640
 
 - name: set mesos work-dir
-  lineinfile: dest={{ mesos_etc_dir }}/work_dir state=present create=yes regexp="^" line="/var/lib/mesos" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/work_dir state=present create=yes regexp="^" line="{{ mesos_work_dir }}" mode=0640
 
 - name: set mesos webui-dir
   lineinfile: dest=/etc/mesos-master/webui_dir state=present create=yes regexp="^" line="/usr/share/mesos/webui" mode=0755

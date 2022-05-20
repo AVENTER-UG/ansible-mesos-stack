@@ -4,7 +4,8 @@ with pkgs;
 
 mkShell {
   buildInputs = [
-    ansible
+    ansible-2.12
+    openssh
   ];
 }
 
