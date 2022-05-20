@@ -1,4 +1,11 @@
 # master
+
+- Change Zookeeper package name from "aventer-zookeeper" to "zookeeper" to prevent dpendencies problems with the
+  debian package.
+- Check existing of setenforce command before execute to prevent error messages.
+
+# v0.20.0
+
 - Add support for Debian based systems.
 - CentOS7 is deprecated and would be removed in the future
 - Update Mesos DNS to v0.8.2

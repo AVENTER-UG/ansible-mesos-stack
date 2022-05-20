@@ -19,7 +19,7 @@ and local volumes. To besure that local volumes will not be deledet, add a tag
 called "mesos" as label. As example: 
 
 ```bash
-docker volume create --label tag=mesos donotdelete
+docker volume create --label tag=mesos volumename
 ```
 
 
