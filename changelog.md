@@ -3,6 +3,7 @@
 - Change Zookeeper package name from "aventer-zookeeper" to "zookeeper" to prevent dpendencies problems with the
   debian package.
 - Check existing of setenforce command before execute to prevent error messages.
+- Add mesos_work_dir variable to custom mesos work directory.
 
 # v0.20.0
 

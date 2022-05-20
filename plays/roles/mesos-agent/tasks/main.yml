@@ -68,6 +68,18 @@
     state: directory
     mode: 0755
 
+- name: Check if the work directory exists
+  stat:
+    path: "{{ mesos_work_dir }}"
+  register: work_dir
+
+- name: create work directory
+  file: 
+    path: "{{ mesos_work_dir }}"
+    state: directory
+    mode: 0755
+  when: not work_dir.stat.exists
+
 - name: copy ssl cert
   copy:
     src: "{{ mesos_ssl_crt }}"
