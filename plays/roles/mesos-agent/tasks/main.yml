@@ -195,6 +195,7 @@
 - name: set memory profiling
   lineinfile: dest={{ mesos_etc_dir }}/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
 
+
 - name: set mesos isolation centos and ubunut
   lineinfile: 
     dest: "{{ mesos_etc_dir }}/isolation" 
@@ -216,6 +217,17 @@
     mode: 0640
   when:
     ansible_distribution == "Debian"
+
+- name: set mesos attributes
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/attributes" 
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "{{ mesos_attributes }}"
+    mode: 0640
+  when:
+    mesos_attributes|length > 0
 
 - name: set image provider
   lineinfile: dest={{ mesos_etc_dir }}/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640

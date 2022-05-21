@@ -25,4 +25,6 @@ mesos_etc_dir: "/etc/mesos-agent"
 
 libprocess_ssl_hostname_validation_scheme: "openssl"  
 
+mesos_attributes: ""
+
 

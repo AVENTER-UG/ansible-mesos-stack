@@ -11,6 +11,7 @@
       tags:
         - manager
         - worker
+        - os
     - role: repos
       tags:
         - manager
