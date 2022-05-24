@@ -196,7 +196,7 @@
   lineinfile: dest={{ mesos_etc_dir }}/memory_profiling state=present create=yes regexp="^" line="true" mode=0640
 
 
-- name: set mesos isolation centos and ubunut
+- name: set mesos isolation
   lineinfile: 
     dest: "{{ mesos_etc_dir }}/isolation" 
     state: present 
@@ -204,19 +204,6 @@
     regexp: "^" 
     line: "cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid,linux/capabilities" 
     mode: 0640
-  when:
-    ansible_distribution == "Ubuntu" or ansible_os_family == "RedHat"
-
-- name: set mesos isolation debian
-  lineinfile: 
-    dest: "{{ mesos_etc_dir }}/isolation" 
-    state: present 
-    create: yes 
-    regexp: "^" 
-    line: "cgroups/all,disk/du,network/cni,filesystem/linux,docker/runtime,volume/sandbox_path,volume/secret,posix/rlimits,namespaces/pid"
-    mode: 0640
-  when:
-    ansible_distribution == "Debian"
 
 - name: set mesos attributes
   lineinfile: 
