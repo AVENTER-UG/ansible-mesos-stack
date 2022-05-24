@@ -35,7 +35,7 @@
       - libevent-dev
       - libcurl4-openssl-dev
       - containernetworking-plugins
-      - "{{ mesos_deb }}"
+      - "{{ mesos_deb }}.{{ ansible_distribution | lower }}{{ ansible_distribution_version }}"
     state: present
   when:
     ansible_os_family == "Debian"

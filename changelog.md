@@ -5,6 +5,7 @@
 - Check existing of setenforce command before execute to prevent error messages.
 - Add mesos_work_dir variable to custom mesos work directory.
 - Add support of mesos attributes
+- Update to Mesos Version 1.11.0-0.1.0
 
 # v0.20.0
 
