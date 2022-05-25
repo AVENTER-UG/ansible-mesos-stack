@@ -18,22 +18,14 @@
   when:
     ansible_os_family == "RedHat"
 
-- name: BUGFIX - install nss package to prevent dependencies problems with mesos-agent
-  package:
-    name:
-      - libcurl4-nss-dev
-    state: present
-  when:
-    ansible_os_family == "Debian"
-
 - name: install mesos master packages ubuntu
   package:
     name:
       - libsvn1
       - libsasl2-modules
       - libevent-dev
-      - libcurl4-openssl-dev
-      - "{{ mesos_deb }}"
+      - libcurl4-nss-dev
+      - "{{ mesos_deb }}.{{ ansible_distribution | lower }}{{ ansible_distribution_version }}"
     state: present
   when:
     ansible_os_family == "Debian"
