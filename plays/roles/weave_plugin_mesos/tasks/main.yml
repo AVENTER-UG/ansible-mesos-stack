@@ -19,3 +19,17 @@
       dest: /etc/mesos/cni/net.d/10-weave.conflist
       mode: 0644
 
+  - name: Copy file with owner and permissions
+    ansible.builtin.copy:
+      remote_src: true
+      src: "/opt/cni/bin/{{ item }}"
+      dest: /usr/lib/cni/
+      mode: '0755'
+    with_items:
+      - weave-plugin-2.8.1
+      - weave-ipam
+      - weave-net
+
+
+      
+

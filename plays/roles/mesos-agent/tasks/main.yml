@@ -221,7 +221,7 @@
   lineinfile: dest=/etc/mesos-master/webui_dir state=present create=yes regexp="^" line="/usr/share/mesos/webui" mode=0755
 
 - name: set mesos cni plugins dir
-  lineinfile: dest={{ mesos_etc_dir }}/network_cni_plugins_dir state=present create=yes regexp="^" line="/usr/libexec/cni/bin" mode=0640
+  lineinfile: dest={{ mesos_etc_dir }}/network_cni_plugins_dir state=present create=yes regexp="^" line="/usr/lib/cni/" mode=0640
 
 - name: set mesos executor env with ssl
   template: 

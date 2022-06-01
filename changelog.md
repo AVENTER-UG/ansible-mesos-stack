@@ -6,6 +6,8 @@
 - Add mesos_work_dir variable to custom mesos work directory.
 - Add support of mesos attributes
 - Update to Mesos Version 1.11.0-0.2.0
+- Change Mesos CNI Plugin directory to the Containernetwork Plugin directory
+
 
 # v0.20.0
 
