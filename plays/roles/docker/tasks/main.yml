@@ -110,6 +110,12 @@
 - name: add docker to systemd init
   service: name=docker enabled=yes state=started
 
+- name: disable containerd
+  service: 
+    name: containerd 
+    enabled: no 
+    state: stopped
+
 - name: restart docker
   service: 
     name: docker 
