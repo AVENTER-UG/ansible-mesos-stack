@@ -1,15 +1,5 @@
 ---
 
-- name: Check cgroups version
-  stat:
-    path: /sys/fs/cgroup/cpu 
-  register: cg_result
-
-- name: Raise failure if cgroups v2 is enable  
-  fail:
-    msg: "Please enable CGoups Version 1 (systemd.unified_cgroup_hierarchy=0)"
-  when: not cg_result.stat.exists
-
 - name: "get facts of installed packages"
   package_facts:
     manager: "auto"

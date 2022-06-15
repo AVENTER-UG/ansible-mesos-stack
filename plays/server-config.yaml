@@ -1,5 +1,15 @@
 - name: gather all hosts information
   hosts: all
+
+- name: Precheck
+  become: yes
+  hosts: 
+    - manager
+    - worker
+  roles:
+    - role: precheck
+      tags:
+        - precheck
   
 - name: Configure OS
   become: yes
