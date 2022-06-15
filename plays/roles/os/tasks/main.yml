@@ -33,5 +33,6 @@
 - name: deactivate selinux temp
   command: setenforce 0
   when: setenforce.stat.exists
+  ignore_errors: true
     
 
