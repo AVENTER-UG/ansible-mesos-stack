@@ -9,6 +9,8 @@ containerd_package: https://download.docker.com/linux/centos/7/x86_64/stable/Pac
 
 docker_version_deb: "docker-ce=5:20.10.16~3-0~{{ ansible_distribution | lower }}-{{ ansible_lsb.codename|lower }}"
 docker_version_rpm: "docker-ce-20.10.16"
+
+docker_data_root: "/var/lib/docker"
  
 
 docker: false

@@ -1,5 +1,6 @@
 {
     "live-restore": false,
     "storage-driver": "overlay2",
-    "insecure-registries": [{% for registry in docker_registry %}"{{ registry.url }}"{% if not loop.last %},{% endif %}{% endfor %}]
+    "data-root": "{{ docker_data_root }}",
+    "insecure-registries": [{% for registry in docker_registry %}"{{ registry.url }}"{% if not loop.last %},{% endif %}{% endfor %}]      
 }

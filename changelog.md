@@ -7,6 +7,7 @@
 - Add support of mesos attributes
 - Update to Mesos Version 1.11.0-0.2.0
 - Change Mesos CNI Plugin directory to the Containernetwork Plugin directory
+- Add docker_data_root to change the data directory (default "/var/lib/docker")
 
 
 # v0.20.0
