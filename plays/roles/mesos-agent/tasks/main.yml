@@ -99,6 +99,7 @@
   with_items:
     - "{{ mesos_etc_dir }}/seccomp_config_dir"  
     - "{{ mesos_etc_dir }}/seccomp_profile_name"
+    - "/etc/mesos-slave"
     - "/etc/default/mesos"
     - "/etc/default/mesos-agent"
     - "/etc/mesos/modules/logrotate.config"
@@ -230,6 +231,12 @@
     mode: 0640
   when:
     - libprocess_enable_ssl == "true"
+
+- name: set mesos resources
+  template: 
+    src: resources.j2
+    dest: "{{ mesos_etc_dir }}/resources"
+    mode: 0640
 
 - name: set mesos executor env without ssl
   file:

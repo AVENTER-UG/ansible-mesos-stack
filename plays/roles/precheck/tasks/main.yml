@@ -7,7 +7,7 @@
 
 - name: Raise failure if cgroups v2 is enable  
   fail:
-    msg: "Please enable CGoups Version 1 (systemd.unified_cgroup_hierarchy=0)"
+    msg: "Please enable CGroups Version 1 (/etc/default/grub; systemd.unified_cgroup_hierarchy=0)"
   when: not cg_result.stat.exists
 
     
