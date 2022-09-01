@@ -1,4 +1,4 @@
-# master
+# v0.21.0
 
 - Change Zookeeper package name from "aventer-zookeeper" to "zookeeper" to prevent dpendencies problems with the
   debian package.
