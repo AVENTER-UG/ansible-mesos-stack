@@ -201,3 +201,11 @@
     - mesos-master
   tags:
     - cert
+
+- name: ensure mesos-slave service is disabled
+  service:
+    name: mesos-slave
+    enabled: no
+    state: stopped
+  ignore_errors: true
+      
