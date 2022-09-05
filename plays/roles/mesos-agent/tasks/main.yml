@@ -19,18 +19,29 @@
   when:
     ansible_os_family == "RedHat"
 
-- name: install mesos agent packages ubuntu
-  package:
+- name: install mesos master packages Debian
+  apt:
     name:
       - libsvn1
       - libsasl2-modules
       - libevent-dev
-      - containernetworking-plugins
       - libcurl4-nss-dev
-      - "{{ mesos_deb }}.{{ ansible_distribution | lower }}{{ ansible_distribution_version }}"
+      - "{{ mesos_deb }}*"
     state: present
   when:
-    ansible_os_family == "Debian"
+    ansible_distribution == "Debian"
+
+- name: install mesos master packages ubuntu
+  apt:
+    name:
+      - libsvn1
+      - libsasl2-modules
+      - libevent-dev
+      - libcurl4-openssl-dev
+      - "{{ mesos_deb }}*"
+    state: present
+  when:
+    ansible_distribution == "Ubuntu"
 
 - name: disable mesos update
   lineinfile:
