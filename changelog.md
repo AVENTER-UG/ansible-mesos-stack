@@ -9,6 +9,7 @@
 - Change Mesos CNI Plugin directory to the Containernetwork Plugin directory
 - Add docker_data_root to change the data directory (default "/var/lib/docker")
 - Add possibility to configure mesos-agent port range.
+- Change Mesos-DNS default IPSource to "netinfo" and "host". 
 
 
 
