@@ -28,19 +28,7 @@
       - "{{ mesos_deb }}*"
     state: present
   when:
-    ansible_distribution == "Debian"
-
-- name: install mesos master packages ubuntu
-  apt:
-    name:
-      - libsvn1
-      - libsasl2-modules
-      - libevent-dev
-      - libcurl4-openssl-dev
-      - "{{ mesos_deb }}*"
-    state: present
-  when:
-    ansible_distribution == "Ubuntu"
+    ansible_os_family == "Debian"
 
 - name: disable mesos update
   lineinfile:

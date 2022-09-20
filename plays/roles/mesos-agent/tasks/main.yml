@@ -19,7 +19,7 @@
   when:
     ansible_os_family == "RedHat"
 
-- name: install mesos master packages Debian
+- name: install mesos agent packages Debian
   apt:
     name:
       - libsvn1
