@@ -55,6 +55,11 @@
       tags:
         - docker
       when: docker|bool == True
+    - role: docker-cron
+      tags:
+        - docker
+        - cron
+      when: docker|bool == True
 
 - name: Configure DNS
   become: yes

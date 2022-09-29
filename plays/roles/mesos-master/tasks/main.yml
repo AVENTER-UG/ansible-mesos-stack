@@ -1,14 +1,5 @@
 ---
   
-- name: enable mesos update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
-    state: present
-  when:
-    ansible_os_family == "RedHat"
-
 - name: install mesos master packages centos
   package:
     name:
@@ -17,6 +8,17 @@
     state: present
   when:
     ansible_os_family == "RedHat"
+
+- name: update mesos master packages centos
+  package:
+    name:
+      - "{{ mesos_rpm }}"
+    state: latest
+  when:
+    ansible_os_family == "RedHat"
+  tags:
+    - update
+    - never
 
 - name: install mesos master packages Debian
   apt:
@@ -30,14 +32,16 @@
   when:
     ansible_os_family == "Debian"
 
-- name: disable mesos update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
+- name: update mesos master packages Debian
+  apt:
+    name:
+      - aventer-mesos
     state: present
   when:
-    ansible_os_family == "RedHat"
+    ansible_os_family == "Debian"
+  tags:
+    - update
+    - never
 
 - name: Remove deprecated config files
   file: 

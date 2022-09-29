@@ -1,0 +1,23 @@
+---
+
+- name: Add cron job to prune docker images
+  cron:
+    name: "delete all unused docker images "
+    minute: "0"
+    job: "docker image prune -a -f --filter \"label!=org.opencontainers.image.vendor=Weaveworks\" > /dev/null"
+    state: present
+
+- name: Add cron job to prune docker containers
+  cron:
+    name: "prune docker containers"
+    minute: "0"
+    job: "docker container prune -f > /dev/null"
+    state: present  
+
+- name: Add cron job to prune local docker volumes
+  cron:
+    name: "prune local docker volumes"
+    minute: "0"
+    job: "docker volume prune -f --filter \"label!=tag=mesos\" > /dev/null"
+    state: present
+

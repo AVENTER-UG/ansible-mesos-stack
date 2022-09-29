@@ -31,6 +31,18 @@ docker volume create --label tag=mesos volumename
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 ```
 
+###  Install Mesos and Docker Update
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags update
+```
+
+###  Restart docker daemon
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags restart
+```
+
 ### Reconfigure DNS
 
 ```bash
@@ -74,7 +86,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.11.0-0.2.0 | Mesos Masters                     | RPM/DEB                            |
-| Marathon 1.11.30 (only CentOS)  | Marathon masters                  | RPM                                |
+| Marathon 1.11.30 (Deprecated)  | Marathon masters                  | RPM                                |
 | Zookeeper 3.8.0    | Zookeeper cluster                 | RPM/DEB                            |
 | Mesos-DNS 0.8.2    | Service Discovery for Mesos Tasks | RPM/DEB                            |
 

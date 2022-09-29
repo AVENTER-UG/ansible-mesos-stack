@@ -5,15 +5,6 @@
   when:
     ansible_os_family == "RedHat"
 
-- name: enable docker update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph*'
-    state: present
-  when:
-    ansible_os_family == "RedHat"
-
 - name: add docker gpg-key
   apt_key: 
     url: https://download.docker.com/linux/ubuntu/gpg
@@ -44,9 +35,34 @@
     name:
       - "{{ docker_version_deb }}"
       - containerd.io
+      - docker-compose
     state: present
   when:
     ansible_os_family == "Debian"
+
+- name: update docker packages for ubuntu
+  package:
+    name:
+      - "{{ docker_version_deb }}"
+      - containerd.io
+    state: latest
+  when:
+    ansible_os_family == "Debian"
+  tags:
+    - update
+    - never
+
+- name: update docker packages for centos
+  package:
+    name:
+      - "{{ docker_version_rpm }}"
+      - containerd.io
+    state: latest
+  when:
+    ansible_os_family == "RedHat"
+  tags:
+    - update
+    - never
 
 - name: install docker packages for centos
   package:
@@ -57,20 +73,11 @@
   when:
     ansible_os_family == "RedHat"
 
-- name: disable docker update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph*'
-    state: present
-  when:
-    ansible_os_family == "RedHat"
-
 - name: configure docker dns
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: OPTIONS=' --dns {{ ansible_default_ipv4.address }} --dns-search {{ dns_domain }} --log-driver=journald {{ docker_options }} '
+    line: OPTIONS= --dns {{ ansible_default_ipv4.address }} --dns-search {{ dns_domain }} --log-driver=journald {{ docker_options }} '
     state: present
     create: yes
 
@@ -82,27 +89,6 @@
 
 - name: copy new docker daemone config
   template: src=daemon.json.j2 dest=/etc/docker/daemon.json mode=0640
-
-- name: Add cron job to prune docker images
-  cron:
-    name: "delete all unused docker images "
-    minute: "0"
-    job: "docker image prune -a -f --filter \"label!=org.opencontainers.image.vendor=Weaveworks\" > /dev/null"
-    state: present
-
-- name: Add cron job to prune docker containers
-  cron:
-    name: "prune docker containers"
-    minute: "0"
-    job: "docker container prune -f > /dev/null"
-    state: present  
-
-- name: Add cron job to prune local docker volumes
-  cron:
-    name: "prune local docker volumes"
-    minute: "0"
-    job: "docker volume prune -f --filter \"label!=tag=mesos\" > /dev/null"
-    state: present
 
 - name: reload systemd
   shell: systemctl daemon-reload
@@ -120,3 +106,7 @@
   service: 
     name: docker 
     state: restarted
+  tags:
+    - restart
+    - never
+
