@@ -74,7 +74,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.11.0-0.2.0 | Mesos Masters                     | RPM/DEB                            |
-| Marathon 1.11.30   | Marathon masters                  | RPM/DEB                            |
+| Marathon 1.11.30 (only CentOS)  | Marathon masters                  | RPM                                |
 | Zookeeper 3.8.0    | Zookeeper cluster                 | RPM/DEB                            |
 | Mesos-DNS 0.8.2    | Service Discovery for Mesos Tasks | RPM/DEB                            |
 
@@ -83,7 +83,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
 | Mesos 1.11.0-0.2.0 | Mesos Agent                       | RPM/DEB      |
-| Docker latest      | Docker engine                     | RPM/DEB      |
+| Docker CE latest   | Docker engine                     | RPM/DEB      |
 | Weave 2.8.1        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM/DEB      |
