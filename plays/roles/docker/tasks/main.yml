@@ -1,5 +1,14 @@
 ---
 
+- name: "get facts of installed packages"
+  package_facts:
+    manager: "auto"
+
+- name: check if it's first run
+  set_fact:
+    first_run: true
+  when: "'docker-ce' is not in ansible_facts.packages"      
+
 - name: add docker repo
   copy: src=docker-ce.repo dest=/etc/yum.repos.d/docker-main.repo mode=0644 
   when:
@@ -101,6 +110,12 @@
     name: containerd 
     enabled: no 
     state: stopped
+
+- name: restart docker during first run
+  service: 
+    name: docker 
+    state: restarted
+  when: first_run is true
 
 - name: restart docker
   service: 
