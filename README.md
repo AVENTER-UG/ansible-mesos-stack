@@ -106,3 +106,12 @@ For persistent container storage, we recomend to use our
 [ansible-docker-volume playbook](https://github.com/AVENTER-UG/ansible-docker-volume)
 to deploy S3 and RBD(ceph) docker-plugins as systemd service.
 
+# Troubleshooting
+
+If weave cannot ping between containers at different hosts, we have to change the following config:
+
+```bash
+sysctl net.bridge.bridge-nf-call-iptables=0
+```
+
+Do not forget to make it persistent. 
