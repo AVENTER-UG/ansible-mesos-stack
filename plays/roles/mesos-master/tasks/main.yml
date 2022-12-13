@@ -6,6 +6,8 @@
       - apr-util
       - "{{ mesos_rpm }}"
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "RedHat"
 
@@ -29,6 +31,8 @@
       - libcurl4-nss-dev
       - "{{ mesos_deb }}*"
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "Debian"
 

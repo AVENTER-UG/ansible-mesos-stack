@@ -1,5 +1,17 @@
 ---
 
+  - name: set tls path for debian based os
+    set_fact:
+      cert_home: "/etc/ssl/certs"
+    when:
+      ansible_os_family == "Debian"
+
+  - name: set tls path for centos based os
+    set_fact:
+      cert_home: "/etc/pki/tls"
+    when:
+      ansible_os_family == "Redhat"
+
   - name: Check if SSL Certificate Exist
     stat: 
       path: "{{ cert_home }}/{{ inventory_hostname }}.key"
@@ -11,7 +23,10 @@
     register: executor_env
 
   - name: Copy ssl configuration file
-    template: src=mesos.cnf.j2 dest=/etc/pki/tls/mesos.cnf mode=0644
+    template: 
+      src: "mesos.cnf.j2" 
+      dest: "{{ cert_home }}/../mesos.cnf" 
+      mode: 0644
     when: ssl_cert.stat.exists == False
 
 
@@ -20,7 +35,7 @@
     when: ssl_cert.stat.exists == False
 
   - name: Create CSR
-    command: openssl req -subj "/C=DE/ST=, Inc./CN={{ inventory_hostname }}"  -new -out {{ cert_home }}/{{ inventory_hostname }}.csr -key {{ cert_home }}/{{ inventory_hostname }}.key -config /etc/pki/tls/mesos.cnf
+    command: openssl req -subj "/C=DE/ST=, Inc./CN={{ inventory_hostname }}"  -new -out {{ cert_home }}/{{ inventory_hostname }}.csr -key {{ cert_home }}/{{ inventory_hostname }}.key -config {{ cert_home }}/../mesos.cnf
     when: ssl_cert.stat.exists == False
 
   - name: Dump Certificate
@@ -31,7 +46,7 @@
       var: dump_csr
 
   - name: Self Sign Certificate
-    command: openssl x509 -req -days 3650 -in  {{ cert_home }}/{{ inventory_hostname }}.csr  -signkey {{ cert_home }}/{{ inventory_hostname }}.key  -out {{ cert_home }}/{{ inventory_hostname }}.crt -extensions v3_req -extfile /etc/pki/tls/mesos.cnf
+    command: openssl x509 -req -days 3650 -in  {{ cert_home }}/{{ inventory_hostname }}.csr  -signkey {{ cert_home }}/{{ inventory_hostname }}.key  -out {{ cert_home }}/{{ inventory_hostname }}.crt -extensions v3_req -extfile {{ cert_home }}/../mesos.cnf
     when: ssl_cert.stat.exists == False
 
   - name: add mesos libprocess ssl key file

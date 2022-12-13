@@ -16,6 +16,8 @@
       - openjdk-17-jdk
       - zookeeper
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "Debian"
 
@@ -25,6 +27,8 @@
       - java-1.6.0-openjdk.x86_64
       - zookeeper
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "RedHat"
 

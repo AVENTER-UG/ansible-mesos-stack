@@ -1,5 +1,3 @@
-cert_home: "/etc/mesos/ssl"
-
 ssl_countryName: "DE"
 ssl_stateOrProvinceName: "A"
 ssl_localityName: "City"

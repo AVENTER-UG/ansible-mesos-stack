@@ -36,6 +36,8 @@
       - e2fsprogs
       - xfsprogs
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "Debian"
 
@@ -46,6 +48,8 @@
       - containerd.io
       - docker-compose
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "Debian"
 
@@ -79,6 +83,8 @@
       - "{{ docker_version_rpm }}"
       - containerd.io
     state: present
+  tags:
+    - install
   when:
     ansible_os_family == "RedHat"
 

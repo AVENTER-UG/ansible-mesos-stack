@@ -31,7 +31,13 @@ docker volume create --label tag=mesos volumename
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 ```
 
-###  Install Mesos and Docker Update
+### Skip installation, only configure the whole stack
+
+```bash
+ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --skip-tags install
+```
+
+###  Update Mesos and Docker
 
 ```bash
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags update
