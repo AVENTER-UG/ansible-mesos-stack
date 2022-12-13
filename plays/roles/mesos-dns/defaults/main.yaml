@@ -4,3 +4,5 @@ mesos_user: "mesos"
 mesos_dns_version: "0.8.2"
 
 libprocess_enable_ssl: "false"
+
+eth_if: "eth0"

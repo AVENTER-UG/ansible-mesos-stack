@@ -3,6 +3,7 @@
 mesos_password: "marathon"
 mesos_user: "mesos"
 mesos_clustername: "DEFAULT"
+mesos_etc_dir: "/etc/mesos-master"
 quorum: "1"
 
 libprocess_enable_ssl: "false"
@@ -18,5 +19,9 @@ mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
 
 libprocess_ssl_hostname_validation_scheme: "openssl"  
+
+eth_if: "eth0"
+
+
 
 

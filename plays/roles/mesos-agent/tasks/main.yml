@@ -183,7 +183,13 @@
   lineinfile: dest={{ mesos_etc_dir }}/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes mode=0640
 
 - name: set slave ip in mesos
-  lineinfile: dest={{ mesos_etc_dir }}/ip state=present create=yes regexp="^" line="{{ client_address }}" mode=0640
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/ip"
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "{{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }}" 
+    mode: 0640
 
 - name: disable hostname lookup
   lineinfile: dest={{ mesos_etc_dir }}/hostname_lookup state=present create=yes regexp="^" line="false" mode=0640

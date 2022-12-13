@@ -1,10 +1,10 @@
 [all_servers]
-mesos-manager-0	 client_address=10.0.0.1 
-mesos-manager-1	 client_address=10.0.0.2
-mesos-manager-2	 client_address=10.0.0.3
-mesos-worker-0   client_address=10.0.0.4
-mesos-worker-1   client_address=10.0.0.5
-mesos-worker-2   client_address=10.0.0.6 
+mesos-manager-0	 eth_if=eth1 
+mesos-manager-1	 eth_if=eth1
+mesos-manager-2	 eth_if=eth1
+mesos-worker-0   eth_if=eth1 docker=true mesos_attributes="type:node;"
+mesos-worker-1   eth_if=eth1 docker=true mesos_attributes="type:node;"
+mesos-worker-2   eth_if=eth1 docker=true mesos_attributes="type:node;" 
 
 [worker]
 mesos-worker-0

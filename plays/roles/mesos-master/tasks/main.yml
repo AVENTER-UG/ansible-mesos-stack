@@ -126,8 +126,14 @@
 - name: set hostname in mesos
   lineinfile: dest=/etc/mesos-master/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
 
-- name: set master ip in mesos
-  lineinfile: dest=/etc/mesos-master/ip state=present create=yes regexp="^" line="{{ client_address }}"
+- name: set slave ip in mesos
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/ip"
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "{{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }}" 
+    mode: 0640
 
 - name: set cluster hostname
   lineinfile: dest=/etc/mesos-master/cluster state=present create=yes regexp="^" line="{{ mesos_clustername }}"

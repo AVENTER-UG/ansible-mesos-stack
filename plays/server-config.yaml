@@ -1,11 +1,9 @@
 - name: gather all hosts information
   hosts: all
-
+    
 - name: Precheck
   become: yes
-  hosts: 
-    - manager
-    - worker
+  hosts: all
   roles:
     - role: precheck
       tags:

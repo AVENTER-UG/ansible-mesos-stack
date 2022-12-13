@@ -1,6 +1,7 @@
 # master
 
 - Add support for netplan
+- Replace "client_address" variable from inventory. The IP address would be resolved by interface.
 
 # v0.21.0
 

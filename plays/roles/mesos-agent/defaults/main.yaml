@@ -29,4 +29,6 @@ libprocess_ssl_hostname_validation_scheme: "openssl"
 
 mesos_attributes: ""
 
+eth_if: "eth0"
+
 

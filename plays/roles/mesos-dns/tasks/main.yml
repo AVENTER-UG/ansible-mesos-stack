@@ -24,7 +24,6 @@
 - debug:
     var: ansible_os_family
 
-
 - name: enable mesos-dns update
   lineinfile:
     dest: "/etc/yum.conf"
