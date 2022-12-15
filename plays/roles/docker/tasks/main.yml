@@ -92,7 +92,7 @@
   lineinfile:
     dest: /etc/sysconfig/docker
     regexp: ^OPTIONS=
-    line: "OPTIONS= --dns {{ ansible_default_ipv4.address }} --dns-search {{ dns_domain }} --log-driver=journald {{ docker_options }} " 
+    line: "OPTIONS= --dns {{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }} --dns-search {{ dns_domain }} --log-driver=journald {{ docker_options }} " 
     state: present
     create: yes
 
