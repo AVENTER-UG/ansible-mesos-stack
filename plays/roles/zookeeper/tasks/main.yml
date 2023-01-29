@@ -1,15 +1,5 @@
 ---
 
-- name: enable zookeeper update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
-    state: present
-  when:
-    ansible_os_family == "RedHat"
-
-
 - name: install zookeeper packages ubuntu
   package:
     name:
@@ -29,15 +19,6 @@
     state: present
   tags:
     - install
-  when:
-    ansible_os_family == "RedHat"
-
-- name: disable zookeeper update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
-    state: present
   when:
     ansible_os_family == "RedHat"
 

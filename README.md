@@ -4,11 +4,11 @@
 [![Donate](https://img.shields.io/liberapay/receives/AVENTER.svg?logo=liberapay)](https://liberapay.com/mesos)
 [![Support Chat](https://img.shields.io/static/v1?label=Chat&message=Support&color=brightgreen)](https://riot.im/app/#/room/#support:matrix.aventer.biz)
 
-This playbook deploys a full Apache Mesos stack. The access to mesos (agent and master) and marathon need credentials. The default one is "marathon:marathon".
+This playbook deploys a full Apache Mesos stack. The access to mesos (agent and master) need credentials. The default one is "marathon:marathon".
 
 ## Requirements
 
-- CentOS 7 (deprecated) or Debian/Ubuntu:focal
+- CentOS 7 (deprecated) or Debian/Ubuntu:[focal|jammy]
 - Ansible Galaxy collection: community.general
 
 
@@ -37,7 +37,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --skip-tags install
 ```
 
-###  Update Mesos and Docker
+###  Update Mesos, Docker, Zookeeper and Mesos-DNS
 
 ```bash
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags update
@@ -79,7 +79,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags plugin
 ```
 
-### Reconfigure Marathon SSL
+### Reconfigure SSL
 
 ```bash
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags ssl
@@ -92,7 +92,6 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.11.0-0.2.0 | Mesos Masters                     | RPM/DEB                            |
-| Marathon 1.11.30 (Deprecated)  | Marathon masters                  | RPM                                |
 | Zookeeper 3.8.0    | Zookeeper cluster                 | RPM/DEB                            |
 | Mesos-DNS 0.8.2    | Service Discovery for Mesos Tasks | RPM/DEB                            |
 

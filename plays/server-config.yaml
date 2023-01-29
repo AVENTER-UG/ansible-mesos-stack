@@ -1,5 +1,7 @@
 - name: gather all hosts information
   hosts: all
+  tags:
+    - dns
     
 - name: Precheck
   become: yes
@@ -107,20 +109,4 @@
       tags:
         - weave
         - worker
-
-- name: Install and Start Frameworks
-  become: yes
-  hosts: manager
-  serial: 40%
-  roles:
-    - role: marathon
-      when:
-        ansible_os_family == "RedHat"
-      tags:
-        - marathon
-    - role: marathon-ssl 
-      tags:
-        - marathon
-        - ssl
-      when: libprocess_enable_ssl|bool == True and ansible_os_family == "RedHat"
 

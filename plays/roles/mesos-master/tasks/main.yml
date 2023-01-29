@@ -94,7 +94,20 @@
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"  
 
 - name: enable ssl for mesos libprocess
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+  lineinfile: 
+    dest: /etc/default/mesos 
+    create: yes 
+    state: present 
+    regexp: "^LIBPROCESS_SSL_ENABLED=*" 
+    line: "LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+
+- name: enable tls 1.3
+  lineinfile: 
+    dest: /etc/default/mesos 
+    create: yes 
+    state: present 
+    regexp: "^LIBPROCESS_SSL_ENABLE_TLS_V1_3=*" 
+    line: "LIBPROCESS_SSL_ENABLE_TLS_V1_3={{ libprocess_enable_ssl }}"
 
 - name: enable ssl verify for mesos libprocess (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  

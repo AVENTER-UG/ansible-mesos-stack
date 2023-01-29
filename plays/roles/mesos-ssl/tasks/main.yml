@@ -63,6 +63,4 @@
   - name: add mesos libprocess ssl cert file to the executor_env file
     lineinfile: dest=/etc/mesos-agent/executor_environment_variables create=yes state=present regexp="LIBPROCESS_SSL_CERT_FILE*" line="\"LIBPROCESS_SSL_CERT_FILE\":\"{{ cert_home }}/{{ inventory_hostname }}.crt\""
     when: executor_env.stat.exists == True
-      
-
 

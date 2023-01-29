@@ -2,6 +2,9 @@
 
 - Add support for netplan
 - Replace "client_address" variable from inventory. The IP address would be resolved by interface.
+- Add support for the mesos agent flag `docker_config`.
+- Remove Deprecated Marathon
+- Add TLS1.3 support
 
 # v0.21.0
 

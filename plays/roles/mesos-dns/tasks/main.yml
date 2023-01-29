@@ -6,17 +6,10 @@
     system: yes
     state: present
 
-- name: create marathon group
-  group:
-    name: marathon
-    system: yes
-    state: present    
-
 - name: create mesos_dns user
   user:
     name: av_mesos_dns
     group: av_mesos_dns
-    groups: marathon
     create_home: no
     system: yes
     state: present
@@ -24,29 +17,22 @@
 - debug:
     var: ansible_os_family
 
-- name: enable mesos-dns update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^exclude=mesos*"
-    line: '#exclude=mesos* docker* ceph* zookeeper* marathon*'
-    state: present
-  when:
-    ansible_os_family == "RedHat"
-
 - name: install mesos-dns
   package:
     name:
       - "mesos-dns"
     state: present
+  tags:
+    - install
 
-- name: disable mesos-dns update
-  lineinfile:
-    dest: "/etc/yum.conf"
-    regexp: "^#exclude=mesos*"
-    line: 'exclude=mesos* docker* ceph* zookeeper* marathon*'
+- name: update mesos-dns
+  package:
+    name:
+      - "mesos-dns"
     state: present
-  when:
-    ansible_os_family == "RedHat"
+  tags:
+    - update
+    - never
 
 - name: Set file permission
   file:

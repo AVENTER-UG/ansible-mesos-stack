@@ -1,21 +1,14 @@
 [all_servers]
-mesos-manager-0	 eth_if=eth1 
-mesos-manager-1	 eth_if=eth1
-mesos-manager-2	 eth_if=eth1
-mesos-worker-0   eth_if=eth1 docker=true mesos_attributes="type:node;"
-mesos-worker-1   eth_if=eth1 docker=true mesos_attributes="type:node;"
-mesos-worker-2   eth_if=eth1 docker=true mesos_attributes="type:node;" 
+mesos-master-01   eth_if=eth1 
+mesos-node-01     eth_if=eth1 docker=true mesos_attributes="os:ubuntu;"
 
 [worker]
-mesos-worker-0
-mesos-worker-1
-mesos-worker-2
+mesos-node-01
 
 [manager]
-mesos-manager-0 myid=1
-mesos-manager-1 myid=2	
-mesos-manager-2 myid=3	
+mesos-master-01
 
-[marathon]
-mesos-manager-1
+[zookeeper]
+mesos-master-01 myid=0
+
 

@@ -219,8 +219,27 @@
     regexp: "^" 
     line: "{{ mesos_attributes }}"
     mode: 0640
-  when:
-    mesos_attributes|length > 0
+  when: mesos_attributes|length > 0
+
+- name: set mesos docker config file
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/docker_config" 
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "file://{{ mesos_docker_config_path }}"
+    mode: 0640
+  when: mesos_docker_config_enable | bool
+
+- name: create docker config.json
+  lineinfile: 
+    dest: "{{ mesos_docker_config_path }}" 
+    state: present 
+    create: yes 
+    regexp: "^" 
+    line: "{{ mesos_docker_config_json | to_json }}"
+    mode: 0640
+  when: mesos_docker_config_enable | bool
 
 - name: set image provider
   lineinfile: dest={{ mesos_etc_dir }}/image_providers state=present create=yes regexp="^" line="appc,docker" mode=0640
@@ -242,8 +261,7 @@
     src: executor.json.js
     dest: "{{ mesos_etc_dir }}/executor_environment_variables"
     mode: 0640
-  when:
-    - libprocess_enable_ssl == "true"
+  when: libprocess_enable_ssl == "true"
 
 - name: set mesos resources
   template: 
@@ -255,8 +273,7 @@
   file:
     path: "{{ mesos_etc_dir }}/executor_environment_variables"
     state: absent
-  when:
-    - libprocess_enable_ssl == "false"
+  when: libprocess_enable_ssl == "false"
 
 - name: set mesos container dns
   template: 

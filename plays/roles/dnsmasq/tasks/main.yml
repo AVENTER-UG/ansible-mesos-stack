@@ -30,6 +30,13 @@
   copy: src=dhclient-enter-hooks dest=/etc/dhclient-enter-hooks mode=0755
   when: "'NetworkManager' is in ansible_facts.packages"      
 
+- name: disable update resolv conf of systemd
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+  ignore_errors: true
+
 - name: restart NetworkManager if its installed
   service:
     name: NetworkManager
@@ -98,12 +105,6 @@
     dest: /etc/resolv.conf
     mode: 0644
   ignore_errors: true    
-  when: "'NetworkManager' is in ansible_facts.packages"      
-
-
-- name: forbid changes at resolv.conf
-  command: chattr +i /etc/resolv.conf
-  when: "'NetworkManager' is in ansible_facts.packages"      
 
 - name: add custom netplan
   template:

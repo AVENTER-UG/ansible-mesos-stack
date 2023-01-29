@@ -1,19 +1,36 @@
 ---
 
-become: false
+#ansible_python_interpreter: /usr/bin/python3
+
+
+ansible_ssh_user: "vagrant"
+ansible_ssh_port: "22"
+ansible_connection: "ssh"
+
+become: True
 become_user: root
 become_method: sudo
 
-node_exporter_release: "0.18.1"
-node_exporter_arch: "amd64"
 
-weave_password: "CRYPTME"
+dns_domain: "cluster.local"
+
+weave_password: "Sahph2eechua7aih5aiR4euvooluom"
+weavescope_enable: false 
 dns1: "8.8.8.8"
 dns2: "8.8.8.4"
-mesos_clustername: "MESOS"
-mesos_password: "password"
-marathon_basic_auth: "marathon:marathon"
+mesos_clustername: "mesos"
+mesos_password: "woowuHohboozahb6owee4ahyah3ief"
+marathon_basic_auth: "marathon:Aipo8weeW1uchai5see9eedei0ziez"
 quorum: "1"
 
-docker_registry:
-  - url: "<example.edu>:5000"
+zookeeper_admin_secret: "aoSeizapho3tuze2ecoLive5zie4ey"
+zookeeper_client_secret: "aoSeizapho3tuze2ecoLive5zie4ey"
+
+libprocess_enable_ssl: "true"
+
+mesos_docker_config_enable: true
+mesos_docker_config_json: '{ "auths": { "https://index.docker.io/v1/": { "auth": ""  } } }'
+
+mesos_ip_address: "{{ ansible_eth1.ipv4.address }}"
+
+
