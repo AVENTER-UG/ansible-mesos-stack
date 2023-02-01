@@ -121,7 +121,20 @@
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^USER=*" line="USER=root"   mode=0640
 
 - name: enable ssl for mesos libprocess
-  lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_ENABLED=*" line="LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}" mode=0640
+  lineinfile: 
+    dest: /etc/default/mesos 
+    create: yes 
+    state: present 
+    regexp: "^LIBPROCESS_SSL_ENABLED=*" 
+    line: "LIBPROCESS_SSL_ENABLED={{ libprocess_enable_ssl }}"  
+
+- name: enable tls 1.3
+  lineinfile: 
+    dest: /etc/default/mesos 
+    create: yes 
+    state: present 
+    regexp: "^LIBPROCESS_SSL_ENABLE_TLS_V1_3=*" 
+    line: "LIBPROCESS_SSL_ENABLE_TLS_V1_3={{ libprocess_enable_ssl }}"
 
 - name: enable ssl verify for mesos (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  mode=0640
@@ -192,7 +205,7 @@
     state: present 
     create: yes 
     regexp: "^" 
-    line: "{{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }}" 
+    line: "{{ hostvars[inventory_hostname][ansible_eth_if]['ipv4']['address'] }}" 
     mode: 0640
 
 - name: disable hostname lookup
@@ -237,7 +250,7 @@
     state: present 
     create: yes 
     regexp: "^" 
-    line: "{{ mesos_docker_config_json | to_json }}"
+    line: "{{ mesos_docker_config_json }}"
     mode: 0640
   when: mesos_docker_config_enable | bool
 

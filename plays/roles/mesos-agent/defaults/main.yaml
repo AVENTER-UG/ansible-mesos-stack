@@ -28,11 +28,11 @@ mesos_docker_config_json: '{}'
 
 mesos_port_range: "[31000-32000]"
 
-
 libprocess_ssl_hostname_validation_scheme: "openssl"  
 
 mesos_attributes: ""
 
 eth_if: "eth0"
+ansible_eth_if: "ansible_{{ eth_if }}"
 
 

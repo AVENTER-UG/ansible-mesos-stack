@@ -21,6 +21,7 @@ mesos_ssl_crt: "../files/mesos.crt"
 libprocess_ssl_hostname_validation_scheme: "openssl"  
 
 eth_if: "eth0"
+ansible_eth_if: "ansible_{{ eth_if }}"
 
 
 

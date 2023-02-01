@@ -149,7 +149,7 @@
     state: present 
     create: yes 
     regexp: "^" 
-    line: "{{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }}" 
+    line: "{{ hostvars[inventory_hostname][ansible_eth_if]['ipv4']['address'] }}" 
     mode: 0640
 
 - name: set cluster hostname

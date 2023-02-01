@@ -4,7 +4,7 @@
       "network_mode": "CNI",
       "network_name": "weave",
       "dns": {
-        "nameservers": [ "{{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }}" ]
+        "nameservers": [ "{{ hostvars[inventory_hostname][ansible_eth_if]['ipv4']['address'] }}" ]
       }
     }
   ],
@@ -12,7 +12,7 @@
     {
       "network_mode": "BRIDGE",
       "dns": {
-        "nameservers": [ "{{ hostvars[inventory_hostname][eth_if]['ipv4']['address'] }}" ]
+        "nameservers": [ "{{ hostvars[inventory_hostname][ansible_eth_if]['ipv4']['address'] }}" ]
       }
     }
   ]  

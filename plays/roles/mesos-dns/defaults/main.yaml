@@ -6,3 +6,4 @@ mesos_dns_version: "0.8.2"
 libprocess_enable_ssl: "false"
 
 eth_if: "eth0"
+ansible_eth_if: "ansible_{{ eth_if }}"

@@ -8,8 +8,15 @@
     ansible_os_family == "RedHat"
 
 - name: add aventer gpg-key
+  copy: 
+    src: support_aventer.asc
+    dest: /tmp/support_aventer.asc
+  when:
+    ansible_os_family == "Debian"
+
+- name: add aventer gpg-key
   apt_key: 
-    url: https://www.aventer.biz/assets/support_aventer.asc
+    file: /tmp/support_aventer.asc
     state: present 
   when:
     ansible_os_family == "Debian"

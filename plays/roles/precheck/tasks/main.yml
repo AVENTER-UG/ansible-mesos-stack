@@ -10,10 +10,6 @@
     msg: "Please enable CGroups Version 1 (/etc/default/grub; systemd.unified_cgroup_hierarchy=0)"
   when: not cg_result.stat.exists
 
-- name: set network interface
-  set_fact:
-    eth_if: "ansible_{{ eth_if }}"
-    
 
     
 

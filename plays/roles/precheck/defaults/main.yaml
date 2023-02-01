@@ -1,3 +1,4 @@
 ---
 
 eth_if: "eth0"
+ansible_eth_if: "ansible_{{ eth_if }}"
