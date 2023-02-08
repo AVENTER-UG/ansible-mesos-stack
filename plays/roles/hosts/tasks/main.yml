@@ -1,14 +1,17 @@
 ---
 
 - name: Build hosts file for all server
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: /etc/hosts
     block: "{{ lookup('template', 'hosts.j2') }}"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK "  
+    marker: "# {mark} ANSIBLE MANAGED BLOCK "
 
-- name: restart dnsmasq if its installed
-  service:
+- name: Set server hostnamectl
+  ansible.builtin.shell: "hostnamectl set-hostname {{ ansible_host }}"
+
+- name: Restart dnsmasq if its installed
+  ansible.builtin.service:
     name: dnsmasq
     state: restarted
-    enabled: yes   
+    enabled: true
 

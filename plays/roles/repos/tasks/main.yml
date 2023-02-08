@@ -10,27 +10,23 @@
 - name: add aventer gpg-key
   copy: 
     src: support_aventer.asc
-    dest: /tmp/support_aventer.asc
+    dest: /etc/apt/trusted.gpg.d/aventer.asc
   when:
     ansible_os_family == "Debian"
 
-- name: add aventer gpg-key
-  apt_key: 
-    file: /tmp/support_aventer.asc
-    state: present 
+- name: add aventer repo file
+  template: 
+    src: aventer.list.j2
+    dest:  /etc/apt/sources.list.d/aventer.list
+    mode: 0644
   when:
     ansible_os_family == "Debian"
 
-- debug: msg="{{ ansible_distribution }}"    
-
-- name: add aventer apt repository
-  apt_repository: 
-    repo: "deb http://rpm.aventer.biz/{{ ansible_distribution }}/{{ ansible_lsb.codename|lower }} {{ ansible_lsb.codename|lower }} main"
-    state: present 
-    filename: aventer
-    update_cache: yes    
+- name: Update repository cache ubuntu
+  ansible.builtin.apt:
+    update_cache: true
   when:
     ansible_os_family == "Debian"
-      
+  ignore_errors: true    
 
 

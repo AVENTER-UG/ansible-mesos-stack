@@ -18,10 +18,9 @@
       - "{{ mesos_rpm }}"
     state: latest
   when:
-    ansible_os_family == "RedHat"
+    ansible_os_family == "RedHat" and update | bool
   tags:
     - update
-    - never
 
 - name: install mesos agent packages Debian
   apt:
@@ -31,6 +30,7 @@
       - libevent-dev
       - libcurl4-nss-dev
       - "{{ mesos_deb }}*"
+    update_cache: yes
     state: present
   tags:
     - install
@@ -40,20 +40,12 @@
 - name: update mesos agent packages Debian
   apt:
     name:
-      - aventer-mesos
+      - "{{ mesos_deb }}*"
     state: latest
   when:
-    ansible_os_family == "Debian"
+    ansible_os_family == "Debian" and update | bool
   tags:
     - update
-    - never
-    
-- name: Remove deprecated config files
-  file: 
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - "{{ mesos_etc_dir }}/modules"
 
 - name: create zk file
   file: 
@@ -66,6 +58,7 @@
     path: /etc/mesos/ssl
     state: directory
     mode: 0755
+
 
 - name: Check if the work directory exists
   stat:
@@ -104,12 +97,24 @@
     path: "{{ item }}"
     state: absent
   with_items:
+    - "{{ mesos_etc_dir }}/modules"
     - "{{ mesos_etc_dir }}/seccomp_config_dir"  
     - "{{ mesos_etc_dir }}/seccomp_profile_name"
     - "/etc/mesos-slave"
     - "/etc/default/mesos"
     - "/etc/default/mesos-agent"
     - "/etc/mesos/modules/logrotate.config"
+
+- name: Check if the mesos-master directory exists
+  stat:
+    path: "/etc/mesos-master"
+  register: master_dir
+
+- name: remove master directory
+  file: 
+    path: "/etc/mesos-master"
+    state: absent
+  when: not master_dir.stat.exists
 
 - name: configure zk access
   lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos" mode=0640
@@ -135,6 +140,31 @@
     state: present 
     regexp: "^LIBPROCESS_SSL_ENABLE_TLS_V1_3=*" 
     line: "LIBPROCESS_SSL_ENABLE_TLS_V1_3={{ libprocess_enable_ssl }}"
+
+- name: enable systemd support
+  lineinfile: 
+    dest: /etc/default/mesos 
+    create: yes 
+    state: present 
+    regexp: "^MESOS_SYSTEMD_ENABLE_SUPPORT=.*"
+    line: "MESOS_SYSTEMD_ENABLE_SUPPORT={{ mesos_enable_systemd }}"
+
+- name: set logging level
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/logging_level"
+    state: present 
+    regexp: "^" 
+    line: "{{ mesos_logging_level }}" 
+    create: yes
+
+- name: disable logging
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/quiet"
+    state: present 
+    regexp: "^" 
+    line: "true"
+    create: yes
+  when: mesos_quiet | bool
 
 - name: enable ssl verify for mesos (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  mode=0640
@@ -179,7 +209,13 @@
   lineinfile: dest={{ mesos_etc_dir }}/executor_registration_timeout state=present line="5mins" regexp="^" create=yes mode=0640
 
 - name: add containerizer to the mesos-agent
-  lineinfile: dest={{ mesos_etc_dir }}/containerizers state=present line="docker,mesos" regexp="^" create=yes mode=0640
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/containerizers" 
+    state: present 
+    line: "{% for container in mesos_containerizer_list %}{{ container }}{% if not loop.last %},{% endif %}{% endfor %}"
+    regexp: "^" 
+    create: yes 
+    mode: 0640
 
 - name: add mesos-agent credentials
   lineinfile: dest={{ mesos_etc_dir }}/credential state=present line="/etc/mesos/credential" regexp="^" create=yes mode=0640
@@ -197,7 +233,13 @@
   lineinfile: dest={{ mesos_etc_dir }}/http_authenticators state=present create=yes regexp="^" line="basic" mode=0640
 
 - name: add weave.socks to the mesos-agent
-  lineinfile: dest={{ mesos_etc_dir }}/docker_socket state=present line="/var/run/weave/weave.sock" regexp="^" create=yes mode=0640
+  lineinfile: 
+    dest: "{{ mesos_etc_dir }}/docker_socket" 
+    state: present 
+    line: "{{ mesos_docker_sock }}" 
+    regexp: "^" 
+    create: yes 
+    mode: 0640
 
 - name: set slave ip in mesos
   lineinfile: 
@@ -263,9 +305,6 @@
 - name: set mesos work-dir
   lineinfile: dest={{ mesos_etc_dir }}/work_dir state=present create=yes regexp="^" line="{{ mesos_work_dir }}" mode=0640
 
-- name: set mesos webui-dir
-  lineinfile: dest=/etc/mesos-master/webui_dir state=present create=yes regexp="^" line="/usr/share/mesos/webui" mode=0755
-
 - name: set mesos cni plugins dir
   lineinfile: dest={{ mesos_etc_dir }}/network_cni_plugins_dir state=present create=yes regexp="^" line="/usr/lib/cni/" mode=0640
 
@@ -324,12 +363,24 @@
 - name: copy mesos http credential
   template: src=http_credentials.j2 dest=/etc/mesos/http_credentials mode=0640  
 
-- name: start necessary services
+- name: restart necessary services
   service:
     name: "{{ item }}"
     daemon_reload: true
     enabled: yes
     state: restarted
+  with_items:
+    - mesos-slave
+  tags:
+    - cert
+  when: restart | bool
+
+- name: start necessary services
+  service:
+    name: "{{ item }}"
+    daemon_reload: true
+    enabled: yes
+    state: started
   with_items:
     - mesos-slave
   tags:

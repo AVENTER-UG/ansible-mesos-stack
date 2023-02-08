@@ -1,66 +1,82 @@
 ---
+- name: set tls path for debian based os
+  set_fact:
+    cert_home: /etc/ssl/certs
+  when: ansible_os_family == "Debian"
 
-  - name: set tls path for debian based os
-    set_fact:
-      cert_home: "/etc/ssl/certs"
-    when:
-      ansible_os_family == "Debian"
+- name: set tls path for centos based os
+  set_fact:
+    cert_home: /etc/pki/tls
+  when: ansible_os_family == "RedHat"
 
-  - name: set tls path for centos based os
-    set_fact:
-      cert_home: "/etc/pki/tls"
-    when:
-      ansible_os_family == "Redhat"
+- name: Check if SSL Certificate Exist
+  stat:
+    path: "{{ cert_home }}/{{ inventory_hostname }}.key"
+  register: ssl_cert
 
-  - name: Check if SSL Certificate Exist
-    stat: 
-      path: "{{ cert_home }}/{{ inventory_hostname }}.key"
-    register: ssl_cert
+- name: Check if there are a executor env file
+  stat:
+    path: /etc/mesos-agent/executor_environment_variables
+  register: executor_env
 
-  - name: Check if there are a executor env file
-    stat: 
-      path: "/etc/mesos-agent/executor_environment_variables"
-    register: executor_env
+- name: Copy ssl configuration file
+  template:
+    src: mesos.cnf.j2
+    dest: "{{ cert_home }}/../mesos.cnf"
+    mode: 0644
+  when: ssl_cert.stat.exists == False
 
-  - name: Copy ssl configuration file
-    template: 
-      src: "mesos.cnf.j2" 
-      dest: "{{ cert_home }}/../mesos.cnf" 
-      mode: 0644
-    when: ssl_cert.stat.exists == False
+- name: Generate Private Key
+  command: openssl genrsa -out {{ cert_home }}/{{ inventory_hostname }}.key 2048
+  when: ssl_cert.stat.exists == False
 
+- name: Create CSR
+  command: openssl req -subj "/C=DE/ST=, Inc./CN={{ inventory_hostname }}"  -new -out {{ cert_home }}/{{ inventory_hostname }}.csr \ -key {{ cert_home }}/{{ inventory_hostname
+    }}.key -config {{ cert_home }}/../mesos.cnf
+  when: ssl_cert.stat.exists == False
 
-  - name: Generate Private Key
-    command: openssl genrsa -out {{ cert_home }}/{{ inventory_hostname }}.key 2048
-    when: ssl_cert.stat.exists == False
+- name: Dump Certificate
+  command: openssl req -text -noout -in {{ cert_home }}/{{ inventory_hostname }}.csr
+  register: dump_csr
 
-  - name: Create CSR
-    command: openssl req -subj "/C=DE/ST=, Inc./CN={{ inventory_hostname }}"  -new -out {{ cert_home }}/{{ inventory_hostname }}.csr -key {{ cert_home }}/{{ inventory_hostname }}.key -config {{ cert_home }}/../mesos.cnf
-    when: ssl_cert.stat.exists == False
+- debug:
+    var: dump_csr
 
-  - name: Dump Certificate
-    command: openssl req -text -noout -in {{ cert_home }}/{{ inventory_hostname }}.csr
-    register: dump_csr
+- name: Self Sign Certificate
+  command: openssl x509 -req -days 3650 -in  {{ cert_home }}/{{ inventory_hostname }}.csr  -signkey {{ cert_home }}/{{ inventory_hostname }}.key \ -out {{ cert_home
+    }}/{{ inventory_hostname }}.crt -extensions v3_req -extfile {{ cert_home }}/../mesos.cnf
+  when: ssl_cert.stat.exists == False
 
-  - debug:
-      var: dump_csr
+- name: Add mesos libprocess ssl key file
+  lineinfile:
+    dest: /etc/default/mesos
+    create: true
+    state: present
+    regexp: ^LIBPROCESS_SSL_KEY_FILE=.*
+    line: LIBPROCESS_SSL_KEY_FILE={{ cert_home }}/{{ inventory_hostname }}.key
 
-  - name: Self Sign Certificate
-    command: openssl x509 -req -days 3650 -in  {{ cert_home }}/{{ inventory_hostname }}.csr  -signkey {{ cert_home }}/{{ inventory_hostname }}.key  -out {{ cert_home }}/{{ inventory_hostname }}.crt -extensions v3_req -extfile {{ cert_home }}/../mesos.cnf
-    when: ssl_cert.stat.exists == False
+- name: Add mesos libprocess ssl cert file
+  lineinfile:
+    dest: /etc/default/mesos
+    create: true
+    state: present
+    regexp: ^LIBPROCESS_SSL_CERT_FILE=.*
+    line: LIBPROCESS_SSL_CERT_FILE={{ cert_home }}/{{ inventory_hostname }}.crt
 
-  - name: add mesos libprocess ssl key file
-    lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_KEY_FILE=*" line="LIBPROCESS_SSL_KEY_FILE={{ cert_home }}/{{ inventory_hostname }}.key"
-  
-  - name: add mesos libprocess ssl cert file
-    lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_CERT_FILE=*" line="LIBPROCESS_SSL_CERT_FILE={{ cert_home }}/{{ inventory_hostname }}.crt"
+- name: Add mesos libprocess ssl key file to the executor_env file
+  lineinfile:
+    dest: /etc/mesos-agent/executor_environment_variables
+    create: true
+    state: present
+    regexp: LIBPROCESS_SSL_KEY_FILE.*
+    line: '"LIBPROCESS_SSL_KEY_FILE":"{{ cert_home }}/{{ inventory_hostname }}.key",'
+  when: executor_env.stat.exists == True
 
-
-  - name: add mesos libprocess ssl key file to the executor_env file
-    lineinfile: dest=/etc/mesos-agent/executor_environment_variables create=yes state=present regexp="LIBPROCESS_SSL_KEY_FILE*" line="\"LIBPROCESS_SSL_KEY_FILE\":\"{{ cert_home }}/{{ inventory_hostname }}.key\","
-    when: executor_env.stat.exists == True
-  
-  - name: add mesos libprocess ssl cert file to the executor_env file
-    lineinfile: dest=/etc/mesos-agent/executor_environment_variables create=yes state=present regexp="LIBPROCESS_SSL_CERT_FILE*" line="\"LIBPROCESS_SSL_CERT_FILE\":\"{{ cert_home }}/{{ inventory_hostname }}.crt\""
-    when: executor_env.stat.exists == True
-
+- name: Add mesos libprocess ssl cert file to the executor_env file
+  lineinfile:
+    dest: /etc/mesos-agent/executor_environment_variables
+    create: true
+    state: present
+    regexp: LIBPROCESS_SSL_CERT_FILE.*
+    line: '"LIBPROCESS_SSL_CERT_FILE":"{{ cert_home }}/{{ inventory_hostname }}.crt"'
+  when: executor_env.stat.exists == True

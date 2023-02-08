@@ -1,0 +1,7 @@
+{% if ansible_distribution == "Ubuntu" %}
+deb http://rpm.aventer.biz/{{ ansible_distribution }}/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main
+{% endif %}
+
+{% if ansible_distribution == "Debian" %}
+deb http://rpm.aventer.biz/{{ ansible_distribution }}/ {{ ansible_distribution_release }} main
+{% endif %}

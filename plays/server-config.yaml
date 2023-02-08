@@ -1,18 +1,19 @@
 - name: gather all hosts information
   hosts: all
-    
+
 - name: Precheck
   become: yes
+  serial: 100%
   hosts: all
   roles:
     - role: precheck
       tags:
         - precheck
-        - manager
         - worker
-  
+
 - name: Configure OS
   become: yes
+  serial: 100%
   hosts: 
     - manager
     - worker
@@ -28,6 +29,15 @@
         - worker
         - repos
 
+- name: Configure Zookeeper Server
+  become: yes
+  hosts: zookeeper
+  serial: 50%
+  roles:
+    - role: zookeeper
+      tags:
+        - zookeeper
+
 - name: Configure Manager Server
   become: yes
   hosts: manager
@@ -36,10 +46,6 @@
     - role: mesos-dns 
       tags:
         - dns
-        - manager
-    - role: zookeeper
-      tags:
-        - zookeeper
         - manager
     - role: mesos-master
       tags:
@@ -64,6 +70,7 @@
 - name: Configure DNS
   become: yes
   hosts: all
+  serial: 100%    
   roles:
     - role: dnsmasq
       tags:
@@ -80,7 +87,7 @@
 - name: Configure Worker Server
   become: yes
   hosts: worker
-  serial: 40%    
+  serial: 100%    
   roles:
     - role: mesos-agent
       tags:
@@ -103,10 +110,8 @@
     - role: weave_plugin_mesos
       tags:
         - weave
-        - plugin
-        - worker
-    - role: weavescope
+    - role: cni_plugin_mesos
       tags:
-        - weave
         - worker
+        - cni
 

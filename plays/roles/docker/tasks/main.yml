@@ -15,9 +15,9 @@
     ansible_os_family == "RedHat"
 
 - name: add docker gpg-key
-  apt_key: 
+  get_url: 
     url: https://download.docker.com/linux/ubuntu/gpg
-    state: present 
+    dest: /etc/apt/trusted.gpg.d/docker.asc
   when:
     ansible_os_family == "Debian"
 
@@ -60,10 +60,10 @@
       - containerd.io
     state: latest
   when:
-    ansible_os_family == "Debian"
+    - ansible_os_family == "Debian"
+    - update | bool
   tags:
     - update
-    - never
 
 - name: update docker packages for centos
   package:
@@ -72,10 +72,10 @@
       - containerd.io
     state: latest
   when:
-    ansible_os_family == "RedHat"
+    - ansible_os_family == "RedHat"
+    - update | bool
   tags:
     - update
-    - never
 
 - name: install docker packages for centos
   package:
@@ -127,7 +127,5 @@
   service: 
     name: docker 
     state: restarted
-  tags:
-    - restart
-    - never
+  when: restart | bool
 
