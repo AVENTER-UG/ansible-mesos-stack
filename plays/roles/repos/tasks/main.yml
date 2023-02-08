@@ -14,13 +14,6 @@
   when:
     ansible_os_family == "Debian"
 
-- name: add aventer gpg-key
-  apt_key: 
-    file: /tmp/support_aventer.asc
-    state: present 
-  when:
-    ansible_os_family == "Debian"
-
 - name: add aventer repo file
   template: 
     src: aventer.list.j2
