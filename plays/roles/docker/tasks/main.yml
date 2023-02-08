@@ -15,9 +15,9 @@
     ansible_os_family == "RedHat"
 
 - name: add docker gpg-key
-  apt_key: 
+  get_url: 
     url: https://download.docker.com/linux/ubuntu/gpg
-    state: present 
+    dest: /etc/apt/trusted.gpg.d/docker.asc
   when:
     ansible_os_family == "Debian"
 
@@ -63,7 +63,7 @@
     ansible_os_family == "Debian"
   tags:
     - update
-    - never
+  when: update | bool    
 
 - name: update docker packages for centos
   package:
@@ -75,7 +75,7 @@
     ansible_os_family == "RedHat"
   tags:
     - update
-    - never
+  when: update | bool    
 
 - name: install docker packages for centos
   package:
@@ -127,7 +127,5 @@
   service: 
     name: docker 
     state: restarted
-  tags:
-    - restart
-    - never
+  when: restart | bool
 

@@ -93,7 +93,13 @@
     dest: /etc/dnsmasq.d/30-weave
     mode: 0644    
 
-- name: enable dnsmasq
+- name: Restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
+  when: restart | bool
+
+- name: enable and start dnsmasq
   service:
     name: dnsmasq
     state: started

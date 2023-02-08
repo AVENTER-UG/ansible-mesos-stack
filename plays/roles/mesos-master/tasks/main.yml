@@ -17,10 +17,9 @@
       - "{{ mesos_rpm }}"
     state: latest
   when:
-    ansible_os_family == "RedHat"
+    ansible_os_family == "RedHat" and update | bool
   tags:
     - update
-    - never
 
 - name: install mesos master packages Debian
   apt:
@@ -42,10 +41,9 @@
       - aventer-mesos
     state: present
   when:
-    ansible_os_family == "Debian"
+    ansible_os_family == "Debian" and update | bool
   tags:
     - update
-    - never
 
 - name: Remove deprecated config files
   file: 
@@ -85,7 +83,7 @@
     - cert
 
 - name: configure zk access
-  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
+  lineinfile: dest=/etc/mesos/zk create=yes state=present regexp="^zk=*" line="zk://client:{{ zookeeper_client_secret }}@{% for host in groups['zookeeper'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos"
 
 - name: configure mesos-zk string
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^MESOS_ZK=*" line="MESOS_ZK=file:///etc/mesos/zk"
@@ -108,6 +106,23 @@
     state: present 
     regexp: "^LIBPROCESS_SSL_ENABLE_TLS_V1_3=*" 
     line: "LIBPROCESS_SSL_ENABLE_TLS_V1_3={{ libprocess_enable_ssl }}"
+
+- name: set logging level
+  lineinfile: 
+    dest: /etc/mesos-master/logging_level 
+    state: present 
+    regexp: "^" 
+    line: "{{ mesos_logging_level }}" 
+    create: yes
+
+- name: disable logging
+  lineinfile: 
+    dest: /etc/mesos-master/quiet
+    state: present 
+    regexp: "^" 
+    line: "true"
+    create: yes
+  when: mesos_quiet | bool
 
 - name: enable ssl verify for mesos libprocess (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  
@@ -138,7 +153,6 @@
 
 - name: set quorom count
   lineinfile: dest=/etc/mesos-master/quorum state=present regexp="^" line="{{ quorum }}" create=yes
-#  replace: dest=/etc/mesos-master/quorum regexp='^' replace='{{ quorum }}'
 
 - name: set hostname in mesos
   lineinfile: dest=/etc/mesos-master/hostname state=present regexp="^" line="{{ inventory_hostname }}" create=yes
@@ -218,7 +232,7 @@
 - name: copy marathon secret
   template: src=marathon.secret.j2 dest=/etc/mesos/marathon.secret mode=0640    
 
-- name: start necessary services
+- name: restart necessary services
   service:
     name: "{{ item }}"
     daemon_reload: true
@@ -228,6 +242,19 @@
     - mesos-master
   tags:
     - cert
+  when: restart | bool
+
+- name: start necessary services
+  service:
+    name: "{{ item }}"
+    daemon_reload: true
+    enabled: yes
+    state: started
+  with_items:
+    - mesos-master
+  tags:
+    - cert
+  when: restart | bool
 
 - name: ensure mesos-slave service is disabled
   service:

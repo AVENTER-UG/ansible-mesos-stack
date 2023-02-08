@@ -13,6 +13,8 @@ libprocess_ssl_ciphers: "AES128-SHA:AES256-SHA:DHE-RSA-AES128-SHA:DHE-DSS-AES128
 mesos_rpm: "mesos-1.11.1"
 mesos_deb: "aventer-mesos=1.11.0-0.2.0"
 
+mesos_logging_level: "INFO"
+mesos_quiet: false
 
 mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
@@ -22,11 +24,21 @@ mesos_logs_dir: "/var/log/mesos"
 mesos_work_dir: "/var/lib/mesos"
 
 mesos_ulimit: "16384"
+
+mesos_containerizer_list:
+  - docker
+  - mesos
+
 mesos_docker_config_enable: false  
 mesos_docker_config_path: "/root/.docker/config.json"
 mesos_docker_config_json: '{}'
 
 mesos_port_range: "[31000-32000]"
+
+mesos_enable_systemd: "true"
+
+restart: false  
+update: false  
 
 libprocess_ssl_hostname_validation_scheme: "openssl"  
 

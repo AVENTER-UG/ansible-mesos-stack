@@ -15,6 +15,9 @@ libprocess_ssl_ciphers: "AES128-SHA:AES256-SHA:DHE-RSA-AES128-SHA:DHE-DSS-AES128
 mesos_rpm: "mesos-1.11.1"
 mesos_deb: "aventer-mesos=1.11.0-0.2.0"
 
+mesos_logging_level: "INFO"
+mesos_quiet: false
+
 mesos_ssl_key: "../files/mesos.key"
 mesos_ssl_crt: "../files/mesos.crt"
 
@@ -22,6 +25,9 @@ libprocess_ssl_hostname_validation_scheme: "openssl"
 
 eth_if: "eth0"
 ansible_eth_if: "ansible_{{ eth_if }}"
+
+restart: false  
+update: false  
 
 
 

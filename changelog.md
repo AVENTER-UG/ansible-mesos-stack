@@ -5,6 +5,7 @@
 - Add support for the mesos agent flag `docker_config`.
 - Remove Deprecated Marathon
 - Add TLS1.3 support
+- Seperate zookeeper from manager
 
 # v0.21.0
 

@@ -32,7 +32,7 @@
     state: present
   tags:
     - update
-    - never
+  when: update | bool
 
 - name: Set file permission
   file:
@@ -62,8 +62,15 @@
 - name: reload systemd
   command: systemctl daemon-reload
 
-- name: start mesos-dns
+- name: restart mesos-dns
   service:
     name: "mesos-dns"
     enabled: yes
     state: restarted
+  when: restart | bool
+
+- name: start mesos-dns
+  service:
+    name: "mesos-dns"
+    enabled: yes
+    state: started

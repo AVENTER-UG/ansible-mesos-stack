@@ -6,6 +6,7 @@ mkShell {
   buildInputs = [
     ansible
     openssh
+    sshpass
   ];
 }
 
