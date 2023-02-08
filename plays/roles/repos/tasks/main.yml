@@ -21,16 +21,12 @@
   when:
     ansible_os_family == "Debian"
 
-- debug: msg="{{ ansible_distribution }}"    
-
-- name: add aventer apt repository
-  apt_repository: 
-    repo: "deb http://rpm.aventer.biz/{{ ansible_distribution }}/{{ ansible_lsb.codename|lower }} {{ ansible_lsb.codename|lower }} main"
-    state: present 
-    filename: aventer
-    update_cache: yes    
+- name: add aventer repo file
+  template: 
+    src: aventer.list.j2
+    dest:  /etc/apt/sources.list.d/aventer.list
+    mode: 0644
   when:
     ansible_os_family == "Debian"
-      
 
 
