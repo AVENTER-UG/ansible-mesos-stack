@@ -10,6 +10,7 @@ This playbook deploys a full Apache Mesos stack. The access to mesos (agent and 
 
 - CentOS 7 (deprecated) or Debian/Ubuntu:[focal|jammy]
 - Ansible Galaxy collection: community.general
+- Ansible Version 2.14.2
 
 
 ## Informations
