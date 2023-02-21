@@ -103,7 +103,7 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | ------------------ | :-------------------------------: | :--------------------------------: |
 | Mesos 1.11.0-0.2.0 | Mesos Masters                     | RPM/DEB                            |
 | Zookeeper 3.8.0    | Zookeeper cluster                 | RPM/DEB                            |
-| Mesos-DNS 0.8.2    | Service Discovery for Mesos Tasks | RPM/DEB                            |
+| Mesos-DNS 0.8.3    | Service Discovery for Mesos Tasks | RPM/DEB                            |
 
 ## Worker node
 

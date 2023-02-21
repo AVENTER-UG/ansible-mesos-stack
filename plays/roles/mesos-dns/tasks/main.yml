@@ -20,7 +20,7 @@
 - name: install mesos-dns
   package:
     name:
-      - "mesos-dns"
+      - "mesos-dns={{ mesos_dns_version }}"
     state: present
   tags:
     - install
@@ -28,7 +28,7 @@
 - name: update mesos-dns
   package:
     name:
-      - "mesos-dns"
+      - "mesos-dns={{ mesos_dns_version }}"
     state: present
   tags:
     - update
