@@ -29,6 +29,7 @@
       - libsasl2-modules
       - libevent-dev
       - libcurl4-nss-dev
+      - libunwind8
       - "{{ mesos_deb }}*"
     update_cache: yes
     state: present
