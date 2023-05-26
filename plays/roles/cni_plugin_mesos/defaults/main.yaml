@@ -1,0 +1,5 @@
+---
+
+mesos_etc_dir: "/etc/mesos"
+
+update: false  

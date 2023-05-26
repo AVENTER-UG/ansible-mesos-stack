@@ -1,21 +1,21 @@
 ---
 
 - name: install zookeeper packages ubuntu
-  package:
+  apt:
     name:
       - openjdk-17-jdk
-      - zookeeper
+      - zookeeper={{ zookeeper_version }}
     state: present
+    update_cache: true
   tags:
     - install
   when:
     ansible_os_family == "Debian"
 
-- name: install zookeeper packages centos
-  package:
+- name: install zookeeper packages Centos
+  yum:
     name:
-      - java-1.6.0-openjdk.x86_64
-      - zookeeper
+      - aventer-zookeeper
     state: present
   tags:
     - install
@@ -40,7 +40,7 @@
     line="{{ item }}"
     state=present
   with_items:
-    - "{% for host in groups['manager'] %}server.{{ hostvars[host].myid }}={{ host }}:2888:3888\n{% endfor %}"
+    - "{% for host in groups['zookeeper'] %}server.{{ hostvars[host].myid }}={{ host }}:2888:3888\n{% endfor %}"
 
 - name: add sasl to config
   lineinfile:
@@ -61,7 +61,11 @@
 - name: copy zookeeper jaas file
   template: src=jaas.conf.j2 dest=/etc/zookeeper/conf/jaas.conf mode=0640  
 
-- name : Start zookeeper server and enable at reboot
+- name : Restart zookeeper server and enable at reboot
   service : name=zookeeper state=restarted enabled=yes
+  when: restart | bool
+
+- name : Start zookeeper server and enable at reboot
+  service : name=zookeeper state=started enabled=yes
 
 

@@ -1,39 +1,39 @@
 ---
 
-- name: "get facts of installed packages"
-  package_facts:
+- name: Get facts of installed packages
+  ansible.builtin.package_facts:
     manager: "auto"
 
-- name: update repository cache ubuntu
-  apt:
+- name: Update repository cache ubuntu
+  ansible.builtin.apt:
     update_cache: true
   when:
     ansible_os_family == "Debian"
   ignore_errors: true
 
-- name: install os packages
-  package:
+- name: Install os packages
+  ansible.builtin.package:
     name:
       - gnupg
+      - net-tools
     state: present
 
-- name: deactivate selinux permanent
-  lineinfile:
+- name: Deactivate selinux permanent
+  ansible.builtin.lineinfile:
     dest: /etc/sysconfig/selinux
     regexp: ^SELINUX=
     line: SELINUX=disabled
     state: present
-    create: yes
-  when: "'policycoreutils' is in ansible_facts.packages"      
+    create: true
+  when: "'policycoreutils' is in ansible_facts.packages"
 
-- name: check if setenforce command exists
-  stat:
+- name: Check if setenforce command exists
+  ansible.builtin.stat:
     path: /usr/sbin/setenforce
   register: setenforce
 
-- name: deactivate selinux temp
-  command: setenforce 0
+- name: Deactivate selinux temp
+  ansible.builtin.command: setenforce 0
   when: setenforce.stat.exists
   ignore_errors: true
-    
 

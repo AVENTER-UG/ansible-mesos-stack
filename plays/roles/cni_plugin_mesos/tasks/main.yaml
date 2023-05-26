@@ -1,0 +1,36 @@
+
+---
+  - name: install cni plugins
+    package:
+      name: containernetworking-plugins
+      state: present
+      update_cache: yes
+
+  - name: update cni plugins
+    package:
+      name: containernetworking-plugins
+      state: latest
+      update_cache: yes
+    when: update | bool
+
+  - name: Creates cni directory if its not exist
+    file:
+      path: "{{ mesos_etc_dir }}/cni/net.d"
+      state: directory
+      recurse: yes
+
+  - name: add cni config dir
+    lineinfile: 
+      dest: "{{ mesos_etc_dir }}/network_cni_config_dir"
+      state: present 
+      line: "{{ mesos_etc_dir }}/cni/net.d" 
+      create: yes      
+
+  - name: configure cni plugins
+    template:
+      src: "{{ item }}"
+      dest: "{{ mesos_etc_dir }}/cni/net.d/{{ item }}" 
+      mode: 0644
+    with_items:
+      - "10-mesos-net.conf"
+

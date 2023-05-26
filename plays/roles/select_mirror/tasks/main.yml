@@ -1,0 +1,27 @@
+
+- name: add select mirror script
+  copy: 
+    src: selmirror.sh
+    dest: /tmp/selmirror.sh
+    mode: 0755
+  when:
+    ansible_os_family == "Debian"
+
+- name: search fast ubuntu repo
+  shell: "/tmp/selmirror.sh {{ ansible_machine }} {{ ansible_distribution_release }} main nl | grep FOUND | sort -n | awk '{ print $3 }'" 
+  register: mirror
+  when:
+    ansible_os_family == "Debian"
+
+- debug:
+    var: mirror
+
+- name: change mirror in source
+  shell: "sed -i 's%http://.*{{ ansible_distribution_release }}%{{ mirror.stdout_lines[0]}} {{ ansible_distribution_release }}%g' /etc/apt/sources.list"
+  when:
+    ansible_os_family == "Debian"
+
+
+      
+
+

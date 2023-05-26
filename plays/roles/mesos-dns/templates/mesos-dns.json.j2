@@ -1,6 +1,6 @@
 {
-  "zk": "zk://client:{{ zookeeper_client_secret }}@{% for host in groups['manager'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
-  "masters": [{% for host in groups['manager'] %}"{{ hostvars[inventory_hostname][ansible_eth_if]['ipv4']['address'] }}:5050"{% if not loop.last %},{% endif %}{% endfor %}],
+  "zk": "zk://client:{{ zookeeper_client_secret }}@{% for host in groups['zookeeper'] %}{{ host }}:2181{% if not loop.last %},{% endif %}{% endfor %}/mesos",
+  "masters": [{% for host in groups['manager'] %}"{{ hostvars[host][ansible_eth_if]['ipv4']['address'] }}:5050"{% if not loop.last %},{% endif %}{% endfor %}],
   "mesosCredentials": {
     "principal": "{{ mesos_user }}",
     "secret": "{{ mesos_password }}"

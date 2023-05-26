@@ -13,6 +13,9 @@ docker_version_rpm: "docker-ce"
 docker_data_root: "/var/lib/docker"
 
 docker: false
+restart: false  
+update: false  
 
-eth_if: "eth0"
+eth_if: "eth0"  
 ansible_eth_if: "ansible_{{ eth_if }}"
+

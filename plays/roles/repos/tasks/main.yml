@@ -10,7 +10,7 @@
 - name: add aventer gpg-key
   copy: 
     src: support_aventer.asc
-    dest: /tmp/support_aventer.asc
+    dest: /etc/apt/trusted.gpg.d/aventer.asc
   when:
     ansible_os_family == "Debian"
 
@@ -22,4 +22,10 @@
   when:
     ansible_os_family == "Debian"
 
+- name: Update repository cache ubuntu
+  ansible.builtin.apt:
+    update_cache: true
+  when:
+    ansible_os_family == "Debian"
+  ignore_errors: true    
 

@@ -2,6 +2,8 @@
 
 zookeeper_admin_secret: "zookeeper"
 zookeeper_client_secret: "zookeeper"
-zookeeper_version: "3.8.0"
+zookeeper_version: "3.8.1-0.1"
+
+restart: false  
 
 
