@@ -7,6 +7,8 @@
 - Add TLS1.3 support
 - Seperate zookeeper from manager
 - Add variable for mesos docker socket path
+- Deaktivate dhclient if it's installed
+- Disable firewalld/ufw if it's installed
 
 # v0.21.0
 
@@ -21,7 +23,6 @@
 - Add possibility to configure mesos-agent port range.
 - Change Mesos-DNS default IPSource to "netinfo" and "host". 
 - Seperate docker cronjobs from docker role.
-
 
 
 # v0.20.0

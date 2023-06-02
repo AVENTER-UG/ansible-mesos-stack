@@ -37,3 +37,20 @@
   when: setenforce.stat.exists
   ignore_errors: true
 
+- name: Deactivate Firewalld
+  service:
+    name: firewalld
+    enabled: no
+    state: stopped
+  ignore_errors: true
+  when: "'firewalld' is in ansible_facts.packages"
+
+- name: Deactivate UFW
+  service:
+    name: ufw
+    enabled: no
+    state: stopped
+  ignore_errors: true
+  when: "'ufw' is in ansible_facts.packages"
+
+
