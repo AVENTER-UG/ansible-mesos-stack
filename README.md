@@ -104,15 +104,15 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 
 | Software version   | Role                              | Install type                       |
 | ------------------ | :-------------------------------: | :--------------------------------: |
-| Mesos 1.11.0-0.2.0 | Mesos Masters                     | RPM/DEB                            |
+| Mesos 1.11.0-0.3.0 | Mesos Masters                     | RPM/DEB                            |
 | Zookeeper 3.8.1    | Zookeeper cluster                 | RPM/DEB                            |
-| Mesos-DNS 0.8.2    | Service Discovery for Mesos Tasks | RPM/DEB                            |
+| Mesos-DNS 0.9.0    | Service Discovery for Mesos Tasks | RPM/DEB                            |
 
 ## Worker node
 
 | Software version   | Role                              | Install type |
 | ------------------ | :-------------------------------: | :----------: |
-| Mesos 1.11.0-0.2.0 | Mesos Agent                       | RPM/DEB      |
+| Mesos 1.11.0-0.3.0 | Mesos Agent                       | RPM/DEB      |
 | Docker CE latest   | Docker engine                     | RPM/DEB      |
 | Weave 2.8.1        | Container networking              | Docker image |
 | Weavescope 1.11.3  | Container Management              | Docker image |

@@ -9,6 +9,7 @@
 - Add variable for mesos docker socket path
 - Deaktivate dhclient if it's installed
 - Disable firewalld/ufw if it's installed
+- Change weave cni config
 
 # v0.21.0
 

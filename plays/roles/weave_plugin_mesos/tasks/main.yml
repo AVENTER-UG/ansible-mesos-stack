@@ -2,7 +2,7 @@
 
   - name: Creates cni directory if its not exist
     file:
-      path: /etc/mesos/cni/net.d
+      path: "{{ mesos_etc_dir }}/net.d"
       state: directory
       recurse: yes
 
@@ -10,13 +10,13 @@
     lineinfile: 
       dest: "{{ mesos_etc_dir }}/network_cni_config_dir"
       state: present 
-      line: "/etc/mesos/cni/net.d" 
+      line: "{{ mesos_etc_dir}}/cni/net.d" 
       create: yes  
   
   - name: copy cni config
     copy: 
-      src: weave.conflist
-      dest: /etc/mesos/cni/net.d/10-weave.conflist
+      src: 20-weave.conf
+      dest: "{{ mesos_etc_dir }}/cni/net.d/20-weave.conf"
       mode: 0644
 
   - name: Copy file with owner and permissions
