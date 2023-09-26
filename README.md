@@ -68,12 +68,6 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags dns
 ```
 
-### Reconfigure Weave
-
-```bash
-ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags weave
-```
-
 ### Reconfigure Worker
 
 ```bash
@@ -114,8 +108,6 @@ ansible-playbook -i ../inventory/inventory/mesos plays/server-config.yaml --tags
 | ------------------ | :-------------------------------: | :----------: |
 | Mesos 1.11.0-0.3.0 | Mesos Agent                       | RPM/DEB      |
 | Docker CE latest   | Docker engine                     | RPM/DEB      |
-| Weave 2.8.1        | Container networking              | Docker image |
-| Weavescope 1.11.3  | Container Management              | Docker image |
 | DNSMasq 2          | Container DNS                     | RPM/DEB      |
 
 ## Persistent Storage

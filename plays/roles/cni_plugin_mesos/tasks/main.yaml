@@ -21,7 +21,7 @@
 
   - name: add cni config dir
     lineinfile: 
-      dest: "{{ mesos_etc_dir }}/network_cni_config_dir"
+      dest: "{{ mesos_etc_agent_dir }}/network_cni_config_dir"
       state: present 
       line: "{{ mesos_etc_dir }}/cni/net.d" 
       create: yes      

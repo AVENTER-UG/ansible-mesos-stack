@@ -98,18 +98,11 @@
       tags:
         - docker
         - worker
-    - role: weave
-      tags:
-        - weave
-        - worker
     - role: mesos-ssl 
       tags:
         - mesos
         - ssl
       when: libprocess_enable_ssl|bool == True
-    - role: weave_plugin_mesos
-      tags:
-        - weave
     - role: cni_plugin_mesos
       tags:
         - worker
