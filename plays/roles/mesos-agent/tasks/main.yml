@@ -383,7 +383,7 @@
     enabled: yes
     state: started
   with_items:
-    - mesos-slave
+    - mesos-agent
   tags:
     - cert
 

@@ -90,12 +90,6 @@
     dest: /etc/dnsmasq.d/20-mesos
     mode: 0644    
 
-- name: configure dnsmasq for weave
-  template:
-    src: 30-weave
-    dest: /etc/dnsmasq.d/30-weave
-    mode: 0644    
-
 - name: Restart dnsmasq
   service:
     name: dnsmasq
@@ -113,7 +107,12 @@
     src: resolv.conf.j2
     dest: /etc/resolv.conf
     mode: 0644
-  ignore_errors: true    
+
+- name: add dnsmasq to /etc/resolv.conf.head
+  template:
+    src: resolv.conf.head.j2
+    dest: /etc/resolv.conf.head
+    mode: 0644
 
 - name: add custom netplan
   template:

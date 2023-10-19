@@ -1,5 +1,6 @@
 ---
 
-mesos_etc_dir: "/etc/mesos"
+mesos_etc_dir: "/etc/mesos/"
+mesos_etc_agent_dir: "/etc/mesos-agent/"
 
 update: false  

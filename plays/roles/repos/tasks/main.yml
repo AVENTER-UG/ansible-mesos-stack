@@ -9,8 +9,9 @@
 
 - name: add aventer gpg-key
   copy: 
-    src: support_aventer.asc
-    dest: /etc/apt/trusted.gpg.d/aventer.asc
+    src: support_aventer.gpg
+    dest: /etc/apt/trusted.gpg.d/aventer.gpg
+    mode: 0644
   when:
     ansible_os_family == "Debian"
 
