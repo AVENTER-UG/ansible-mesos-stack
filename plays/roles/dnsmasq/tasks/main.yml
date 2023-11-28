@@ -33,13 +33,6 @@
     mode: 0644      
   when: "'dhclient' is in ansible_facts.packages"      
 
-- name: disable update resolv conf of systemd
-  service:
-    name: systemd-resolved
-    state: stopped
-    enabled: false
-  ignore_errors: true
-
 - name: restart NetworkManager if its installed
   service:
     name: NetworkManager
@@ -62,6 +55,19 @@
 - name: set dns search list
   set_fact:
     domain_search_list: "{{ dns_search_list_output.stdout_lines }}"
+
+- name: check if systemd-revolve file exists
+  stat:
+    path: "/etc/systemd/resolved.conf"
+  register: systemd_resolve_result
+
+- name: configure systemd-resolved
+  community.general.ini_file:
+    path: "/etc/systemd/resolved.conf"
+    section: Resolve
+    option: DNS
+    value: "127.0.0.1 {{ dns1 }} {{ dns2 }}"
+  when: systemd_resolve_result.stat.exists    
 
 - name: except docker interface
   lineinfile: 
