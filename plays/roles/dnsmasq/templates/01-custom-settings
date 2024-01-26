@@ -1,0 +1,4 @@
+dns-forward-max=5096
+min-cache-ttl=300
+rebind-domain-ok=
+

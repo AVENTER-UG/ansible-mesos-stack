@@ -96,6 +96,12 @@
     dest: /etc/dnsmasq.d/20-mesos
     mode: 0644    
 
+- name: configure dnsmasq custom settings 
+  template:
+    src: 01-custom-settings
+    dest: /etc/dnsmasq.d/01-custom-settings
+    mode: 0644    
+
 - name: Restart dnsmasq
   service:
     name: dnsmasq
