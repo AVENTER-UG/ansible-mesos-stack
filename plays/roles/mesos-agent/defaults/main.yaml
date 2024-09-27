@@ -11,7 +11,7 @@ libprocess_ssl_enable_downgrade: "true"
 libprocess_ssl_ciphers: "AES128-SHA:AES256-SHA:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA:DHE-RSA-AES256-SHA:DHE-DSS-AES256-SHA:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256"
 
 mesos_rpm: "mesos-1.11.0-0"
-mesos_deb: "aventer-mesos=1.11.0-0.3.0"
+mesos_deb: "aventer-mesos=1.11.0-0.5.0"
 
 mesos_logging_level: "INFO"
 mesos_quiet: false

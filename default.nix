@@ -1,24 +1,18 @@
-{ pkgs ? import <nixpkgs> { } }:
+with import <nixpkgs> {};
 
-with pkgs;
+stdenv.mkDerivation {
+name = "ansible-env";
 
-mkShell {
-  buildInputs = [
-    python310
-    python310Packages.pip
-    python310Packages.virtualenv
+buildInputs = [
     ansible
     openssh
-    sshpass
-    jq
-  ];
+    tmux-xpanes
+];
 
-  shellHook = ''
-    [ ! -d '$PROJDIR/python-dev' ] && virtualenv python-dev && echo "SETUP python-dev: DONE"
-    source python-dev/bin/activate
-    pip install boto3
-    export PATH=/home/andreas/bin:$PATH
-  '';
-  
+SOURCE_DATE_EPOCH = 315532800;
+PROJDIR = "${toString ./.}";
+
+shellHook = ''
+    '';
 }
 
