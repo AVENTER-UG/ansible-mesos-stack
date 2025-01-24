@@ -167,6 +167,14 @@
     create: yes
   when: mesos_quiet | bool
 
+- name: disable systemd support to enable cgroupsv2
+  lineinfile:
+    dest: "{{ mesos_etc_dir }}/systemd_enable_support"
+    state: present
+    regexp: "^"
+    line: "false"
+    create: yes
+
 - name: enable ssl verify for mesos (deprecated)
   lineinfile: dest=/etc/default/mesos create=yes state=present regexp="^LIBPROCESS_SSL_VERIFY_CERT=*" line="LIBPROCESS_SSL_VERIFY_CERT={{ libprocess_enable_ssl_verify }}"  mode=0640
 

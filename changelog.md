@@ -14,6 +14,8 @@
 - Check cgroups version only if the server belongs to the worker group.
 - Remove custom docker systemd file. Will you the default one instead.
 - Remove dns1 and dns2 from the dnsmasq config. Only use it via the system resolver.
+- Update to aventer-mesos 1.11.0-0.6.0
+- Enable support for cgroupsv2
 
 # v0.21.0
 
